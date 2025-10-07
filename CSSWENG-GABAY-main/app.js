@@ -89,11 +89,11 @@ const { ServerApiVersion } = require('mongodb');
 const mongoStore = require('connect-mongodb-session')(session);
 const {MongoClient} = require("mongodb");
 const mongoose = require('mongoose');
-const uri = "mongodb+srv://vancerobles:ZgtbvnIiuXTeRxYB@gabay.uxaz23w.mongodb.net/?retryWrites=true&w=majority&appName=GABAY";
+const uri = "mongodb://localhost:27017/gabay";
 const client = new MongoClient(uri, {
     serverApi:{
         version: ServerApiVersion.v1,
-        stritct: false,
+        strict: false,
         deprecationErrors: true,
     }
 });
