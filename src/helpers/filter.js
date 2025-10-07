@@ -7,7 +7,7 @@
  */
 
 import { patientModel } from '../model/model.js';
-export async function filterPatients(filters) {
+export default async function filterPatients(filters) {
     try {
         let biomedicalQuery = patientModel.find({ data_type: 'Biomedical' });
         let nonBiomedicalQuery = patientModel.find({ data_type: 'Nonbiomedical' });

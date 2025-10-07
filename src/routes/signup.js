@@ -1,8 +1,9 @@
 import express from 'express';
+import argon2 from 'argon2';
 
 const router = express.Router();
 
-
+import { userModel } from '../model/model.js';
 // server to register new account
 router.get('/', (req,resp) => {
     resp.render('signup',{
@@ -16,12 +17,9 @@ router.get('/', (req,resp) => {
 router.post('/', async (req, res) => {
     // retrieve user details
     const { name, email, password, role} = req.body;
-
-    // get db collection
-    const userCollection = client.db("test").collection("users");
     
     // check if email is used in database
-    const user = await userCollection.findOne({ email: email });
+    const user = await userModel.findOne({ email: email });
 
     if (user) {
         // reload page with query
@@ -29,15 +27,10 @@ router.post('/', async (req, res) => {
     }
 
     // hash password used
-    const hashedPassword = await new Promise((resolve, reject) => {
-        bcrypt.hash(password, saltRounds, function (err, hash) {
-            if (err) reject(err);
-            resolve(hash);
-        });
-    });
+    const hashedPassword = await argon2.hash(password);
 
     // insert data into the db (new accounts has member role)
-    await userCollection.insertOne({
+    await userModel.create({
         name: name,
         email: email,
         password: hashedPassword,

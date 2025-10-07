@@ -1,4 +1,5 @@
 /* TODO: Add Session cookies */
+/* TODO: replace deprecated modules*/
 
 import express from 'express';
 import bodyParser from 'body-parser';
@@ -6,7 +7,6 @@ import { engine } from 'express-handlebars';
 import moment from 'moment';
 import session from 'express-session';
 import cloudinary from 'cloudinary';
-import ExcelJS from 'exceljs';
 import MongoDBStore from 'connect-mongo';
 
 /* MongoDB connection */
@@ -96,8 +96,6 @@ cloudinary.v2.config({
   api_key: process.env.CLOUD_KEY || '411879496332247',
   api_secret: process.env.CLOUD_SECRET || 'LEEZpzSauYJuHUzCmwQtL80HI5c',
 });
-
-global.ExcelJS = ExcelJS;
 
 /* Connect to MongoDB and begin listening to requests */
 db_conn.connect().then(() => {

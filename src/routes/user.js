@@ -1,11 +1,11 @@
 import express from 'express';
 
-import { patientModel } from '../model/model.js';
+import { userModel, actionHistoryModel } from '../model/model.js';
 
 const router = express.Router();
 
 // server for user data page
-router.get('/user', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const pageSize = 10;
         const userPage = parseInt(req.query.userPage) || 1;
@@ -42,7 +42,7 @@ router.get('/user', async (req, res) => {
 });
 
 
-/*THIS SHOULD BE POST WHAT !!*/
+/*TODO: THIS SHOULD BE POST WHAT !!*/
 // server to delete a user in user data page
 router.get('/deleteUser/:id', async (req, res) => {
     try {
@@ -56,10 +56,9 @@ router.get('/deleteUser/:id', async (req, res) => {
 
         await userModel.findByIdAndDelete(req.params.id);
 
-        const actionHistoryCollection = client.db("test").collection("actionhistories");
 
         // insert action history for deleting user record
-        await actionHistoryCollection.insertOne({
+        await actionHistoryModel.create({
             name: req.session.username,
             role: req.session.role,
             email: req.session.email,
@@ -78,7 +77,7 @@ router.get('/deleteUser/:id', async (req, res) => {
 
 /* Place in user */
 // server to edit user's role in user data page
-router.post('/user/edit', async (req, res) => {
+router.post('/edit', async (req, res) => {
     try {
         const { userId, role } = req.body;
 
@@ -92,10 +91,9 @@ router.post('/user/edit', async (req, res) => {
 
         await userModel.findByIdAndUpdate(userId, { role: role });
 
-        const actionHistoryCollection = client.db("test").collection("actionhistories");
-
+        
         // insert action history for updating user's role
-        await actionHistoryCollection.insertOne({
+        await actionHistoryModel.create({
             name: req.session.username,
             role: req.session.role,
             email: req.session.email,

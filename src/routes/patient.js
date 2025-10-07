@@ -4,17 +4,16 @@ import express from 'express';
 const router = express.Router();
 
 
-import { patientModel } from '../model/model.js';
+import { patientModel, actionHistoryModel } from '../model/model.js';
 
 
 // server for deleting a patient data record 
 router.get('/delete/:id', async (req, res) => {
     try {
         await patientModel.findByIdAndDelete(req.params.id);
-        const actionHistoryCollection = client.db("test").collection("actionhistories");
         
         // insert action history for deleting patient record
-        await actionHistoryCollection.insertOne({
+        await actionHistoryModel.create({
             name: req.session.username,
             role: req.session.role,
             email: req.session.email,
@@ -59,11 +58,9 @@ router.post('/edit/:id', async (req, res) => {
             'nonbiomedical.discrimination': discrimination,
             'nonbiomedical.violence': violence
         });
-
-        const actionHistoryCollection = client.db("test").collection("actionhistories");
         
         // insert action history for deleting patient record
-        await actionHistoryCollection.insertOne({
+        await actionHistoryModel.create({
             name: req.session.username,
             role: req.session.role,
             email: req.session.email,
@@ -79,7 +76,7 @@ router.post('/edit/:id', async (req, res) => {
 
 
 // server to add new patient data to database
-router.post('/add-record', async (req, res) => {
+router.post('/add', async (req, res) => {
     const { data_type, gender, location, barangay, remarks, age,
         tested, result, linkage, stigma, discrimination, violence } = req.body;
 
@@ -118,8 +115,8 @@ router.post('/add-record', async (req, res) => {
         await newPatient.save();
 
         // insert action history
-        const actionHistoryCollection = mongoose.connection.collection('actionhistories');
-        await actionHistoryCollection.insertOne({
+        
+        await actionHistoryModel.create({
             name: req.session.username,
             role: req.session.role,
             email: req.session.email,

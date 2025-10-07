@@ -59,8 +59,6 @@ router.get('/exceljs', (req, res) => {
     });
 });
 
-
-
 router.use('/login', login);
 router.use('/signup', signup);
 router.use('/dashboard', dashboard);
@@ -68,8 +66,7 @@ router.use('/patient', patient);
 router.use('/profile', profile);
 router.use('/history', history);
 router.use('/data', data);
-router.use('/patient', user);
+router.use('/user', user);
 router.use('/password', password);
-
 
 export default router;

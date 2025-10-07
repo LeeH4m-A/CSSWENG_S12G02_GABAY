@@ -1,12 +1,11 @@
 import express from 'express';
+import { loginHistoryModel, actionHistoryModel } from '../model/model.js';
 
 const router = express.Router();
 
 // server for history log page
-router.get('/history', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-        const loginHistoryCollection = client.db("test").collection("loginhistories");
-        const actionHistoryCollection = client.db("test").collection("actionhistories");
 
         const pageSize = 10; // number of records per page
 
@@ -19,10 +18,10 @@ router.get('/history', async (req, res) => {
         const actionHistorySkip = (actionPage - 1) * pageSize;
 
         // get paginated login history sorted by most recent first
-        const loginHistory = await loginHistoryCollection.find().sort({ lastLoginDateTime: -1 }).skip(loginHistorySkip).limit(pageSize).toArray();
+        const loginHistory = await loginHistoryModel.find().sort({ lastLoginDateTime: -1 }).skip(loginHistorySkip).limit(pageSize);
         
         // get paginated action history sorted by most recent first
-        const actionHistory = await actionHistoryCollection.find().sort({ actionDateTime: -1 }).skip(actionHistorySkip).limit(pageSize).toArray();
+        const actionHistory = await actionHistoryModel.find().sort({ actionDateTime: -1 }).skip(actionHistorySkip).limit(pageSize);
 
         res.render('history', {
             layout: 'index',
@@ -37,8 +36,8 @@ router.get('/history', async (req, res) => {
             actionHistory: actionHistory,
             loginPage: loginPage,
             actionPage: actionPage,
-            loginTotalPages: Math.ceil(await loginHistoryCollection.countDocuments() / pageSize),
-            actionTotalPages: Math.ceil(await actionHistoryCollection.countDocuments() / pageSize)
+            loginTotalPages: Math.ceil(await loginHistoryModel.countDocuments() / pageSize),
+            actionTotalPages: Math.ceil(await actionHistoryModel.countDocuments() / pageSize)
         });
     } catch (error) {
         console.error("Error fetching history:", error);

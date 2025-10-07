@@ -47,16 +47,20 @@ The main file, sets up Express, Handlebars view engine, middleware, sessions, ro
 
 ### routes/
 
-Defines all URL the app responds to. Each route file groups related URL (e.g., index.js handles /login, /signup, etc.). Would typically import controller functions and middleware.
+Defines all URL the app responds to. We separate the files per "sub path" in the URL to make it easier, i.e. we currently have an index.js for the root directory. Each route file groups related URL (e.g., user.js handles user/add, user/delete, etc.). Would typically import controller functions and middleware.
 
 ### controllers/
 
-Does the final "push" to the database.
+Functions that run at the end of the chain when routing. 
 
+```bash
+router.post('/', checkAuth, validateInput, loginController);
+```
+loginController is a controller function in charge of sending the HTTP response back to the client. For the shorter controllers, we just keep this inside the router file inline (specifically the ones where its just a simple render() call).
 
 ### middlewares/
 
-Functions that run before a controller is executed. Used for authentication, validation, logging, etc. It has access to req, res, and next().
+Functions that receive the request body, manipulate it, and pass it to the next function in the chain. 
 
 
 ```bash
@@ -68,9 +72,11 @@ export function checkAuth(req, res, next) {
 
 // Example:
 //                  vv  if successful, call next function          
-router.post('/', checkAuth, validateInput, dashboardController);
+router.post('/', checkAuth, validateInput, loginController);
 
 ```
+checkAuth is a middleware that does an authentication check from the database and embeds something into the request object so that the controller can access it later
+
 
 ### helpers/
 

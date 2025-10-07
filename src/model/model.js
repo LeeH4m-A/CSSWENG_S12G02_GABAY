@@ -7,8 +7,7 @@
 // model.js
 import mongoose from 'mongoose';
 
-// --- Schemas (your existing schemas unchanged) ---
-
+// sub-schema for patient if the data is a biomedical patient record
 const biomedicalSchema = new mongoose.Schema(
   {
     location: { type: String, enum: ['Caloocan', 'Not in Caloocan'], required: true },
@@ -16,11 +15,11 @@ const biomedicalSchema = new mongoose.Schema(
       type: Number, 
       min: 1, 
       max: 188, 
-      required() { return this.location === 'Caloocan'; } 
+      required() { return this.location === 'Caloocan'; } // require barangay only if location is Caloocan
     },
     remarks: { 
       type: String,   
-      required() { return this.location === 'Not in Caloocan'; } 
+      required() { return this.location === 'Not in Caloocan'; } // require remarks only if location is Not in Caloocan
     },
     age_range: { 
       type: String, 
@@ -50,6 +49,7 @@ const biomedicalSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// sub-schema for patient if the data is a nonbiomedical patient record
 const nonBiomedicalSchema = new mongoose.Schema(
   {
     stigma: { type: String, enum: ['Public Stigma', 'Family Stigma', 'Self-stigma'] },
@@ -59,6 +59,7 @@ const nonBiomedicalSchema = new mongoose.Schema(
   { _id: false }
 );
 
+// schema for patient
 const patientSchema = new mongoose.Schema(
   {
     data_type: { type: String, required: true, enum: ['Biomedical', 'Nonbiomedical'] },
@@ -71,6 +72,8 @@ const patientSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+
+// schema for user
 const userSchema = new mongoose.Schema(
   {
     name: { type: String },
@@ -83,6 +86,7 @@ const userSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+// schema for login history
 const loginHistorySchema = new mongoose.Schema(
   {
     name: { type: String },
@@ -93,6 +97,8 @@ const loginHistorySchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+
+// schema for action history
 const actionHistorySchema = new mongoose.Schema(
   {
     name: { type: String },
@@ -104,8 +110,11 @@ const actionHistorySchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+
+
 // --- Models ---
 export const patientModel = mongoose.model('Patient', patientSchema);
 export const userModel = mongoose.model('User', userSchema);
 export const loginHistoryModel = mongoose.model('LoginHistory', loginHistorySchema);
 export const actionHistoryModel = mongoose.model('ActionHistory', actionHistorySchema);
+

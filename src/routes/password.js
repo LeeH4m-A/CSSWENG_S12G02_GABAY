@@ -1,6 +1,7 @@
 import express from 'express';
-
+import argon2 from 'argon2';
 import { transporter } from "../helpers/mailer.js";
+import { userModel } from '../model/model.js';
 
 const router = express.Router();
 
@@ -23,18 +24,16 @@ router.post('/forgot-password', async (req, res) => {
     }
 
     try {
-        // get db collection
-        const userCollection = client.db("test").collection("users");
 
         // find user by email
-        const user = await userCollection.findOne({ email: email });
+        const user = await userModel.findOne({ email: email });
 
         if (!user) {
             return res.redirect('/forgotpassword?error=Email not found');
         }
 
         // hash the new password
-        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const hashedPassword = await await argon2.hash(password);
 
         //send an email to the target user's email address
         var mailOptions = {
@@ -67,18 +66,16 @@ router.get('/verify-password', async (req,resp) => {
         // get db collection
         const email = req.query.email;
         const newPassword = req.query.pass;
-        
-        const userCollection = client.db("test").collection("users");
 
         // find user by email
-        const user = await userCollection.findOne({ email: email });
+        const user = await userModel.findOne({ email: email });
 
         if (!user) {
             return resp.redirect('/forgotpassword?error=Email not found');
         }
 
         // update the user's password in the database
-        await userCollection.updateOne({ email: email }, { $set: { password: newPassword } });
+        await userModel.updateOne({ email: email }, { $set: { password: newPassword } });
 
         resp.redirect('/login?message=Password updated successfully');
 

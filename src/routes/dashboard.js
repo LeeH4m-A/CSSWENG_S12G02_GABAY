@@ -1,4 +1,8 @@
+/* TODO: Fix the export function */
+
 import express from 'express';
+import ExcelJS from 'exceljs';
+
 import { addDataToSheet, formatSheetHeaders } from '../helpers/sheet.js';
 import { patientModel } from '../model/model.js';
 const router = express.Router();
@@ -7,18 +11,18 @@ const router = express.Router();
 router.get('/', async (req, resp) => {
     try {
         // get db collection
-        const patientCollection = client.db("test").collection("patients");
+        
 
         // retrieve statistics from the patient collection
-        const totalPatientsTested = await patientCollection.countDocuments();
-        const biomedicalPatientsTested = await patientCollection.countDocuments({ data_type: 'Biomedical' });
-        const nonbiomedicalPatientsTested = await patientCollection.countDocuments({ data_type: 'Nonbiomedical' });
-        const positivePatientsTested = await patientCollection.countDocuments({ 'biomedical.test_result': 'Positive', data_type: 'Biomedical' });
-        const negativePatientsTested = await patientCollection.countDocuments({ 'biomedical.test_result': 'Negative', data_type: 'Biomedical' });
-        const dnkPatientsTested = await patientCollection.countDocuments({ 'biomedical.test_result': 'Do Not Know', data_type: 'Biomedical' });
+        const totalPatientsTested = await patientModel.countDocuments();
+        const biomedicalPatientsTested = await patientModel.countDocuments({ data_type: 'Biomedical' });
+        const nonbiomedicalPatientsTested = await patientModel.countDocuments({ data_type: 'Nonbiomedical' });
+        const positivePatientsTested = await patientModel.countDocuments({ 'biomedical.test_result': 'Positive', data_type: 'Biomedical' });
+        const negativePatientsTested = await patientModel.countDocuments({ 'biomedical.test_result': 'Negative', data_type: 'Biomedical' });
+        const dnkPatientsTested = await patientModel.countDocuments({ 'biomedical.test_result': 'Do Not Know', data_type: 'Biomedical' });
 
         //getting available years
-        const patient = await patientCollection.find().toArray();
+        const patient = await patientModel.find();
         const year = patient.map(({date_encoded}) => date_encoded).map(function(date){return date.getFullYear()});
         
         resp.render('dashboard', {
@@ -49,7 +53,6 @@ router.get('/', async (req, resp) => {
 // server to get data for the dashboard
 router.get('/data', async (req, resp) => {
     try {
-        const patientCollection = client.db("test").collection("patients");
         const quarter = parseInt(req.query.quarter);
         const monthly = parseInt(req.query.monthly);
         const yearly = parseInt(req.query.yearly);
@@ -105,7 +108,7 @@ router.get('/data', async (req, resp) => {
             ]
         }
 
-        const data = await patientCollection.aggregate([
+        const data = await patientModel.aggregate([
             {
                 $addFields: {
                     filterMonth: {$month:"$date_encoded"},
@@ -203,7 +206,7 @@ router.get('/data', async (req, resp) => {
                     }
                 ]
             }}
-        ]).toArray();
+        ])
 
 
         resp.json({data: data[0]}); 

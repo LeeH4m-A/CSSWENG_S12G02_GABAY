@@ -1,8 +1,9 @@
 import express from 'express';
 
+import filterPatients from '../helpers/filter.js';
 const router =express.Router();
 // server for data log page
-router.get('/data', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const pageSize = 10;
         const biomedicalPage = parseInt(req.query.biomedicalPage) || 1;
