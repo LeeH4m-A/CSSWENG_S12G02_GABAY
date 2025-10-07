@@ -2,8 +2,9 @@
   "name": "cssweng-gabay",
   "version": "1.0.0",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "test": "node  app.js"
+    "test": "nodemon src/app.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
     "body-parser": "^1.20.3",
     "chart.js": "^4.4.3",
     "cloudinary": "^2.7.0",
+    "connect-mongo": "^5.1.0",
     "connect-mongodb-session": "^5.0.0",
     "exceljs": "^4.4.0",
     "express": "^4.21.2",
@@ -27,7 +29,8 @@
     "mongodb": "^6.7.0",
     "mongoose": "^8.18.3",
     "multer-gridfs-storage": "^5.0.2",
-    "nodemailer": "^6.9.14"
+    "nodemailer": "^6.9.14",
+    "nodemon": "^3.1.10"
   },
   "description": "For Project Structure, HTML, CSS, JavaScript, and UML Diagrams.",
   "repository": {
