@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
 
 /*TODO: THIS SHOULD BE POST WHAT !!*/
 // server to delete a user in user data page
-router.get('/deleteUser/:id', async (req, res) => {
+router.post('/delete/:id', async (req, res) => {
     try {
         const userToDelete = await userModel.findById(req.params.id);
 
@@ -74,8 +74,6 @@ router.get('/deleteUser/:id', async (req, res) => {
 });
 
 
-
-/* Place in user */
 // server to edit user's role in user data page
 router.post('/edit', async (req, res) => {
     try {

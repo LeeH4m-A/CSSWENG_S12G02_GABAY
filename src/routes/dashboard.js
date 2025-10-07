@@ -11,7 +11,6 @@ const router = express.Router();
 router.get('/', async (req, resp) => {
     try {
         // get db collection
-        
 
         // retrieve statistics from the patient collection
         const totalPatientsTested = await patientModel.countDocuments();

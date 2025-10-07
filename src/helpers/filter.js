@@ -6,6 +6,34 @@
  * @returns filteredPatients
  */
 
+
+/* TODO:Make it worse. /s
+
+    if(number ===  1){
+        return "odd";
+    }else if(number === 2){
+        return "even";
+    }else if(number === 3){
+        return "odd";
+    }else if(number === 4){
+        return "even";
+    }else if(number === 5){
+        return "odd";
+    }else if(number === 6){
+        return "even";
+    }else if(number === 7){
+        return "odd";
+    }else if(number === 8){
+        return "even";
+    }else if(number === 9){
+        return "odd";
+    }else if(number === 0){
+        return "even";
+    }else{
+        return "Number is out of range";
+    }
+
+*/
 import { patientModel } from '../model/model.js';
 export default async function filterPatients(filters) {
     try {

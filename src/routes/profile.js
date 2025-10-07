@@ -2,6 +2,21 @@ import express from 'express';
 import argon2 from 'argon2';
 import { userModel, loginHistoryModel, actionHistoryModel } from '../model/model.js';
 const router = express.Router();
+
+// server for profile page
+router.get('/', async (req, res) => {
+    res.render('profile', {
+        layout: 'index',
+        title: 'Profile Page',
+        user: {
+            name: req.session.username,
+            email: req.session.email,
+            role: req.session.role,
+            userIcon: req.session.userIcon
+        }
+    });
+});
+
 // server for updating user's information in profile page
 router.post('/update', async (req, res) => {
     const { name, email, password } = req.body;
@@ -43,20 +58,5 @@ router.post('/update', async (req, res) => {
     }
 });
 
-
-
-// server for profile page
-router.get('/', async (req, res) => {
-    res.render('profile', {
-        layout: 'index',
-        title: 'Profile Page',
-        user: {
-            name: req.session.username,
-            email: req.session.email,
-            role: req.session.role,
-            userIcon: req.session.userIcon
-        }
-    });
-});
 
 export default router;

@@ -1,7 +1,10 @@
+// TODO: EDIT THIS, AAAAAAAAAAAAAAAAAAAAAAA
+// code it better, as in im pretty sure this can be coded in less lines.
+
 import express from 'express';
 
 import filterPatients from '../helpers/filter.js';
-const router =express.Router();
+const router = express.Router();
 // server for data log page
 router.get('/', async (req, res) => {
     try {

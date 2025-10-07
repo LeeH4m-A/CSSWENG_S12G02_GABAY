@@ -6,7 +6,7 @@ import { userModel } from '../model/model.js';
 const router = express.Router();
 
 // server to change new password
-router.get('/forgotpassword', (req,resp) => {
+router.get('/', (req,resp) => {
     resp.render('forgotpassword',{
         layout: 'index',
         title: 'Forgot Password Page'
@@ -15,12 +15,12 @@ router.get('/forgotpassword', (req,resp) => {
 
 
 // server to post user's new password into the database when forgotten
-router.post('/forgot-password', async (req, res) => {
+router.post('/', async (req, res) => {
     const { email, password, confirmPassword } = req.body;
 
     // check if passwords match
     if (password !== confirmPassword) {
-        return res.redirect('/forgotpassword?error=Passwords do not match');
+        return res.redirect('/forgot_password?error=Passwords do not match');
     }
 
     try {
@@ -29,7 +29,7 @@ router.post('/forgot-password', async (req, res) => {
         const user = await userModel.findOne({ email: email });
 
         if (!user) {
-            return res.redirect('/forgotpassword?error=Email not found');
+            return res.redirect('/forgot_password?error=Email not found');
         }
 
         // hash the new password
@@ -58,7 +58,6 @@ router.post('/forgot-password', async (req, res) => {
     }
 });
 
-/* WHY IS THIS A GET */
 router.get('/verify-password', async (req,resp) => {
 
     //get query
@@ -71,7 +70,7 @@ router.get('/verify-password', async (req,resp) => {
         const user = await userModel.findOne({ email: email });
 
         if (!user) {
-            return resp.redirect('/forgotpassword?error=Email not found');
+            return resp.redirect('/forgot_password?error=Email not found');
         }
 
         // update the user's password in the database

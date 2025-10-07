@@ -7,6 +7,7 @@ const router = express.Router();
 import { patientModel, actionHistoryModel } from '../model/model.js';
 
 
+/* TODO: Make this POST */
 // server for deleting a patient data record 
 router.get('/delete/:id', async (req, res) => {
     try {
@@ -27,7 +28,6 @@ router.get('/delete/:id', async (req, res) => {
     }
 });
 
-/*place in edit */
 // server for editing patient data record
 router.get('/edit/:id', async (req, res) => {
     try {

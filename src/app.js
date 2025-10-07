@@ -71,7 +71,8 @@ server.engine('hbs', engine({
     runtimeOptions: {
         allowProtoPropertiesByDefault: true,
         allowProtoMethodsByDefault: true,
-    }
+    },
+    defaultLayout: "index",
 }));
 server.set('view engine', 'hbs');
 

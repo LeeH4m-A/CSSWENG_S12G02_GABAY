@@ -4,10 +4,8 @@ import express from 'express';
 
 // Import individual route modules
 import signup from './signup.js';
-import password from './password.js';
+import forgot_password from './password.js';
 import login from './login.js';
-/* TODO: Combine those 3 to auth.js, once im done */
-
 import dashboard from './dashboard.js';
 import patient from './patient.js';
 import history from './history.js';
@@ -59,14 +57,16 @@ router.get('/exceljs', (req, res) => {
     });
 });
 
+/* TODO: Anything request that will change the database should be post */
 router.use('/login', login);
 router.use('/signup', signup);
-router.use('/dashboard', dashboard);
-router.use('/patient', patient);
+router.use('/forgot_password', forgot_password);
+router.use('/user', user); // has delete get request, change it to post
+router.use('/patient', patient); // has delete get request, change it to post
 router.use('/profile', profile);
-router.use('/history', history);
-router.use('/data', data);
-router.use('/user', user);
-router.use('/password', password);
+router.use('/history', history); // Todo, make pagination a helper or middleware
+router.use('/data', data); //use less lines, by using lists or something idk.. ill figure this out tmr
+
+router.use('/dashboard', dashboard); //hellspawn do not touch
 
 export default router;
