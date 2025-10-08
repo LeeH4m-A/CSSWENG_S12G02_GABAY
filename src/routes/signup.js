@@ -17,11 +17,18 @@ router.use(express.json());
 
 // server to register new account
 router.get('/', (req, res) => {
+
+    if (req.session.username) {
+        // If already logged in, go to dashboard
+        return res.redirect('/dashboard');
+    }
+    
     res.render('signup',{
         title: 'Registration Page',
         emailUsed: req.query.emailUsed,
     });
 });
+
 
 // POST /signup
 router.post(

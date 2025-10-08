@@ -94,12 +94,14 @@
         
         <!-- pagination for login history -->
         <div class="pagination">
-            {{#if (gt loginPage 1)}}
-            <a href="/history?loginPage={{decrement loginPage}}" class="pagination-icon">&lt;</a>
+            {{#if loginHistoryPrev}}
+                <a href="/history?loginPage={{loginHistoryPrev}}" class="pagination-icon">&lt;</a>
             {{/if}}
-            <span>Page {{loginPage}} of {{loginTotalPages}}</span>
-            {{#if (lt loginPage loginTotalPages)}}
-            <a href="/history?loginPage={{increment loginPage}}" class="pagination-icon">&gt;</a>
+
+            <span>Page {{loginHistoryPage}} of {{loginHistoryTotalPages}}</span>
+
+            {{#if loginHistoryNext}}
+                <a href="/history?loginPage={{loginHistoryNext}}" class="pagination-icon">&gt;</a>
             {{/if}}
         </div>
     </div>
@@ -131,12 +133,14 @@
         
         <!-- pagination for action history -->
         <div class="pagination">
-            {{#if (gt actionPage 1)}}
-            <a href="/history?actionPage={{decrement actionPage}}" class="pagination-icon">&lt;</a>
+            {{#if actionHistoryPrev}}
+                <a href="/history?actionPage={{actionHistoryPrev}}" class="pagination-icon">&lt;</a>
             {{/if}}
-            <span>Page {{actionPage}} of {{actionTotalPages}}</span>
-            {{#if (lt actionPage actionTotalPages)}}
-            <a href="/history?actionPage={{increment actionPage}}" class="pagination-icon">&gt;</a>
+
+            <span>Page {{actionHistoryPage}} of {{actionHistoryTotalPages}}</span>
+
+            {{#if actionHistoryNext}}
+                <a href="/history?actionPage={{actionHistoryNext}}" class="pagination-icon">&gt;</a>
             {{/if}}
         </div>
     </div>

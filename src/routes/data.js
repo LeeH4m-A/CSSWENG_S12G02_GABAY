@@ -1,50 +1,30 @@
-// TODO: EDIT THIS, AAAAAAAAAAAAAAAAAAAAAAA
-// code it better, as in im pretty sure this can be coded in less lines.
-
 import express from 'express';
+import createMedicalQueries from '../helpers/filter.js';
+import { paginate_query } from '../helpers/pagination.js';
 
-import filterPatients from '../helpers/filter.js';
+/* TODO: Find a way to get all the filters from req.query smaller
+   Dynamically build the query // ...trying to find a better way, but for now it's ight
+   Paginate.
+   Ship it off.
+*/
 const router = express.Router();
 // server for data log page
 router.get('/', async (req, res) => {
     try {
-        const pageSize = 10;
-        const biomedicalPage = parseInt(req.query.biomedicalPage) || 1;
-        const nonBiomedicalPage = parseInt(req.query.nonBiomedicalPage) || 1;
+        const limit = 10;
+        const { biomedicalPage = 1, nonBiomedicalPage = 1, ...queryFilters } = req.query;
 
-        const { bioGenderFilter, bioFromDateFilter, bioToDateFilter, locationFilter, ageRangeFilter, 
-                testedBeforeFilter, testResultFilter, reasonFilter, kvpFilter, linkageFilter, nonBioGenderFilter, 
-                nonBioFromDateFilter, nonBioToDateFilter, stigmaFilter, discriminationFilter, violenceFilter } = req.query;
+        const { biomedicalQuery, nonBiomedicalQuery} = await createMedicalQueries(queryFilters);
 
-        const filters = {
-            bioGenderFilter,
-            bioFromDateFilter,
-            bioToDateFilter,
-            locationFilter,
-            ageRangeFilter,
-            testedBeforeFilter,
-            testResultFilter,
-            reasonFilter,
-            kvpFilter,
-            linkageFilter,
-            nonBioGenderFilter,
-            nonBioFromDateFilter, 
-            nonBioToDateFilter,
-            stigmaFilter,
-            discriminationFilter,
-            violenceFilter
-        };
+        const bioResult = await paginate_query(biomedicalQuery, biomedicalPage, limit, 'date_encoded');
+        const paginatedBiomedicalPatients = bioResult.data;
+        const biomedicalCount = bioResult.length;
+        const biomedicalTotalPages = bioResult.total_pages;
 
-        const filteredPatients = await filterPatients(filters);
-
-        const biomedicalPatients = filteredPatients.filter(patient => patient.data_type === 'Biomedical');
-        const nonBiomedicalPatients = filteredPatients.filter(patient => patient.data_type === 'Nonbiomedical');
-
-        const paginatedBiomedicalPatients = biomedicalPatients.slice((biomedicalPage - 1) * pageSize, biomedicalPage * pageSize);
-        const paginatedNonBiomedicalPatients = nonBiomedicalPatients.slice((nonBiomedicalPage - 1) * pageSize, nonBiomedicalPage * pageSize);
-
-        const biomedicalCount = biomedicalPatients.length;
-        const nonBiomedicalCount = nonBiomedicalPatients.length;
+        const nonBioResult = await paginate_query(nonBiomedicalQuery, nonBiomedicalPage, limit, 'date_encoded');
+        const paginatedNonBiomedicalPatients = nonBioResult.data;
+        const nonBiomedicalCount = nonBioResult.length;
+        const nonBiomedicalTotalPages = nonBioResult.total_pages
 
         res.render('data', { 
             layout: 'index',
@@ -61,8 +41,8 @@ router.get('/', async (req, res) => {
             nonBiomedicalCount,
             biomedicalPage,
             nonBiomedicalPage,
-            biomedicalTotalPages: Math.ceil(biomedicalCount / pageSize),
-            nonBiomedicalTotalPages: Math.ceil(nonBiomedicalCount / pageSize)
+            biomedicalTotalPages,
+            nonBiomedicalTotalPages
         });
     } catch (err) {
         console.error(err);

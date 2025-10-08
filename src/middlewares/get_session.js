@@ -1,3 +1,6 @@
+/* Prevent multiple logins, it’s 2025, we do session checks now. */
+/* Will be useful for admin/encoder/regular user/volunteer checks  */
+
 import { userModel } from "../model/model.js";
 
 /**
@@ -53,9 +56,9 @@ export async function get_active_user(req, res, next) {
  * Prevents already logged-in users from accessing sign-in/register pages
  */
 export function check_existing_session(req, res, next) {
-    if (req.session?.name) {
+    if (req.session?.username) {
         if (req.accepts("html")) {
-            return res.redirect("/login");
+            return res.redirect("/dashboard");
         } else {
             return res.json({
                 success: false,

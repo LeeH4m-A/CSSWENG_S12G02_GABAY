@@ -17,6 +17,11 @@ router.get('/', async (req, res) => {
     });
 });
 
+/* TODO: add a confirmation message to prevent accidental updates, 
+    Additionally, I think, we can change the whole profile section, add the ID 
+                  and make a separate page for update specifically.
+*/
+
 // server for updating user's information in profile page
 router.post('/update', async (req, res) => {
     const { name, email, password } = req.body;

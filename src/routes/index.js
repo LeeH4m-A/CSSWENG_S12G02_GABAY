@@ -29,6 +29,8 @@ router.get('/logout', (req,resp) => {
 
 })
 
+
+/* TODO: read up on res.locals */
 // server for tracker page
 router.get('/tracker', (req,resp) => {
     resp.render('tracker',{
@@ -57,13 +59,18 @@ router.get('/exceljs', (req, res) => {
     });
 });
 
-/* TODO: Anything request that will change the database should be post */
 router.use('/login', login);
 router.use('/signup', signup);
 router.use('/forgot_password', forgot_password);
-router.use('/user', user); // has delete get request, change it to post
+
+/* TODO: Anything request that will change the database should be post */
+/* Handlebars uses href... and the changing to forms is tricky (im lazy),  I'll keep it as is for now */
+/* Will be changing it to forms next sprint */
+
+router.use('/user', user); // has delete get request, change it to post 
 router.use('/patient', patient); // has delete get request, change it to post
-router.use('/profile', profile);
+router.use('/profile', profile);  // add confirmation
+
 router.use('/history', history); // Todo, make pagination a helper or middleware
 router.use('/data', data); //use less lines, by using lists or something idk.. ill figure this out tmr
 
