@@ -80,7 +80,6 @@ const userSchema = new mongoose.Schema(
     email: { type: String },
     password: { type: String },
     role: { type: String, enum: ['Member', 'Data Encoder', 'Data Manager'] },
-    isAdmin: { type: Boolean },
     userIcon: { type: String }
   }, 
   { versionKey: false }
@@ -110,6 +109,54 @@ const actionHistorySchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+/* TODO: use user_id for history, ig make them the same? */
+
+const eventSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    description: { type: String },
+    category: { 
+      type: String, 
+      enum: [
+        'Community Outreach', 'Training', 
+        'Meeting', 'Seminar', 'Workshop', 'Other'
+      ], 
+      default: 'Other' 
+    },
+    location: {
+      venue: { type: String, required: true },
+      barangay: { type: Number, min: 1, max: 188 },
+      city: { type: String, default: 'Caloocan' },
+    },
+    date_start: { type: Date, required: true },
+    date_end: { type: Date, required: true },
+    organizer: { type: String, required: true },
+    event_status: { type: String, enum: ['Scheduled', 'Ongoing', 'Completed', 'Cancelled'], default: 'Scheduled' },
+    created_by: { type: String },
+    date_created: { type: Date, default: Date.now }
+  },
+  { versionKey: false }
+);
+
+
+const eventParticipantSchema = new mongoose.Schema(
+  {
+    eventId: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Event', 
+      required: true 
+    },
+    userId: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'User', 
+      required: true 
+    },
+  },
+  { versionKey: false }
+);
+
+
+
 
 
 // --- Models ---
@@ -117,4 +164,5 @@ export const patientModel = mongoose.model('Patient', patientSchema);
 export const userModel = mongoose.model('User', userSchema);
 export const loginHistoryModel = mongoose.model('LoginHistory', loginHistorySchema);
 export const actionHistoryModel = mongoose.model('ActionHistory', actionHistorySchema);
-
+export const eventModel = mongoose.model('Event', eventSchema);
+export const eventParticipantModel = mongoose.model('EventParticipant', eventParticipantSchema);

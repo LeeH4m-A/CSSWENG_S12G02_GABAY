@@ -1,7 +1,6 @@
 import express from 'express';
 import createMedicalQueries from '../helpers/filter.js';
 import { paginate_query } from '../helpers/pagination.js';
-
 /* TODO: Find a way to get all the filters from req.query smaller
    Dynamically build the query // ...trying to find a better way, but for now it's ight
    Paginate.

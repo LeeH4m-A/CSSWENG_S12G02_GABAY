@@ -1,11 +1,11 @@
 import express from 'express';
 
 import { userModel, actionHistoryModel } from '../model/model.js';
-
 const router = express.Router();
 
 // server for user data page
-router.get('/', async (req, res) => {
+router.get('/', 
+    async (req, res) => {
     try {
         const pageSize = 10;
         const userPage = parseInt(req.query.userPage) || 1;
@@ -44,7 +44,8 @@ router.get('/', async (req, res) => {
 
 /*TODO: THIS SHOULD BE POST WHAT !!*/
 // server to delete a user in user data page
-router.post('/delete/:id', async (req, res) => {
+router.post('/delete/:id',
+    async (req, res) => {
     try {
         const userToDelete = await userModel.findById(req.params.id);
 
@@ -75,7 +76,8 @@ router.post('/delete/:id', async (req, res) => {
 
 
 // server to edit user's role in user data page
-router.post('/edit', async (req, res) => {
+router.post('/edit', 
+    async (req, res) => {
     try {
         const { userId, role } = req.body;
 

@@ -4,17 +4,20 @@ import { userModel, loginHistoryModel, actionHistoryModel } from '../model/model
 const router = express.Router();
 
 // server for profile page
-router.get('/', async (req, res) => {
-    res.render('profile', {
-        layout: 'index',
-        title: 'Profile Page',
-        user: {
-            name: req.session.username,
-            email: req.session.email,
-            role: req.session.role,
-            userIcon: req.session.userIcon
-        }
-    });
+router.get('/', 
+    async (req, res) => {
+        res.render('profile', {
+            layout: 'index',
+            title: 'Profile Page',
+            user: {
+                name: req.session.username,
+                email: req.session.email,
+                role: req.session.role,
+                userIcon: req.session.userIcon
+            }
+    } 
+);
+
 });
 
 /* TODO: add a confirmation message to prevent accidental updates, 

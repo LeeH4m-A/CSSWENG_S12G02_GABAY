@@ -6,13 +6,13 @@ const router = express.Router();
 
 import { patientModel, actionHistoryModel } from '../model/model.js';
 
-
 /* TODO: Make this POST */
 // server for deleting a patient data record 
 router.get('/delete/:id', async (req, res) => {
     try {
         await patientModel.findByIdAndDelete(req.params.id);
         
+        /* TODO: I bet we can make this a middleware, and pass in the "action" as a string */
         // insert action history for deleting patient record
         await actionHistoryModel.create({
             name: req.session.username,
@@ -39,6 +39,7 @@ router.get('/edit/:id', async (req, res) => {
     }
 });
 
+/* TODO: save this poor route */
 // server for updating a patient record
 router.post('/edit/:id', async (req, res) => {
     try {

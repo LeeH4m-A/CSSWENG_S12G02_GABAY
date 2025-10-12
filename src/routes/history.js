@@ -7,20 +7,20 @@ const router = express.Router();
 
 /* PROBLEM: if a user clicks page 2 of action history, it resets login history back to page 1*/
 /* TODO: Either we split this to two page, or we use ajax/fetch for now we keep it as is*/
+/* Keep it in session or something idk */
 
 // server for history log page
-router.get('/', async (req, res) => {
+router.get('/',
+    async (req, res) => {
     try {
         const limit = 10;
 
         const loginPage = parseInt(req.query.loginPage) || 1;
         const actionPage = parseInt(req.query.actionPage) || 1;
 
-        // use the new helper for both models
         await paginate_model_view(res, loginHistoryModel, loginPage, limit, 'lastLoginDateTime', 'loginHistory');
         await paginate_model_view(res, actionHistoryModel, actionPage, limit, 'actionDateTime', 'actionHistory');
 
-        // same render structure as your original
         res.render('history', {
             layout: 'index',
             title: 'History Log Page',

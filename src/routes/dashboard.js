@@ -5,10 +5,12 @@ import ExcelJS from 'exceljs';
 
 import { addDataToSheet, formatSheetHeaders } from '../helpers/sheet.js';
 import { patientModel } from '../model/model.js';
+
 const router = express.Router();
 
 // server for dashboard page
-router.get('/', async (req, resp) => {
+router.get('/', 
+    async (req, resp) => {
     try {
         // get db collection
 
@@ -50,7 +52,8 @@ router.get('/', async (req, resp) => {
 });
 
 // server to get data for the dashboard
-router.get('/data', async (req, resp) => {
+router.get('/data',
+    async (req, resp) => {
     try {
         const quarter = parseInt(req.query.quarter);
         const monthly = parseInt(req.query.monthly);

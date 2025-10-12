@@ -83,8 +83,9 @@ server.set("views", "src/views");
 server.use("/", express.static("public"));
 
 /* Set routers */
-/* TODO: MAKE /session/destroy a middleware */
+
 server.use("/", index);
+/* TODO: Remove once done, this is for quick session removal*/
 server.get('/session/destroy', (req, res) => {
   req.session.destroy();
   res.status(200).send('ok');

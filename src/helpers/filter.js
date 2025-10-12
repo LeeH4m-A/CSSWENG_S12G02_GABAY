@@ -64,16 +64,16 @@ function applyFiltersToQuery(query, filters, filterMap) {
  * @returns filteredPatients
  */
 export default async function createMedicalQueries(filters) {
-  try {
-    let biomedicalQuery = patientModel.find({ data_type: 'Biomedical' });
-    let nonBiomedicalQuery = patientModel.find({ data_type: 'Nonbiomedical' });
+    try {
+        let biomedicalQuery = patientModel.find({ data_type: 'Biomedical' });
+        let nonBiomedicalQuery = patientModel.find({ data_type: 'Nonbiomedical' });
 
-    biomedicalQuery = applyFiltersToQuery(biomedicalQuery, filters, biomedical_filters);
-    nonBiomedicalQuery = applyFiltersToQuery(nonBiomedicalQuery, filters, non_biomedical_filters);
+        biomedicalQuery = applyFiltersToQuery(biomedicalQuery, filters, biomedical_filters);
+        nonBiomedicalQuery = applyFiltersToQuery(nonBiomedicalQuery, filters, non_biomedical_filters);
 
-    return { biomedicalQuery, nonBiomedicalQuery};
-  } catch (err) {
-    console.error(err);
-    throw err;
-  }
+        return { biomedicalQuery, nonBiomedicalQuery};
+    } catch (err) {
+        console.error(err);
+        throw err;
+    }
 }

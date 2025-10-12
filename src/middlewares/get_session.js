@@ -2,6 +2,7 @@
 /* Will be useful for admin/encoder/regular user/volunteer checks  */
 
 import { userModel } from "../model/model.js";
+import accessConfig from '../model/config.js';
 
 /**
  * Redirects invalid sessions to the sign-in page, or responds with a JSON error object.
@@ -58,7 +59,7 @@ export async function get_active_user(req, res, next) {
 export function check_existing_session(req, res, next) {
     if (req.session?.username) {
         if (req.accepts("html")) {
-            return res.redirect("/dashboard");
+            return res.status(403).redirect("/dashboard");
         } else {
             return res.json({
                 success: false,
@@ -70,4 +71,42 @@ export function check_existing_session(req, res, next) {
     }
 
     next();
+}
+
+
+export function authorize_user(req, res, next) {
+    // The user is guaranteed to be set in res.locals.user here
+    const user = res.locals.user; 
+    const path = req.path;
+
+    if (!accessConfig.allRoutes.some(rx => rx.test(path))) {
+        // 404: page does not exist
+        return res.status(404).render('error', { title: 'Page not Found', url: req.originalUrl });
+    }
+
+    if (!accessConfig.expandedRoles[user.role].some(rx => rx.test(path))) {
+        // 403: page exists but user forbidden
+        return res.status(403).render('error', { title: 'Forbidden', url: req.originalUrl });
+    }
+
+    next();
+}
+
+
+/* Route based access control */
+export async function access_control(req, res, next) {
+    const path = req.path;
+
+    // 1. Public routes (no login required)
+    if (accessConfig.public.some(pub => path.startsWith(pub))) {
+        // Run check_existing_session to ensure already logged-in users 
+        // don't access /signup, /login, etc. 
+        // If not logged in, it calls next() and proceeds to the public page.
+        return check_existing_session(req, res, next);
+    }
+
+    // 2. Protected routes (require login)
+    // get_active_user will handle unauthorized access by redirecting/sending 401.
+    // If it calls next(), res.locals.user is guaranteed to be set.
+    get_active_user(req, res, () => authorize_user(req, res, next));
 }

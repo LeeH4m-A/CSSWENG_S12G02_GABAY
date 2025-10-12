@@ -1,5 +1,3 @@
-/* TODO: remove isAdmin */
-
 import express from "express";
 import argon2 from "argon2";
 import { body } from "express-validator";
@@ -17,12 +15,6 @@ router.use(express.json());
 
 // server to register new account
 router.get('/', (req, res) => {
-
-    if (req.session.username) {
-        // If already logged in, go to dashboard
-        return res.redirect('/dashboard');
-    }
-    
     res.render('signup',{
         title: 'Registration Page',
         emailUsed: req.query.emailUsed,
@@ -33,8 +25,6 @@ router.get('/', (req, res) => {
 // POST /signup
 router.post(
     "/",
-    check_existing_session, // prevent logged-in users from registering again
-
     // Validate name
     body("name").trim().notEmpty().withMessage("Name is required."),
 
@@ -72,7 +62,6 @@ router.post(
                 email,
                 password: hashedPassword,
                 role: "Member",
-                isAdmin: false,
                 userIcon:
                     "https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg",
             });

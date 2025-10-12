@@ -20,11 +20,6 @@ router.use(express.urlencoded({ extended: true }));
 router.use(express.json());
 
 router.get('/', (req, res) => {
-    if (req.session.username) {
-        // If already logged in, go to dashboard
-        return res.redirect('/dashboard');
-    }
-
     res.render('login', {
         title: 'Login Page',
         failed: req.query.failed,
@@ -35,8 +30,6 @@ router.get('/', (req, res) => {
 // POST /login
 router.post(
     "/",
-    check_existing_session,
-
     // Validate user exists
     body("email").custom(async (email, { req }) => {
         const user = await userModel.findOne({ email });
