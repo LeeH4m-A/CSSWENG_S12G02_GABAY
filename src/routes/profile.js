@@ -33,7 +33,7 @@ router.post('/update', async (req, res) => {
         const updateFields = { name, email };
 
         if (password) {
-            const hashedPassword = await await argon2.hash(password);
+            const hashedPassword = await argon2.hash(password);
             updateFields.password = hashedPassword;
         }
         
@@ -65,6 +65,5 @@ router.post('/update', async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
-
 
 export default router;

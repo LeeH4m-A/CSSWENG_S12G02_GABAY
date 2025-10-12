@@ -728,29 +728,29 @@ select.monthly:hover, .yearly:hover{
 .contact-item a:hover {
     text-decoration: underline;
 }
-
 .profile-fields {
     display: flex;
-    width: 80%;
-    padding: 20px;
+    flex-wrap: wrap; 
+    gap: 50px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .profile-input-field {
     display: flex;
-    padding: 10px;
-    margin: 10px;
-    flex-direction:column;
+    flex-direction: column;
+    flex: 1 1 calc(50% - 50px);
+    min-width: 250px;
 }
 
 .profile-label {
-    width: 550px;
-    font-size: 30px;
+    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 10px
+    margin-bottom: 10px;
 }
 
 .profile-textarea {
-    width: 650px;
+    width: 100%;
     height: 50px;
     border: 2px solid #ccc;
     background-color: #f9f9f9;
@@ -763,7 +763,6 @@ select.monthly:hover, .yearly:hover{
 
 .profile-submit-button {
     border-radius: 20px;
-    margin-left: 1220px;
     background-color: #9B112E; 
     color: white;
     border: 3px solid #9B112E; 
@@ -771,12 +770,23 @@ select.monthly:hover, .yearly:hover{
     display: inline-block;
     font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: 10px;
 }
 
 .profile-submit-button:hover {
     background-color: white;
     color: #9B112E;
     border: 3px solid #9B112E;
+}
+
+.container-for-profile form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 20px;
+    margin: 0 auto;
 }
 
 /** HISTORY PAGE **/

@@ -10,7 +10,7 @@ import accessConfig from '../model/config.js';
  * @param {Response} res
  * @param {number} status_code
  */
-function redirect_invalid_session(req, res, status_code) {
+function redirectInvalidSession(req, res, status_code) {
     if (req.accepts("html")) {
         return req.session.destroy(() => res.redirect("/login"));
     } else {
@@ -29,7 +29,7 @@ function redirect_invalid_session(req, res, status_code) {
  * @param {Function} next
  * @param {Function} if_invalid
  */
-async function get_session(req, res, next, if_invalid) {
+async function getSession(req, res, next, if_invalid) {
     if (!req.session?.user_id) return if_invalid();
 
     try {
@@ -49,14 +49,14 @@ async function get_session(req, res, next, if_invalid) {
 /**
  * Middleware: Requires active user session
  */
-export async function get_active_user(req, res, next) {
-    get_session(req, res, next, () => redirect_invalid_session(req, res, 401));
+export async function getActiveUser(req, res, next) {
+    getSession(req, res, next, () => redirectInvalidSession(req, res, 401));
 }
 
 /**
  * Prevents already logged-in users from accessing sign-in/register pages
  */
-export function check_existing_session(req, res, next) {
+export function checkExistingSession(req, res, next) {
     if (req.session?.username) {
         if (req.accepts("html")) {
             return res.status(403).redirect("/dashboard");
@@ -74,7 +74,7 @@ export function check_existing_session(req, res, next) {
 }
 
 
-export function authorize_user(req, res, next) {
+export function authorizeUser(req, res, next) {
     // The user is guaranteed to be set in res.locals.user here
     const user = res.locals.user; 
     const path = req.path;
@@ -94,7 +94,7 @@ export function authorize_user(req, res, next) {
 
 
 /* Route based access control */
-export async function access_control(req, res, next) {
+export async function accessControl(req, res, next) {
     const path = req.path;
 
     // 1. Public routes (no login required)
@@ -102,11 +102,11 @@ export async function access_control(req, res, next) {
         // Run check_existing_session to ensure already logged-in users 
         // don't access /signup, /login, etc. 
         // If not logged in, it calls next() and proceeds to the public page.
-        return check_existing_session(req, res, next);
+        return checkExistingSession(req, res, next);
     }
 
     // 2. Protected routes (require login)
     // get_active_user will handle unauthorized access by redirecting/sending 401.
     // If it calls next(), res.locals.user is guaranteed to be set.
-    get_active_user(req, res, () => authorize_user(req, res, next));
+    getActiveUser(req, res, () => authorizeUser(req, res, next));
 }

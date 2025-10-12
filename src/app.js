@@ -66,6 +66,14 @@ server.engine('hbs', engine({
         }, 
         isSelected: function (value, option) {
             return value === option ? 'selected' : '';
+        },
+        includes: (array, value) => {
+            if (!Array.isArray(array)) return false;
+            return array.includes(value);
+        },
+        isActive: (href, currentPath) => {
+            if (!href || !currentPath) return '';
+            return currentPath.startsWith(href) ? 'active' : '';
         }
     },
     runtimeOptions: {

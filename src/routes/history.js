@@ -1,6 +1,6 @@
 import express from 'express';
 import { loginHistoryModel, actionHistoryModel } from '../model/model.js';
-import { paginate_model_view } from '../helpers/pagination.js';
+import { paginateModelView } from '../helpers/pagination.js';
 
 const router = express.Router();
 
@@ -18,8 +18,8 @@ router.get('/',
         const loginPage = parseInt(req.query.loginPage) || 1;
         const actionPage = parseInt(req.query.actionPage) || 1;
 
-        await paginate_model_view(res, loginHistoryModel, loginPage, limit, 'lastLoginDateTime', 'loginHistory');
-        await paginate_model_view(res, actionHistoryModel, actionPage, limit, 'actionDateTime', 'actionHistory');
+        await paginateModelView(res, loginHistoryModel, loginPage, limit, 'lastLoginDateTime', 'loginHistory');
+        await paginateModelView(res, actionHistoryModel, actionPage, limit, 'actionDateTime', 'actionHistory');
 
         res.render('history', {
             layout: 'index',

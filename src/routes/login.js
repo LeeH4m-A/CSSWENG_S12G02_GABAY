@@ -9,10 +9,9 @@ import argon2 from "argon2";
 import { body } from "express-validator";
 
 import check_form_errors from "../middlewares/check_form_errors.js";
-import { check_existing_session } from "../middlewares/get_session.js";
 
 import { userModel } from "../model/model.js";
-import let_user_in from "../controllers/let_user_in.js";
+import letUserIn from "../controllers/let_user_in.js";
 
 const router = express.Router();
 
@@ -68,7 +67,7 @@ router.post(
     /* Data should be VALID by this point */
 
     /* Attach user ID to session */
-    let_user_in
+    letUserIn
 );
 
 export default router;

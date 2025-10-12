@@ -12,12 +12,20 @@ import history from './history.js';
 import data from './data.js';
 import user from './user.js';
 import profile from './profile.js';
-import { access_control } from '../middlewares/get_session.js';
-
+import { accessControl } from '../middlewares/get_session.js';
+import { sidebarItems } from '../model/sidebarconfig.js';
 
 const router = express.Router();
 
-router.use(access_control);
+router.use(accessControl);
+
+router.use((req, res, next) => {
+  res.locals.sidebarItems = sidebarItems;
+  res.locals.currentPath = req.path;
+  res.locals.user = req.session?.user;
+  next();
+});
+
 // server starts at index and login
 
 /* TODO: might be better if there's a home page */

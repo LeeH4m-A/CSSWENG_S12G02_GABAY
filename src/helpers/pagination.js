@@ -2,7 +2,7 @@
 
 */
 
-export async function paginate_query(query, page, limit, sortField) {
+export async function paginateQuery(query, page, limit, sortField) {
     const current_page = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
     const skip = (current_page - 1) * limit;
 
@@ -25,7 +25,7 @@ export async function paginate_query(query, page, limit, sortField) {
      Keeps res.render() cleaner and allows reusable middlewares/helpers
      to inject data automatically into the view.
 */
-export async function paginate_model_view(res, model, page, limit, sortField, name) {
+export async function paginateModelView(res, model, page, limit, sortField, name) {
     const current_page = !page || isNaN(parseInt(page)) ? 1 : Math.max(1, parseInt(page));
     const skip = (current_page - 1) * limit;
 

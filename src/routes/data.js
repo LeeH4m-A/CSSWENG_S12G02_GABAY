@@ -1,6 +1,6 @@
 import express from 'express';
 import createMedicalQueries from '../helpers/filter.js';
-import { paginate_query } from '../helpers/pagination.js';
+import { paginateQuery } from '../helpers/pagination.js';
 /* TODO: Find a way to get all the filters from req.query smaller
    Dynamically build the query // ...trying to find a better way, but for now it's ight
    Paginate.
@@ -15,12 +15,12 @@ router.get('/', async (req, res) => {
 
         const { biomedicalQuery, nonBiomedicalQuery} = await createMedicalQueries(queryFilters);
 
-        const bioResult = await paginate_query(biomedicalQuery, biomedicalPage, limit, 'date_encoded');
+        const bioResult = await paginateQuery(biomedicalQuery, biomedicalPage, limit, 'date_encoded');
         const paginatedBiomedicalPatients = bioResult.data;
         const biomedicalCount = bioResult.length;
         const biomedicalTotalPages = bioResult.total_pages;
 
-        const nonBioResult = await paginate_query(nonBiomedicalQuery, nonBiomedicalPage, limit, 'date_encoded');
+        const nonBioResult = await paginateQuery(nonBiomedicalQuery, nonBiomedicalPage, limit, 'date_encoded');
         const paginatedNonBiomedicalPatients = nonBioResult.data;
         const nonBiomedicalCount = nonBioResult.length;
         const nonBiomedicalTotalPages = nonBioResult.total_pages

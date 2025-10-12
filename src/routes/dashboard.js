@@ -12,19 +12,8 @@ const router = express.Router();
 router.get('/', 
     async (req, resp) => {
     try {
-        // get db collection
 
-        // retrieve statistics from the patient collection
-        const totalPatientsTested = await patientModel.countDocuments();
-        const biomedicalPatientsTested = await patientModel.countDocuments({ data_type: 'Biomedical' });
-        const nonbiomedicalPatientsTested = await patientModel.countDocuments({ data_type: 'Nonbiomedical' });
-        const positivePatientsTested = await patientModel.countDocuments({ 'biomedical.test_result': 'Positive', data_type: 'Biomedical' });
-        const negativePatientsTested = await patientModel.countDocuments({ 'biomedical.test_result': 'Negative', data_type: 'Biomedical' });
-        const dnkPatientsTested = await patientModel.countDocuments({ 'biomedical.test_result': 'Do Not Know', data_type: 'Biomedical' });
-
-        //getting available years
-        const patient = await patientModel.find();
-        const year = patient.map(({date_encoded}) => date_encoded).map(function(date){return date.getFullYear()});
+         const { statistics, years } = await getDashboardStatistics();
         
         resp.render('dashboard', {
             layout: 'index',
@@ -35,15 +24,8 @@ router.get('/',
                 role: req.session.role,
                 userIcon: req.session.userIcon
             },
-            statistics: {
-                totalPatientsTested: totalPatientsTested,
-                biomedicalPatientsTested: biomedicalPatientsTested,
-                nonbiomedicalPatientsTested: nonbiomedicalPatientsTested,
-                positivePatientsTested: positivePatientsTested,
-                negativePatientsTested: negativePatientsTested,
-                dnkPatientsTested: dnkPatientsTested
-            },
-            year: year.filter((item,index) => year.indexOf(item) === index).sort((a,b)=>b-a)
+            statistics,
+            year: years
         });
     } catch (error) {
         console.error("Error fetching dashboard statistics:", error);
