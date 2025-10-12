@@ -16,9 +16,13 @@ npm install
 ### Setup .env
 
 ```bash
-MONGODB_URI=mongodb://your-URI
-MONGODB_DBNAME=your-DB-name
-SESSION_SECRET=your-secret
+MONGODB_URI="mongodb://localhost:27017/reze"
+MONGODB_NAME="reze"
+MAIL_USER="reze@countrymouse.com"
+MAIL_PASS="csm-tm:ra"
+CLOUD_NAME="reze-cloud"
+CLOUD_KEY="reze-key"
+CLOUD_SECRET="reze-cret"
 ```
 
 ### To run
@@ -33,22 +37,8 @@ npm test
 http://localhost:3000
 ```
 
-
-
-# Developer Notes: 
-
 # Coding Standards
 For Project Structure, HTML, CSS, JavaScript, and UML Diagrams.
-
-## Project Structure
-
-Our project follows the Model-View-Controller (MVC) architecture to ensure organized and scalable code. Below is a breakdown of the project structure:
-
-- **model**: This directory contains all the database schemas and data-related logic.
-- **views**: Here, you will find the Handlebars (HBS) templates and layouts for rendering pages.
-- **public**: This folder houses all the static files such as CSS, JavaScript, images, and fonts.
-- **app**: This is where the application routes and Node.js modules (controllers) reside.
-- **package-lock.json**: This file manages project dependencies and ensures consistent installations across different environments.
 
 ## HTML Standards
 
@@ -123,8 +113,13 @@ Ensure code is maintainable and efficient.
 	  ```
   - Place a space after each section for readability and organization.
 
+# Project structure
 
-## Role of Each Component in src/ directory
+- **public**: This folder houses all the static files such as CSS, JavaScript, images, and fonts.
+- **src**: This folder contains backend code, routes, controllers, middleware, etc.
+- **app**: This is main file which initializes Express to starts the application
+
+## Inside src/
 
 ### app.js
 
