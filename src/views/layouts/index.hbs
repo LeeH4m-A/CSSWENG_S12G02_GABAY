@@ -3,8 +3,13 @@
 <head>
     <title>{{title}}</title>
 
-    <!-- css file -->
-    <link rel="stylesheet" type="text/css" href="/style.css"/>
+    <!-- common css for all pages -->
+    <link rel="stylesheet" type="text/css" href="/css/common.css"/>
+
+    <!-- page-specific css -->
+    {{#if pageCss}}
+        <link rel="stylesheet" type="text/css" href="/css/{{pageCss}}"/>
+    {{/if}}
 
     <!-- chartjs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" crossorigin="anonymous"></script>
