@@ -66,27 +66,19 @@ router.get('/tracker', (req,resp) => {
     resp.render('tracker',{
         layout: 'index',
         title: 'Data Tracker Page',
-        user: {
-            name: req.session.username,
-            email: req.session.email,
-            role: req.session.role,
-            userIcon: req.session.userIcon
-        }
+        user: req.session.user
     });
 });
 
 /* TODO, path moment */
-// server for exporting charts to excel sheet
-router.get('/exceljs', (req, res) => {
-    const filePath = path.join(__dirname, 'node_modules', 'exceljs', 'dist', 'exceljs.min.js');
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading ExcelJS file:', err);
-            res.status(500).send('Internal Server Error');
-            return;
-        }
-        res.send(data);
-    });
-});
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+router.get('/exceljs', (req, res) => {
+    const filePath = path.join(__dirname, '..', '..', 'node_modules', 'exceljs', 'dist', 'exceljs.min.js');
+    res.sendFile(filePath);
+});
 export default router;

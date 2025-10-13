@@ -16,12 +16,7 @@ router.get('/', async (req, res) => {
         res.render('dashboard', {
             layout: 'index',
             title: 'Dashboard Page',
-            user: {
-                name: req.session.username,
-                email: req.session.email,
-                role: req.session.role,
-                userIcon: req.session.userIcon
-            },
+            user: req.session.user,
             statistics,
             year: years
         });

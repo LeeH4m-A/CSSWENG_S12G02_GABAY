@@ -119,6 +119,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                     throw new Error('Failed to fetch ExcelJS');
                 }
                 const scriptText = await response.text();
+                console.log(scriptText);
                 eval(scriptText);
         
                 // initializing ExcelJS workbook and other necessary variables

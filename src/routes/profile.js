@@ -9,12 +9,7 @@ router.get('/',
         res.render('profile', {
             layout: 'index',
             title: 'Profile Page',
-            user: {
-                name: req.session.username,
-                email: req.session.email,
-                role: req.session.role,
-                userIcon: req.session.userIcon
-            }
+            user: req.session.user
     } 
 );
 
@@ -38,22 +33,22 @@ router.post('/update', async (req, res) => {
         }
         
         // update user data
-        await userModel.updateOne({ email: req.session.email }, { $set: updateFields });
+        await userModel.updateOne({ email: req.session.user.email }, { $set: updateFields });
 
         // update session email if changed
-        req.session.email = email; 
-        req.session.username = name; 
+        req.session.user.email = email; 
+        req.session.user.name = name; 
 
         // update login history with new user information
-        await loginHistoryModel.updateMany({ email: req.session.email }, { $set: { email: email, name: name } });
+        await loginHistoryModel.updateMany({ email: req.session.user.email }, { $set: { email: email, name: name } });
         
         // update action history with new user information
-        await actionHistoryModel.updateMany( { email: req.session.email }, { $set: { email: email, name: name } });
+        await actionHistoryModel.updateMany( { email: req.session.user.email }, { $set: { email: email, name: name } });
         
         // insert action history for updating user profile
         await actionHistoryModel.insertOne({
             name: name,
-            role: req.session.role,
+            role: req.session.user.role,
             email: email,
             action: "Update profile information",
             actionDateTime: new Date()
@@ -66,4 +61,14 @@ router.post('/update', async (req, res) => {
     }
 });
 
+
+router.get('/id', async(req, res) =>{
+    res.render('identification', {
+            layout: 'index',
+            title: 'View ID',
+            user: req.session.user
+        }
+        
+    );
+})
 export default router;

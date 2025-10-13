@@ -28,12 +28,7 @@ router.get('/', async (req, res) => {
         res.render('data', { 
             layout: 'index',
             title: 'Data Log Page',
-            user: {
-                name: req.session.username,
-                email: req.session.email,
-                role: req.session.role,
-                userIcon: req.session.userIcon
-            },
+            user: req.session.user,
             paginatedBiomedicalPatients, 
             paginatedNonBiomedicalPatients,
             biomedicalCount,

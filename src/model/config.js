@@ -1,9 +1,9 @@
 const config = {
-  public: ['/login', '/signup', '/forgot_password', '/exceljs'],
+  public: ['/login', '/signup', '/forgot_password'],
   protected: {
     Member: ['/profile/*', '/dashboard/*', '/logout', '/'],
     'Data Encoder': ['/tracker' ],
-    'Data Manager': ['/data/*', '/history/*', '/patient/*', '/user/*'],
+    'Data Manager': ['/data/*', '/exceljs', '/history/*', '/patient/*', '/user/*'],
   },
   hierarchy: ['Member', 'Data Encoder', 'Data Manager'],
 };

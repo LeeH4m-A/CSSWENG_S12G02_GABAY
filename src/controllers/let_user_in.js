@@ -24,13 +24,14 @@ export default async (req, res) => {
         } else {
             req.session.cookie.expires = new Date(Date.now() + 1000 * 60 * 60); // 1 hour
         }
-        // TODO: uhh this is bad...
-        req.session.user_id = user._id;
-        req.session.username = user.name;
-        req.session.email = user.email;
-        req.session.role = user.role;
-        req.session.userIcon = user.userIcon;
-        /* this is so bad */
+
+        req.session.user = {
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            role: user.role,
+            userIcon: user.userIcon
+        };
         res.redirect("/dashboard");
 
     } else {

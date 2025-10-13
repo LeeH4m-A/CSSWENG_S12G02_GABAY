@@ -24,12 +24,7 @@ router.get('/',
         res.render('history', {
             layout: 'index',
             title: 'History Log Page',
-            user: {
-                name: req.session.username,
-                email: req.session.email,
-                role: req.session.role,
-                userIcon: req.session.userIcon
-            },
+            user: req.session.user,
             
         });
     } catch (error) {

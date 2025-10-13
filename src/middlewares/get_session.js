@@ -30,11 +30,11 @@ function redirectInvalidSession(req, res, status_code) {
  * @param {Function} if_invalid
  */
 async function getSession(req, res, next, if_invalid) {
-    if (!req.session?.user_id) return if_invalid();
+    if (!req.session?.user?._id) return if_invalid();
 
     try {
         // Use userModel to find user by _id
-        const user = await userModel.findById(req.session.user_id).lean();
+        const user = await userModel.findById(req.session.user._id).lean();
 
         if (!user || user.deleted) return if_invalid();
 
@@ -57,7 +57,7 @@ export async function getActiveUser(req, res, next) {
  * Prevents already logged-in users from accessing sign-in/register pages
  */
 export function checkExistingSession(req, res, next) {
-    if (req.session?.username) {
+    if (req.session?.user?.name) {
         if (req.accepts("html")) {
             return res.status(403).redirect("/dashboard");
         } else {

@@ -23,12 +23,7 @@ router.get('/',
         res.render('user', {
             layout: 'index',
             title: 'User Data Page',
-            user: {
-                name: req.session.username,
-                email: req.session.email,
-                role: req.session.role,
-                userIcon: req.session.userIcon
-            },
+            user: req.session.user,
             paginatedUsers,
             userCount,
             userPage,
@@ -60,9 +55,9 @@ router.post('/delete/:id',
 
         // insert action history for deleting user record
         await actionHistoryModel.create({
-            name: req.session.username,
-            role: req.session.role,
-            email: req.session.email,
+            name: req.session.user.name,
+            role: req.session.user.role,
+            email: req.session.user.email,
             action: "Deleted user record",
             actionDateTime: new Date()
         });
@@ -94,9 +89,9 @@ router.post('/edit',
         
         // insert action history for updating user's role
         await actionHistoryModel.create({
-            name: req.session.username,
-            role: req.session.role,
-            email: req.session.email,
+            name: req.session.user.name,
+            role: req.session.user.role,
+            email: req.session.user.email,
             action: "Updated user's role",
             actionDateTime: new Date()
         });
@@ -107,5 +102,6 @@ router.post('/edit',
         res.status(500).send('Server Error');
     }
 });
+
 
 export default router;

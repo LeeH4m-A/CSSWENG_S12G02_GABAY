@@ -83,8 +83,7 @@ export function getQuarterFilter(quarter) {
     if (!quarter || quarter < 1 || quarter > 4) return [];
 
     const startMonth = quarter * 3 - 2;
-    const months = [startMonth, startMonth + 1, startMonth + 2]
-    console.log(startMonth);
+    const months = [startMonth, startMonth + 1, startMonth + 2];
     // I can use loops but uhhhhh...a
     return [
         {

@@ -9,15 +9,15 @@ import { patientModel, actionHistoryModel } from '../model/model.js';
 /* TODO: Make this POST */
 // server for deleting a patient data record 
 router.get('/delete/:id', async (req, res) => {
-    try {
+    try { 
         await patientModel.findByIdAndDelete(req.params.id);
         
         /* TODO: I bet we can make this a middleware, and pass in the "action" as a string */
         // insert action history for deleting patient record
         await actionHistoryModel.create({
-            name: req.session.username,
-            role: req.session.role,
-            email: req.session.email,
+            name: req.session.user.name,
+            role: req.session.user.role,
+            email: req.session.user.email,
             action: "Deleted patient record",
             actionDateTime: new Date()
         });
@@ -62,9 +62,9 @@ router.post('/edit/:id', async (req, res) => {
         
         // insert action history for deleting patient record
         await actionHistoryModel.create({
-            name: req.session.username,
-            role: req.session.role,
-            email: req.session.email,
+            name: req.session.user.name,
+            role: req.session.user.role,
+            email: req.session.user.email,
             action: "Edited patient record",
             actionDateTime: new Date()
         });
@@ -89,7 +89,7 @@ router.post('/add', async (req, res) => {
             data_type: data_type,
             gender: gender,
             date_encoded: new Date(),
-            encoder: req.session.username
+            encoder: req.session.user.name
         };
 
         if (data_type === 'Biomedical') {
@@ -118,10 +118,10 @@ router.post('/add', async (req, res) => {
         // insert action history
         
         await actionHistoryModel.create({
-            name: req.session.username,
-            role: req.session.role,
-            email: req.session.email,
-            icon: req.session.userIcon,
+            name: req.session.user.name,
+            role: req.session.user.role,
+            email: req.session.user.email,
+            icon: req.session.user.userIcon,
             action: "Add new patient record",
             actionDateTime: new Date()
         });
