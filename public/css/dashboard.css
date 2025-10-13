@@ -122,6 +122,52 @@ select.yearly:hover {
     border-radius: 10px;
 }
 
+
+.graph1 {
+    grid-row: 1 / 2;
+    grid-column: 1 / 4;
+}
+
+.graph2 {
+    grid-row: 2 / 3;
+    grid-column: 1 / 4;
+}
+
+.graph3 {
+    grid-row: 3 / 4;
+    grid-column: 1 / 4;
+}
+
+.graph4 {
+    grid-row: 1 / 2;
+    grid-column: 4 / 7; 
+}
+
+.graph5 {
+    grid-row: 2 / 3;
+    grid-column: 4 / 7;
+}
+
+.graph6 {
+    grid-row: 3 / 4;
+    grid-column: 4 / 7;
+}
+
+.graph7 {
+    grid-row: 1 / 2;
+    grid-column: 1 / 4;
+}
+
+.graph8 {
+    grid-row: 1 / 2;
+    grid-column: 4 / 7;
+}
+
+.graph9 {
+    grid-row: 2 / 3;
+    grid-column: 2 / 6; 
+}
+
 .chart {
     display: flex;
     justify-content: center;

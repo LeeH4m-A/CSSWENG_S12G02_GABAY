@@ -89,3 +89,26 @@
     color: white;
     border: 3px solid white;
 }
+
+/* checkbox */
+.miniform-group {
+    display: flex;
+    align-content: center;
+}
+
+.remember-me {
+    color: white;
+    margin-left: 4px;
+    font-size: 16px;
+}
+
+.checkmark {
+    height: 2vh;
+    width: 2vh;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    margin-right: 1vh;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
