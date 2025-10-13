@@ -71,7 +71,7 @@ router.get('/delete/:id',
 
 
 // server to edit user's role in user data page
-router.get('/edit', 
+router.post('/edit', 
     async (req, res) => {
     try {
         const { userId, role } = req.body;
