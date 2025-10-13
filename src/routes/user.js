@@ -39,7 +39,7 @@ router.get('/',
 
 /*TODO: THIS SHOULD BE POST WHAT !!*/
 // server to delete a user in user data page
-router.post('/delete/:id',
+router.get('/delete/:id',
     async (req, res) => {
     try {
         const userToDelete = await userModel.findById(req.params.id);
@@ -71,7 +71,7 @@ router.post('/delete/:id',
 
 
 // server to edit user's role in user data page
-router.post('/edit', 
+router.get('/edit', 
     async (req, res) => {
     try {
         const { userId, role } = req.body;

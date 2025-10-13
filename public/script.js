@@ -439,7 +439,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             // Fetch patient data
             try {
-                const response = await fetch(`/edit/${patientId}`);
+                const response = await fetch(`/patient/edit/${patientId}`);
                 const data = await response.json();
                 const patient = data.patient;
                 console.log('Received patient data:', patient); // Debug log
@@ -846,7 +846,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         console.log('Submitting updated data for patient ID:', id, data);
     
         try {
-            const response = await fetch(`/edit/${id}`, {
+            const response = await fetch(`/patient/edit/${id}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

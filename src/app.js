@@ -16,7 +16,7 @@ import db_conn from "./model/db.js";
 import index from './routes/index.js';
 
 const server = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 /* Body parser */
 server.use(bodyParser.json());
