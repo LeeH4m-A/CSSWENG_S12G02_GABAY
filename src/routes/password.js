@@ -58,7 +58,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/verify-password', async (req,resp) => {
+router.get('/verify_password', async (req,resp) => {
 
     //get query
     try {

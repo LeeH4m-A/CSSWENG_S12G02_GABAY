@@ -59,3 +59,15 @@ export function addDataToSheet(sheet, patients, isBiomedical) {
         }
     });
 }
+
+
+export function autoSizeSheetColumns(sheet) {
+    sheet.columns.forEach(column => {
+        let maxWidth = 10;
+        column.eachCell({ includeEmpty: true }, cell => {
+            const len = cell.value ? cell.value.toString().length : 0;
+            if (len > maxWidth) maxWidth = len;
+        });
+        column.width = maxWidth + 2;
+    });
+}

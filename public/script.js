@@ -1519,7 +1519,7 @@ async function initializeCharts(monthly=0,yearly=0,quarter=0) {
             document.getElementById('chartKVP').setAttribute('data-reason', 'Testing outcomes by Key or Vulnerable Population (KVP) at higher risk');
         }
 
-        const testedBeforeData = processBiomedicalChartData(data.testedBefore, 'tested_before');
+        const testedBeforeData = processBiomedicalChartData(data.tested_before, 'tested_before');
         if (testedBeforeData.datasets.length === 0) {
             displayNoDataMessage('.graph1', 'Testing outcomes for clients who were tested before (repeat testers)','chartTestedBefore');
             document.getElementById('chartTestedBefore').setAttribute('data-reason', 'Testing outcomes for clients who were tested before (repeat testers)')
@@ -1534,7 +1534,7 @@ async function initializeCharts(monthly=0,yearly=0,quarter=0) {
             document.getElementById('chartTestedBefore').setAttribute('data-reason', 'Testing outcomes for clients who were tested before (repeat testers)');
         }
 
-        const ageData = processBiomedicalChartData(data.ageRange, 'age');
+        const ageData = processBiomedicalChartData(data.age_range, 'age_range');
         if (ageData.datasets.length === 0) {
             displayNoDataMessage('.graph2', 'Testing outcomes by age','chartAge');
             document.getElementById('chartAge').setAttribute('data-reason', 'Testing outcomes by age')
@@ -1549,7 +1549,7 @@ async function initializeCharts(monthly=0,yearly=0,quarter=0) {
             document.getElementById('chartAge').setAttribute('data-reason', 'Testing outcomes by age');
         }
 
-        const firstTimeTestersData = processBiomedicalChartData(data.testedBefore.filter(item => item._id.tested_before === 'No'), 'tested_before');
+        const firstTimeTestersData = processBiomedicalChartData(data.tested_before.filter(item => item._id.tested_before === 'No'), 'tested_before');
         if (firstTimeTestersData.datasets.length === 0) {
             displayNoDataMessage('.graph4', 'Testing outcomes for first time testers','chartFirstTimeTesters');
             document.getElementById('chartFirstTimeTesters').setAttribute('data-reason', 'Testing outcomes for first time testers')
