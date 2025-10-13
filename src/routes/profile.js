@@ -66,7 +66,8 @@ router.get('/id', async(req, res) =>{
     res.render('identification', {
             layout: 'index',
             title: 'View ID',
-            user: req.session.user
+            user: req.session.user,
+            join_date: null
         }
         
     );
