@@ -3,15 +3,24 @@
 <div class="main-content">
     <div class="container-for-profile">
         <div class="profile-fields">
+            <h1 class="header"><b>Identification Card</b></h1>
             <div class="id-info">
-                <div class="photo" style="margin-bottom: 15px;">
-                    <img id="idPhoto" src="https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg" alt="ID Photo"
-                    style="width: 50%; height: 50%; border-radius: 10px; object-fit: cover; border: 2px solid #ccc;">
+                <div class="photo" style="width: 360px; height: 360px;">
+                    <img id="idPhoto" 
+                        src="https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg" 
+                        alt="ID Photo"
+                        style="
+                            width: 100%; 
+                            height: 100%; 
+                            object-fit: cover; 
+                            border-radius: 10px; 
+                            border: 2px solid #ccc;
+                        ">
                 </div>
-                <div>
-                    <p><b id="profile-label">{{user.name}}</b></p>
-                    <p id="idRole" style="color: #d41919;">{{user.role}}</p>
-                    <p>ID: <span id="idNumber">{{user._id}}</span></p>
+                <div style="flex: 1">
+                    <p><b id="profile-label" style="font-size: 3rem">{{user.name}}</b></p>
+                    <p id="idRole" style="color: #d41919; font-size: 1.5rem;">{{user.role}}</p>
+                    <p style="font-size: 1.25rem;">ID: <span id="idNumber" >{{user._id}}</span></p>
                 </div>
             </div>
             <div style="margin-top: 20px; text-align: center;">
@@ -27,10 +36,13 @@
 .id-info {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
+    gap: 40px;
     align-items: center;
     width: 100%;
-    gap: 10px;
+}
+
+.photo{
 }
 
 </style>
