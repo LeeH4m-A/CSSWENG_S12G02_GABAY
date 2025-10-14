@@ -112,3 +112,29 @@
     margin: 0 10px;
     font-weight: bold;
 }
+
+
+.export{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+
+.export button{
+    background-color: white;
+    padding: 10px;
+    margin: 20px 0 20px 20px;
+    cursor: pointer;
+    display: flex; 
+    align-items: center; 
+}
+
+.export button i {
+    margin-right: 5px;
+}
+
+.export button:hover{
+    background-color: #9B112E;
+    color: white;
+}
