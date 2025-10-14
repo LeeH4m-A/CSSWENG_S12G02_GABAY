@@ -44,10 +44,16 @@ router.get('/delete/:id',
     try {
         const userToDelete = await userModel.findById(req.params.id);
 
+        /* TODO: THIS COULD BE A MIDDLEWARE */
         // check if there's only one data manager
         const dataManagerCount = await userModel.countDocuments({ role: 'Data Manager' });
         if (dataManagerCount <= 1 && userToDelete.role === 'Data Manager') {
             return res.redirect('/user?error=There%20must%20be%20at%20least%20one%20Data%20Manager.');
+        }
+
+        
+        if(req.session.user.name ===  userToDelete.name){
+            return res.redirect('/user?error=You%20can%20not%20delete%20yourself.');
         }
 
         await userModel.findByIdAndDelete(req.params.id);
@@ -82,6 +88,10 @@ router.post('/edit',
 
         if (dataManagerCount <= 1 && currentUser.role === 'Data Manager' && role !== 'Data Manager') {
             return res.redirect('/user?error=There%20must%20be%20at%20least%20one%20Data%20Manager.');
+        }
+
+        if(req.session.user.name ===  currentUser.name){
+            return res.redirect('/user?error=You%20can%20not%20edit%20your%20own%20role.');
         }
 
         await userModel.findByIdAndUpdate(userId, { role: role });

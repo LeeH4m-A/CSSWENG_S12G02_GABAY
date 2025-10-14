@@ -5,7 +5,7 @@ import { addDataToSheet, formatSheetHeaders } from '../helpers/sheet.js';
 import { patientModel } from '../model/model.js';
 import { getDashboardStatistics } from '../helpers/statistics.js';
 import { getQuarterFilter } from '../helpers/filter.js';
-
+import { autoSizeSheetColumns } from '../helpers/sheet.js';
 const router = express.Router();
 
 // server for dashboard page
@@ -162,7 +162,7 @@ router.get('/export', async (req, res) => {
         ]);
 
         // Auto-size columns
-        [bioSheet, nonBioSheet, statisticsSheet].forEach(autoSizeSheetColumns);
+        [biomedicalSheet, nonBiomedicalSheet, statisticsSheet].forEach(autoSizeSheetColumns);
 
         // Stream the workbook directly to client
         res.setHeader(

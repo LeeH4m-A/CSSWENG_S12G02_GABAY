@@ -50,7 +50,8 @@ function applyFiltersToQuery(query, filters, filterMap) {
         if (typeof dbField === 'string') {
             query = query.where(dbField).equals(value);
         } else if (dbField.isDate) {
-            query = query.where(dbField.field)[dbField.operator](new Date(value));
+            console.log(dbField);
+            query = query.where(dbField.field)[dbField.operator.replace(/^\$/, '')](new Date(value));
         }
     }
     return query;
