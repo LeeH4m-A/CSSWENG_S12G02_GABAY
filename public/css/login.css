@@ -1,0 +1,121 @@
+/* LOGIN PAGE STYLES */
+
+.parent-registration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+.rightSide {
+    background-color: #9B112E;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 5%;
+    box-sizing: border-box;
+    width: 550px;
+    max-height: 90%;
+}
+
+.rightSide p {
+    color: #eee;
+}
+
+.main, .details, .signup-page {
+    text-align: center;
+    margin: 15px;
+}
+
+.main {
+    font-size: 32px; 
+}
+
+.details {
+    font-size: 16px; 
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2vh;
+    position: relative;
+    font-size: 1vw;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"], 
+.form-group input[type="password"],
+.form-group select {
+    width: 100%;
+    padding: 1vh;
+    background-color: #9B112E;
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    font-size: 1vw;
+    color: white;
+}
+
+.form-group input::placeholder {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.registration {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid white;
+    font-size: 18px; 
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.registration:hover {
+    background-color: #9B112E;
+}
+
+
+/* checkbox */
+.miniform-group {
+    display: flex;
+    align-content: center;
+}
+
+.remember-me {
+    color: white;
+    margin-left: 4px;
+    font-size: 16px;
+}
+
+.checkmark {
+    height: 2vh;
+    width: 2vh;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    margin-right: 1vh;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* a links */
+.register {
+    color: white;  
+    font-weight: 600; 
+}
+
+.forgot-page{
+    font-size: 16px;
+}

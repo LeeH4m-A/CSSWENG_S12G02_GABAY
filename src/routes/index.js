@@ -15,11 +15,20 @@ import profile from './profile.js';
 import { accessControl } from '../middlewares/get_session.js';
 import { sidebarItems } from '../model/sidebarconfig.js';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const router = express.Router();
 
 router.use(accessControl);
 
 router.use((req, res, next) => {
+
+  let page = req.path.split('/')[1] || 'index';
+  res.locals.pageCss = `${page}.css`;
   res.locals.sidebarItems = sidebarItems;
   res.locals.currentPath = req.path;
   res.locals.user = req.session?.user;
@@ -71,14 +80,12 @@ router.get('/tracker', (req,resp) => {
 });
 
 /* TODO, path moment */
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 router.get('/exceljs', (req, res) => {
     const filePath = path.join(__dirname, '..', '..', 'node_modules', 'exceljs', 'dist', 'exceljs.min.js');
     res.sendFile(filePath);
 });
+
+
 export default router;

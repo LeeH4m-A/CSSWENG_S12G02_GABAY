@@ -79,7 +79,7 @@ const userSchema = new mongoose.Schema(
     name: { type: String },
     email: { type: String },
     password: { type: String },
-    role: { type: String, enum: ['Member', 'Data Encoder', 'Data Manager'] },
+    role: { type: String, enum: ['Member', 'Volunteer', 'Data Encoder', 'Data Manager'] },
     userIcon: { type: String },
     location: {
       barangay: { type: Number, min: 1, max: 188 }, // TODO: Change this as it could be a number or name
@@ -99,7 +99,7 @@ const userSchema = new mongoose.Schema(
 const loginHistorySchema = new mongoose.Schema(
   {
     name: { type: String },
-    role: { type: String, enum: ['Member', 'Data Encoder', 'Data Manager'] },
+    role: { type: String, enum: ['Member', 'Volunteer', 'Data Encoder', 'Data Manager'] },
     email: { type: String },
     lastLoginDateTime: { type: Date, default: Date.now }
   }, 
@@ -111,7 +111,7 @@ const loginHistorySchema = new mongoose.Schema(
 const actionHistorySchema = new mongoose.Schema(
   {
     name: { type: String },
-    role: { type: String, enum: ['Member', 'Data Encoder', 'Data Manager'] },
+    role: { type: String, enum: ['Member', 'Volunteer', 'Data Encoder', 'Data Manager'] },
     email: { type: String },
     action: { type: String },
     actionDateTime: { type: Date, default: Date.now }
