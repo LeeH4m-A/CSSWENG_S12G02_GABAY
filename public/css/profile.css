@@ -10,10 +10,11 @@
 }
 
 .container-for-organization {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* centers the WHOLE group */
+  align-items: center;
+  gap: 0; /* removes any flex spacing */
 }
 
 .side-logo {

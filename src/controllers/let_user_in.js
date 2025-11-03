@@ -31,6 +31,8 @@ export default async (req, res) => {
             email: user.email,
             role: user.role,
             userIcon: user.userIcon
+            ? `data:${user.userIcon.contentType};base64,${user.userIcon.data.toString('base64')}`
+            : null
         };
         res.redirect("/dashboard");
 

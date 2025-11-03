@@ -80,17 +80,16 @@ const userSchema = new mongoose.Schema(
     email: { type: String },
     password: { type: String },
     role: { type: String, enum: ['Member', 'Volunteer', 'Data Encoder', 'Data Manager'] },
-    userIcon: { type: String },
     location: {
-      barangay: { type: Number, min: 1, max: 188 }, // TODO: Change this as it could be a number or name
+      barangay: { type: Number, min: 1, max: 188 },
       city: { type: String, default: 'Caloocan' },
     },
     age: { type: Number, min: 0 },
-    gender: { type: String, enum: ['Male', 'Female', 'Other'] }, 
-    maritalStatus: { type: String, enum: ['Single', 'Married', 'Divorced', 'Widowed', 'Other'] },
-    educationLevel: { type: String },
-    occupation: { type: String },
-    incomeLevel: { type: String },
+    gender: { type: String, enum: ['Male', 'Female', 'Other'] },
+    userIcon: { data: Buffer, contentType: String},
+    birthday: {type: String},
+    contactNo: {type: String},
+
   }, 
   { versionKey: false }
 );

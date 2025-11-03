@@ -2,6 +2,7 @@ import express from 'express';
 import argon2 from 'argon2';
 import { transporter } from "../helpers/mailer.js";
 import { userModel } from '../model/model.js';
+import { ResultWithContextImpl } from 'express-validator/lib/chain/context-runner-impl.js';
 
 const router = express.Router();
 
@@ -84,5 +85,7 @@ router.get('/verify_password', async (req,resp) => {
     }
 
 });
+
+
 
 export default router;

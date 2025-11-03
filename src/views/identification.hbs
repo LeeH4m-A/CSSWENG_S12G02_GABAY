@@ -1,72 +1,111 @@
 {{! Temporary ID}}
 {{> sidebar}}
+
+
+<link rel="stylesheet" href="/css/identification.css">
+<link rel="stylesheet" href="/css/data.css">
+<link rel="stylesheet" href="/css/profile.css">
+
 <div class="main-content">
-    <div class="container-for-profile" style="transform: scale(0.9); transform-origin: center;">
-        <h1><b>Identification Card</b></h1> <br/>
-        <div class="profile-fields" style="gap: 0px;">
-            <br/>
-            <div class="id-info">
-                <div class="photo" style="margin-left:50px; width: 360px; height: 360px;">
-                    <img id="idPhoto" 
-                        src="https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg" 
-                        alt="ID Photo"
-                        style="
-                            width: 100%; 
-                            height: 100%; 
-                            object-fit: cover; 
-                            border-radius: 10px; 
-                            border: 2px solid #ccc;
-                        ">
-                </div>
-                <div style="flex: 1">
-                    <p><b id="profile-label" style="font-size: 3rem">{{user.name}}</b></p>
-                    <p id="idRole" style="color: #d41919; font-size: 1.5rem;">{{user.role}}</p>
-                    <p style="font-size: 1.25rem;">ID: <span id="idNumber" >{{user._id}}</p>
-                    <br/>
-                    <p style="font-size: 1.220rem;"><span id="idNumber" ><b>Join Date</b></span></p>
-                    <p style="font-size: 1.125rem;"><span id="idNumber" >MM/DD/YYYY</span></p>
-                     <br/>
-                    <p style="font-size: 1.220rem;"><span id="idNumber" ><b>Email</b></span></p>
-                    <p style="font-size: 1.125rem;"><span id="idNumber" >reze@csm.com</span></p>
-                </div>
-            </div>
-            <div style="margin-left:50px; margin-top: 20px; text-align: center;">
-                <label for="uploadPhoto" class="registration" style="cursor:pointer;">
-                    Upload Photo
-                </label>
-                <input type="file" id="uploadPhoto" accept="image/*" style="display:none;">
-            </div>
-        </div>
+  <h1 style="font-size: 3rem; margin-bottom: 10px;"><b>Identification Card</b></h1>
+
+  <div class="container-for-profile">
+    <div style="transform: scale(0.8); transform-origin: top center; margin-bottom: -3px;">
+      {{> organization_banner}}
     </div>
-    {{> footer}}
+
+    <div class="profile-fields" style="gap: 0px;">
+      <br/>
+      <div class="id-info">
+
+        {{! LEFT-SIDE }}
+        <div class="photo-for-profile">
+          {{#if user.userIcon}}
+            <img id="idPhoto" src="{{user.userIcon}}" alt="Profile Photo"/>
+          {{else}}
+            <img id="idPhoto" src="https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg" alt="No Photo"/>
+          {{/if}}
+
+
+          <!-- Overlay button -->
+          <div class="photo-overlay">
+            <label for="uploadPhoto" class="upload-label">Upload Photo</label>
+          </div>
+        </div>
+
+      <input type="file" id="uploadPhoto" accept="image/*" style="display:none;">
+
+        {{! LEFT SIDE}}
+        <div style="flex: 1; display:flex; flex-direction:column; justify-content:flex-start;">
+          <p>
+             <b id="profile-label" style="font-size: 3.5rem" class="editable" data-field="name">
+               {{user.name}}
+             </b> 
+             {{user.pronouns}}
+          </p>
+
+          <p id="idRole" style="color: #d41919; font-size: 2rem;" >{{user.role}}</p>
+          <p style="font-size: 2.75rem;">ID: <span id="idNumber">{{user._id}}</span></p>
+          <br/>
+
+          <div class="info-grid">
+            <div>
+              <p style="font-size: 2rem;"><b>Join Date</b></p>
+              <p style="font-size: 1.875rem;">{{user.joinDate}}</p>
+            </div>
+           
+            <div>
+              <p style="font-size: 2rem;"><b>Gender</b></p>
+              <p class="editable" data-field="gender" style="font-size: 1.875rem;">{{user.gender}}</p>
+            </div>
+
+            <div>
+              <p style="font-size: 2rem;"><b>Contact No.</b></p>
+              <p class="editable" data-field="contactNo" style="font-size: 1.875rem;">{{user.contactNo}}</p>
+            </div>
+            
+            <div>
+              <p style="font-size: 2rem;"><b>Birthday</b></p>
+              <p class="editable" data-field="birthday" style="font-size: 1.875rem;">{{user.birthday}}</p>
+            </div>
+             <div>
+              <p style="font-size: 2rem;"><b>Email</b></p>
+              <p style="font-size:1.875rem;">{{user.email}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div style="width: 100%; margin-left: 120px; margin-top: 50px; display:flex; flex-direction: flex-row; justify-content: space-around">
+        <div>
+        <p style="font-size: 2rem;"><b>Barangay</b></p>
+        <p class="editable" data-field="barangay" style="font-size: 1.875rem;">{{#if user.location.barangay}}
+          {{user.location.barangay}}
+        {{else}}
+          <br>
+        {{/if}}</p>
+        </div>
+        <div>
+        <p style="font-size: 2rem;"><b>City</b></p>
+        <p class="editable" data-field="city" style="font-size: 1.875rem;">{{user.location.city}}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button id="editInfoBtn" class="profile-submit-button edit-btn">Edit Info</button>
+    <button id="cancelEditBtn" class="profile-submit-button cancel-btn" style="display:none;">Cancel</button>
+    <a id="changePassword" class="profile-submit-button cancel-btn" href="/password/change-password" style="text-decoration: none;">Change Password</a>
+
+    <button id="printBtn" class="profile-submit-button print-btn">Print</button>
+  </div>
+
+  {{> footer}}
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-<style>
-.id-info {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 40px;
-    align-items: center;
-    width: 100%;
-}
 
-.photo{
-}
-
-</style>
-<script>
-  const upload = document.getElementById('uploadPhoto');
-  const photo = document.getElementById('idPhoto');
-
-  upload.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      photo.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-</script>
+<script src="/profile-id.js"></script>
