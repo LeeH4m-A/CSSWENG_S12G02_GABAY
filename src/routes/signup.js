@@ -61,8 +61,10 @@ router.post(
                 email,
                 password: hashedPassword,
                 role: "Member",
-                userIcon:
-                    "https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg",
+                userIcon: {
+                    contentType: null,
+                    data: null,
+                },
             });
 
             req.body.found_user = newUser; 

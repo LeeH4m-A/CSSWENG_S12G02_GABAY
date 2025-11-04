@@ -30,7 +30,7 @@ export default async (req, res) => {
             name: user.name,
             email: user.email,
             role: user.role,
-            userIcon: user.userIcon
+            userIcon: user.userIcon && user.userIcon.data
             ? `data:${user.userIcon.contentType};base64,${user.userIcon.data.toString('base64')}`
             : null
         };

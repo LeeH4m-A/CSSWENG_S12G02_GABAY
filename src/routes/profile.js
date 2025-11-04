@@ -107,9 +107,9 @@ router.get('/', async (req, res) => {
       location: userDoc.location,
       role: userDoc.role,
       joinDate,
-      userIcon: userDoc.userIcon
-        ? `data:${userDoc.userIcon.contentType};base64,${userDoc.userIcon.data.toString('base64')}`
-        : null
+      userIcon: userDoc.userIcon && userDoc.userIcon.data
+            ? `data:${userDoc.userIcon.contentType};base64,${userDoc.userIcon.data.toString('base64')}`
+            : null
     };
 
     res.render('identification', {

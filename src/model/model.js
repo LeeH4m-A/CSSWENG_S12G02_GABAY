@@ -86,7 +86,10 @@ const userSchema = new mongoose.Schema(
     },
     age: { type: Number, min: 0 },
     gender: { type: String, enum: ['Male', 'Female', 'Other'] },
-    userIcon: { data: Buffer, contentType: String},
+    userIcon: {
+      data: { type: Buffer, default: null },
+      contentType: { type: String, default: null }
+    },
     birthday: {type: String},
     contactNo: {type: String},
 
