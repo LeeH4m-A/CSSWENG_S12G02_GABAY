@@ -42,7 +42,7 @@
                         <td>
                             <form action="/user/edit" method="post" class="role-form">
                                 <input type="hidden" name="userId" value="{{_id}}">
-                                <select name="role" class="role-select" onchange="confirmRoleChange(this)">
+                                <select name="role" class="role-select" onchange="window.gabayHelpers.confirmRoleChange()">
                                     <option value="Member" {{isSelected role "Member"}}>Member</option>
                                     <option value="Data Encoder" {{isSelected role "Data Encoder"}}>Data Encoder</option>
                                     <option value="Data Manager" {{isSelected role "Data Manager"}}>Data Manager</option>
