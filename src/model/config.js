@@ -1,7 +1,7 @@
 const config = {
   public: ['/login', '/signup', '/forgot_password'],
   protected: {
-    Member: ['/profile/*', '/password/*', '/dashboard/*', '/logout', '/'],
+    Member: ['/profile/*', '/assets/*', '/change-password/*', '/dashboard/*', '/logout', '/'],
     'Data Encoder': ['/tracker' ],
     'Data Manager': ['/data/*', '/exceljs', '/history/*', '/patient/*', '/user/*'],
   },

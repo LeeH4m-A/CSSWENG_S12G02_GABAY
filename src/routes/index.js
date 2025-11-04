@@ -14,9 +14,10 @@ import user from './user.js';
 import profile from './profile.js';
 import { accessControl } from '../middlewares/get_session.js';
 import { sidebarItems } from '../model/sidebarconfig.js';
-
+import { userModel } from '../model/model.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import argon2 from 'argon2';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -85,6 +86,51 @@ router.get('/tracker', (req,resp) => {
 router.get('/exceljs', (req, res) => {
     const filePath = path.join(__dirname, '..', '..', 'node_modules', 'exceljs', 'dist', 'exceljs.min.js');
     res.sendFile(filePath);
+});
+
+
+router.get('/change-password', async (req, res) => {
+    res.render('changepassword', {
+        title: 'Change Password',
+        failed: req.query.failed,
+    });
+})
+
+// TODO: MAKE THIS BETTER, Should've done this a week ago
+router.post('/change-password', async (req, res) => {
+    try {
+    const { oldPassword, password, confirmPassword } = req.body;
+
+
+        const user = await userModel.findById(req.session.user._id);
+        if (!user) return res.send('<script>alert("User not found"); window.history.back();</script>');
+
+        // Verify old password
+        const isOldPasswordValid = await argon2.verify(user.password, oldPassword);
+        if (!isOldPasswordValid) return res.send('<script>alert("Old password is incorrect"); window.history.back();</script>');
+
+        // Check if new password matches confirmation
+        if (password !== confirmPassword) return res.send('<script>alert("Passwords do not match"); window.history.back();</script>');
+
+        // Check password length
+        if (password.length < 8) return res.send('<script>alert("Password must be at least 8 characters long"); window.history.back();</script>');
+
+        // Check if new password is same as old password
+        const isSameAsOld = await argon2.verify(user.password, password);
+        if (isSameAsOld) return res.send('<script>alert("New password cannot be the same as the old password"); window.history.back();</script>');
+
+        // Hash the new password and update
+        const hashedPassword = await argon2.hash(password);
+        await userModel.findByIdAndUpdate(user._id, { password: hashedPassword });
+
+        // Success alert
+        res.send('<script>alert("Password changed successfully"); window.location.href="/profile";</script>');
+    } catch (error) {
+        console.error(error);
+        res.send('<script>alert("Server error"); window.history.back();</script>');
+    }
+
+
 });
 
 
