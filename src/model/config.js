@@ -2,7 +2,7 @@ const config = {
   public: ['/login', '/signup', '/forgot_password'],
   protected: {
     Member: ['/profile/*', '/dashboard/*', '/logout', '/'],
-    'Data Encoder': ['/tracker', '/events', '/manageevents/*', '/viewevents/*', '/assignparticipants/*'],
+    'Data Encoder': ['/tracker', '/events', '/manageevents/*', '/viewevents/*', '/manageparticipants/*'],
     'Data Manager': ['/data/*', '/exceljs', '/history/*', '/patient/*', '/user/*'],
   },
   hierarchy: ['Member', 'Data Encoder', 'Data Manager'],

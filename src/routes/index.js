@@ -15,7 +15,7 @@ import profile from './profile.js';
 import events from './events.js';
 import manageevents from './manageevents.js';
 import viewevents from './viewevents.js';
-import assignparticipants from './assignparticipants.js';
+import manageparticipants from './manageparticipants.js';
 import { accessControl } from '../middlewares/get_session.js';
 import { sidebarItems } from '../model/sidebarconfig.js';
 
@@ -95,6 +95,6 @@ router.get('/exceljs', (req, res) => {
 router.use('/events', events); // events page
 router.use('/events', viewevents); // view events page
 router.use('/manageevents', manageevents); // manage events page
-router.use('/assignparticipants', assignparticipants); // assign participants page
+router.use('/manageparticipants', manageparticipants); // manage participants page
 
 export default router;
