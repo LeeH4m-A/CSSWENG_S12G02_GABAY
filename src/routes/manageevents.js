@@ -80,7 +80,7 @@ router.post('/createevent', async (req, res) => {
             category: req.body.category,
             location: {
                 venue: req.body.location.venue,
-                barangay: parseInt(req.body.location.barangay),
+                barangay: req.body.location.barangay,
                 city: req.body.location.city || 'Caloocan'
             },
             date_start: new Date(req.body.date_start),

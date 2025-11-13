@@ -40,10 +40,8 @@ router.get('/:id', async (req, res) => {
             event: event,
             participants: participantDetails,
             totalParticipants: participantDetails.length,
-            message: req.query.message,
             formattedStartDate: event.date_start ? new Date(event.date_start).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A',
             formattedEndDate: event.date_end ? new Date(event.date_end).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A',
-            pageCss: 'viewevents.css'
         });
 
     } catch (error) {

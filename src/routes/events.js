@@ -29,8 +29,6 @@ router.get('/', async (req, res) => {
             user: req.session.user,
             events: formattedEvents,
             totalEvents: formattedEvents.length,
-            message: req.query.message, // To display success messages from create event
-            pageCss: 'events.css'
         });
     } catch (error) {
         console.error('Error fetching events:', error);
@@ -39,8 +37,7 @@ router.get('/', async (req, res) => {
             user: req.session.user,
             events: [],
             totalEvents: 0,
-            error: 'Failed to load events.',
-            pageCss: 'events.css'
+            error: 'Failed to load events.'
         });
     }
 });

@@ -12,7 +12,6 @@
 .events-title {
     font-size: 2.2em;
     color: #333;
-    margin-bottom: 30px;
     text-align: center;
     border-bottom: 1px solid #b8b8b8;
     padding-bottom: 15px;
@@ -119,9 +118,9 @@
 .no-events-message {
     text-align: center;
     font-size: 1.1em;
-    color: #777;
+    color: #9B112E;
     grid-column: 1 / -1; /* Span across all columns */
     padding: 30px;
-    background-color: #f0f0f0;
+    background-color: #FFECF0;
     border-radius: 8px;
 }
