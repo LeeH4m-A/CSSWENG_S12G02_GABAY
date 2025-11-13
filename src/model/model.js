@@ -82,7 +82,7 @@ const userSchema = new mongoose.Schema(
     role: { type: String, enum: ['Member', 'Volunteer', 'Data Encoder', 'Data Manager'] },
     userIcon: { type: String },
     location: {
-      barangay: { type: Number, min: 1, max: 188 }, // TODO: Change this as it could be a number or name
+      barangay: { type: String }, // TODO: Change this as it could be a number or name
       city: { type: String, default: 'Caloocan' },
     },
     age: { type: Number, min: 0 },
@@ -135,7 +135,7 @@ const eventSchema = new mongoose.Schema(
     },
     location: {
       venue: { type: String, required: true },
-      barangay: { type: Number, min: 1, max: 188 },
+      barangay: { type: String },
       city: { type: String, default: 'Caloocan' },
     },
     date_start: { type: Date, required: true },
