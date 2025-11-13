@@ -3,63 +3,84 @@ import { eventModel, userModel, eventParticipantModel } from '../model/model.js'
 
 const router = express.Router();
 
-// GET route to show the manage participants page (for BOTH modes)
+const allRoles = ['Member', 'Volunteer', 'Data Encoder', 'Data Manager'];
+
 router.get('/:id', async (req, res) => {
     try {
         const eventId = req.params.id;
-        // Get the mode from the URL query, default to 'assign'
-        const mode = req.query.mode || 'assign'; 
+        
+        const mode = req.query.mode || 'assign';
+        const searchQuery = req.query.search || '';
+        const sortMode = req.query.sort || 'name_asc'; // Default sort
+        const roleFilter = req.query.role || 'all';   // Default filter
 
         if (!eventId.match(/^[0-9a-fA-F]{24}$/)) {
             return res.status(404).render('error', {
-                title: 'Event Not Found',
+                title: 'Page Not Found',
                 user: req.session.user,
-                message: 'Invalid Event ID format.'
+                message: 'The page you are looking for does not exist.'
             });
         }
 
         const event = await eventModel.findById(eventId);
-
         if (!event) {
-            return res.status(404).render('error', {
-                title: 'Event Not Found',
-                user: req.session.user,
-                message: 'The event you are looking for does not exist.'
-            });
+            // If no event is found, render a 404 or error page
+            return res.status(404).render('404'); 
         }
 
         let usersToList = [];
         let pageTitle = '';
-        let modeIsAssign = true; // Flag for Handlebars
+        let modeIsAssign = true;
 
-        // Fetch all users and assigned user IDs *once*
         const allUsers = await userModel.find({});
         const assignedParticipants = await eventParticipantModel.find({ eventId: eventId }).populate('userId');
         const assignedUserIds = assignedParticipants.map(p => p.userId._id.toString());
 
         if (mode === 'assign') {
-            // --- ASSIGN MODE ---
             pageTitle = 'Assign Participants';
             modeIsAssign = true;
-            
-            // Filter out users who are already assigned
             usersToList = allUsers.filter(user => !assignedUserIds.includes(user._id.toString()));
-
         } else {
-            // --- REMOVE MODE ---
             pageTitle = 'Remove Participants';
             modeIsAssign = false;
-            
-            // Get the full user objects for ONLY assigned participants
             usersToList = assignedParticipants.map(p => p.userId);
         }
+        let processedUsers = usersToList;
+        if (searchQuery) {
+            processedUsers = processedUsers.filter(user =>
+                user.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
 
-        res.render('manageparticipants', { // Render the new HBS file
+        if (roleFilter && roleFilter !== 'all') {
+            processedUsers = processedUsers.filter(user => 
+                user.role === roleFilter
+            );
+        }
+
+        processedUsers.sort((a, b) => {
+            const nameA = a.name.toLowerCase();
+            const nameB = b.name.toLowerCase();
+
+            switch (sortMode) {
+                case 'name_desc':
+                    return nameB.localeCompare(nameA);
+                case 'name_asc':
+                default:
+                    return nameA.localeCompare(nameB);
+            }
+        });
+
+        res.render('manageparticipants', {
             title: pageTitle,
             user: req.session.user,
             event: event,
-            users: usersToList,
-            modeIsAssign: modeIsAssign, // Pass the flag to the template
+            users: processedUsers,     
+            modeIsAssign: modeIsAssign,
+            searchQuery: searchQuery,   
+            currentSort: sortMode, 
+            currentRoleFilter: roleFilter, 
+            allRoles: allRoles         
         });
 
     } catch (error) {

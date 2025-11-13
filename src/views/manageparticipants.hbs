@@ -5,9 +5,53 @@
         <div class="header">
             <h1>Assign Participants to {{event.title}}</h1>
         </div>
-        <div class="container-for-assign-participants">
+    {{else}}
+        <div class="header">
+            <h1>Remove Participants from {{event.title}}</h1>
+        </div>
+    {{/if}}
+
+    <div class="container-for-assign-participants">
+        
+        {{#if modeIsAssign}}
             <h2 class="assign-participant-title">Select Participants to Assign</h2>
-            
+        {{else}}
+            <h2 class="assign-participant-title">Select Participants to Remove</h2>
+        {{/if}}
+
+        <div class="filter-bar">
+            <form method="GET" action="/manageparticipants/{{event.id}}">
+                
+                <input type="hidden" name="mode" value="{{#if modeIsAssign}}assign{{else}}remove{{/if}}">
+
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label for="search">Search Name:</label>
+                        <input type="search" name="search" id="search" value="{{searchQuery}}" placeholder="Search by name...">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="role">Filter by Role:</label>
+                        <select name="role" id="role">
+                            <option value="all" {{#if (eq currentRoleFilter "all")}}selected{{/if}}>All Roles</option>
+                            {{#each allRoles}}
+                                <option value="{{this}}" {{#if (eq ../currentRoleFilter this)}}selected{{/if}}>{{this}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sort">Sort by:</label>
+                        <select name="sort" id="sort">
+                            <option value="name_asc" {{#if (eq currentSort "name_asc")}}selected{{/if}}>Name (A-Z)</option>
+                            <option value="name_desc" {{#if (eq currentSort "name_desc")}}selected{{/if}}>Name (Z-A)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="filter-button">Apply</button>
+                </div>
+            </form>
+        </div>
+        {{#if modeIsAssign}}
             <form action="/manageparticipants/assign/{{event.id}}" method="POST">
                 <div class="user-list">
                     {{#if users}}
@@ -18,7 +62,7 @@
                             </div>
                         {{/each}}
                     {{else}}
-                        <p>No new users available to assign.</p>
+                        <p>No new users available to assign (or matching your filters).</p>
                     {{/if}}
                 </div>
                 <div class="form-actions">
@@ -26,17 +70,9 @@
                     <a href="/viewevents/{{event.id}}" class="cancel-button">Cancel</a>
                 </div>
             </form>
-        </div>
-
-    {{else}}
-        <div class="header">
-            <h1>Remove Participants from {{event.title}}</h1>
-        </div>
-        <div class="container-for-assign-participants">
-            <h2 class="assign-participant-title">Select Participants to Remove</h2>
-            
+        {{else}}
             <form action="/manageparticipants/remove/{{event.id}}" method="POST">
-                <div class="user-list">
+                 <div class="user-list">
                     {{#if users}}
                         {{#each users}}
                             <div class="user-item">
@@ -45,7 +81,7 @@
                             </div>
                         {{/each}}
                     {{else}}
-                        <p>No participants are currently assigned to this event.</p>
+                        <p>No participants are currently assigned (or matching your filters).</p>
                     {{/if}}
                 </div>
                 <div class="form-actions">
@@ -53,8 +89,9 @@
                     <a href="/viewevents/{{event.id}}" class="cancel-button">Cancel</a>
                 </div>
             </form>
-        </div>
-    {{/if}}
+        {{/if}}
+
+    </div>
 
     {{>footer}}
 </div>

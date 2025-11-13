@@ -10,10 +10,46 @@
 .assign-participant-title {
     font-size: 2.2em;
     color: #333;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     text-align: center;
     border-bottom: 2px solid #b8b8b8;
     padding-bottom: 15px;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    margin-bottom: 30px;
+    gap: 15px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #b8b8b8;
+    padding-bottom: 15px;
+}
+
+.filter-bar input[type="search"],
+.filter-bar select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.filter-button {
+    padding: 3px 15px;
+    background-color: #9B112E;
+    color: white;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+
+.filter-button:hover {
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid #9B112E;
 }
 
 .user-list {
