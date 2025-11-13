@@ -38,7 +38,7 @@ router.get('/',
 
 router.post('/update', upload.single('photo'), async (req, res) => {
   try {
-    const { name, age, birthday, contactNo, gender, barangay,city } = req.body;
+    const { name, age, birthday, contactNo, gender, barangay, city, revertPhoto } = req.body;
 
     const updateFields = { 
       name,
@@ -54,6 +54,8 @@ router.post('/update', upload.single('photo'), async (req, res) => {
         data: req.file.buffer,
         contentType: req.file.mimetype
       };
+    } else if (revertPhoto === 'true') {
+      updateFields.userIcon = null;
     }
 
     const updatedUser = await userModel.findOneAndUpdate(
@@ -64,21 +66,32 @@ router.post('/update', upload.single('photo'), async (req, res) => {
 
     if (!updatedUser) return res.status(404).json({ error: 'User not found' });
 
+    // Create a proper user object for response
+    const userResponse = {
+      ...updatedUser,
+      // If userIcon exists and has data, create a data URL for immediate display
+      userIcon: updatedUser.userIcon && updatedUser.userIcon.data 
+        ? `data:${updatedUser.userIcon.contentType};base64,${updatedUser.userIcon.data.toString('base64')}`
+        : null
+    };
+
     // Update session
     req.session.user = {
       ...req.session.user,
       name: updatedUser.name,
       gender: updatedUser.gender,
-      userIcon: updatedUser.userIcon
+      userIcon: userResponse.userIcon
     };
 
-    res.json({ message: 'Profile updated successfully', user: req.session.user });
+    res.json({ 
+      message: 'Profile updated successfully', 
+      user: userResponse 
+    });
   } catch (error) {
     console.error('Error updating profile:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-
 
 
 router.get('/', async (req, res) => {

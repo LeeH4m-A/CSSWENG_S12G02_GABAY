@@ -1,24 +1,21 @@
 {{! Temporary ID}}
 {{> sidebar}}
 
-
 <link rel="stylesheet" href="/css/identification.css">
 <link rel="stylesheet" href="/css/data.css">
 <link rel="stylesheet" href="/css/profile.css">
 
 <div class="main-content">
-  <h1 style="font-size: 3rem; margin-bottom: 10px;"><b>Identification Card</b></h1>
+  <h1 class="page-title">Identification Card</h1>
 
   <div class="container-for-profile">
-    <div style="transform: scale(0.8); transform-origin: top center; margin-bottom: -3px;">
+    <div class="organization-banner-wrapper">
       {{> organization_banner}}
     </div>
 
-    <div class="profile-fields" style="gap: 0px;">
-      <br/>
+    <div class="profile-fields">
       <div class="id-info">
-
-        {{! LEFT-SIDE }}
+        {{! LEFT-SIDE - Profile Photo }}
         <div class="photo-for-profile">
           {{#if user.userIcon}}
             <img id="idPhoto" src="{{user.userIcon}}" alt="Profile Photo"/>
@@ -26,79 +23,78 @@
             <img id="idPhoto" src="https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg" alt="No Photo"/>
           {{/if}}
 
-
-          <!-- Overlay button -->
           <div class="photo-overlay">
             <label for="uploadPhoto" class="upload-label">Upload Photo</label>
+            <button id="revertPhoto" class="revert-label">Revert to Default</button>
           </div>
         </div>
 
-      <input type="file" id="uploadPhoto" accept="image/*" style="display:none;">
+        <input type="file" id="uploadPhoto" accept="image/*" style="display:none;">
 
-        {{! LEFT SIDE}}
-        <div style="flex: 1; display:flex; flex-direction:column; justify-content:flex-start;">
-          <p>
-             <b id="profile-label" style="font-size: 3.5rem" class="editable" data-field="name">
-               {{user.name}}
-             </b> 
-             {{user.pronouns}}
-          </p>
+        {{! RIGHT-SIDE - User Info }}
+        <div class="user-info-container">
+          <div class="user-header">
+            <b id="profile-label" class="editable user-name" data-field="name">
+              {{user.name}}
+            </b> 
+            <span class="user-pronouns">{{user.pronouns}}</span>
+          </div>
 
-          <p id="idRole" style="color: #d41919; font-size: 2rem;" >{{user.role}}</p>
-          <p style="font-size: 2.75rem;">ID: <span id="idNumber">{{user._id}}</span></p>
-          <br/>
+          <p id="idRole" class="user-role">{{user.role}}</p>
+          <p class="user-id">ID: <span id="idNumber">{{user._id}}</span></p>
 
           <div class="info-grid">
-            <div>
-              <p style="font-size: 2rem;"><b>Join Date</b></p>
-              <p style="font-size: 1.875rem;">{{user.joinDate}}</p>
+            <div class="info-item">
+              <p class="info-label">Join Date</p>
+              <p class="info-value">{{user.joinDate}}</p>
             </div>
            
-            <div>
-              <p style="font-size: 2rem;"><b>Gender</b></p>
-              <p class="editable" data-field="gender" style="font-size: 1.875rem;">{{user.gender}}</p>
+            <div class="info-item">
+              <p class="info-label">Gender</p>
+              <p class="editable info-value" data-field="gender">{{user.gender}}</p>
             </div>
 
-            <div>
-              <p style="font-size: 2rem;"><b>Contact No.</b></p>
-              <p class="editable" data-field="contactNo" style="font-size: 1.875rem;">{{user.contactNo}}</p>
+            <div class="info-item">
+              <p class="info-label">Contact No.</p>
+              <p class="editable info-value" data-field="contactNo">{{user.contactNo}}</p>
             </div>
             
-            <div>
-              <p style="font-size: 2rem;"><b>Birthday</b></p>
-              <p class="editable" data-field="birthday" style="font-size: 1.875rem;">{{user.birthday}}</p>
+            <div class="info-item">
+              <p class="info-label">Birthday</p>
+              <p class="editable info-value" data-field="birthday">{{user.birthday}}</p>
             </div>
-             <div>
-              <p style="font-size: 2rem;"><b>Email</b></p>
-              <p style="font-size:1.875rem;">{{user.email}}</p>
+
+            <div class="info-item">
+              <p class="info-label">Email</p>
+              <p class="info-value">{{user.email}}</p>
             </div>
           </div>
         </div>
       </div>
     
-      <div style="width: 100%; margin-left: 120px; margin-top: 50px; display:flex; flex-direction: flex-row; justify-content: space-around">
-        <div>
-        <p style="font-size: 2rem;"><b>Barangay</b></p>
-        <p class="editable" data-field="barangay" style="font-size: 1.875rem;">{{#if user.location.barangay}}
-          {{user.location.barangay}}
-        {{else}}
-          <br>
-        {{/if}}</p>
+      <div class="location-info">
+        <div class="location-item">
+          <p class="info-label">Barangay</p>
+          <p class="editable info-value" data-field="barangay">
+            {{#if user.location.barangay}}
+              {{user.location.barangay}}
+            {{else}}
+              <br>
+            {{/if}}
+          </p>
         </div>
-        <div>
-        <p style="font-size: 2rem;"><b>City</b></p>
-        <p class="editable" data-field="city" style="font-size: 1.875rem;">{{user.location.city}}</p>
+        <div class="location-item">
+          <p class="info-label">City</p>
+          <p class="editable info-value" data-field="city">{{user.location.city}}</p>
         </div>
       </div>
-
     </div>
   </div>
 
   <div class="action-buttons">
     <button id="editInfoBtn" class="profile-submit-button edit-btn">Edit Info</button>
     <button id="cancelEditBtn" class="profile-submit-button cancel-btn" style="display:none;">Cancel</button>
-    <a id="changePassword" class="profile-submit-button cancel-btn" href="/change-password" style="text-decoration: none;">Change Password</a>
-
+    <a id="changePassword" class="profile-submit-button cancel-btn" href="/change-password">Change Password</a>
     <button id="printBtn" class="profile-submit-button print-btn">Print</button>
   </div>
 
@@ -106,6 +102,4 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
-
 <script src="/profile-id.js"></script>
