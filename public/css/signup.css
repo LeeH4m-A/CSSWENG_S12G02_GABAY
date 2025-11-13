@@ -134,22 +134,26 @@
     background-color: #9B112E;
     padding: 0 4px;
 }
-
-/* Label animation when focused or has value */
+/* Label animation when focused */
 .floating-input input:focus + label,
-.floating-input input:not(:placeholder-shown) + label,
-.floating-input select:focus + label,
-.floating-input select:valid + label {
+.floating-input select:focus + label {
     top: 0;
     left: 8px;
     font-size: 12px;
     color: #ffd700;
 }
 
-/* Fix for select and date inputs */
-.floating-input select:not([value=""]):not(:focus) + label,
-.floating-input input[type="date"]:not(:placeholder-shown) + label,
-.floating-input input[type="date"]:valid:not(:focus) + label {
+/* Label animation when has value (not focused) */
+.floating-input input:not(:placeholder-shown):not(:focus) + label,
+.floating-input select:not(:focus):valid + label {
+    top: 0;
+    left: 8px;
+    font-size: 12px;
+    color: white;
+}
+
+/* Fix for date inputs */
+.floating-input input[type="date"]:valid + label {
     top: 0;
     left: 8px;
     font-size: 12px;
