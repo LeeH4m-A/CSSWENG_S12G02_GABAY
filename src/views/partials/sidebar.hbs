@@ -1,0 +1,27 @@
+<div class="sidebar">
+    <div class="top">
+        <div class="logo">
+            <img id="logo-mini" src="./logo.png" alt="logo"/>
+            <span>HIV Advocacy Database (HAD)</span>
+        </div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    
+    <ul>
+        {{#each sidebarItems}}
+            {{#if (includes this.roles ../user.role)}}
+            <li class="{{isActive this.href ../currentPath}}">
+                <a href="{{this.href}}">
+                <i class="bx {{this.icon}}"></i>
+                <span class="nav-item">{{this.label}}</span>
+                </a>
+                <span class="tooltip">{{this.label}}</span>
+            </li>
+            {{/if}}
+        {{/each}}
+
+        {{>logout}}
+    </ul>
+
+    {{>user}}
+</div>

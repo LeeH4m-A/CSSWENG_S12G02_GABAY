@@ -1,0 +1,72 @@
+{{! Temporary ID}}
+{{> sidebar}}
+<div class="main-content">
+    <div class="container-for-profile" style="transform: scale(0.9); transform-origin: center;">
+        <h1><b>Identification Card</b></h1> <br/>
+        <div class="profile-fields" style="gap: 0px;">
+            <br/>
+            <div class="id-info">
+                <div class="photo" style="margin-left:50px; width: 360px; height: 360px;">
+                    <img id="idPhoto" 
+                        src="https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg" 
+                        alt="ID Photo"
+                        style="
+                            width: 100%; 
+                            height: 100%; 
+                            object-fit: cover; 
+                            border-radius: 10px; 
+                            border: 2px solid #ccc;
+                        ">
+                </div>
+                <div style="flex: 1">
+                    <p><b id="profile-label" style="font-size: 3rem">{{user.name}}</b></p>
+                    <p id="idRole" style="color: #d41919; font-size: 1.5rem;">{{user.role}}</p>
+                    <p style="font-size: 1.25rem;">ID: <span id="idNumber" >{{user._id}}</p>
+                    <br/>
+                    <p style="font-size: 1.220rem;"><span id="idNumber" ><b>Join Date</b></span></p>
+                    <p style="font-size: 1.125rem;"><span id="idNumber" >MM/DD/YYYY</span></p>
+                     <br/>
+                    <p style="font-size: 1.220rem;"><span id="idNumber" ><b>Email</b></span></p>
+                    <p style="font-size: 1.125rem;"><span id="idNumber" >reze@csm.com</span></p>
+                </div>
+            </div>
+            <div style="margin-left:50px; margin-top: 20px; text-align: center;">
+                <label for="uploadPhoto" class="registration" style="cursor:pointer;">
+                    Upload Photo
+                </label>
+                <input type="file" id="uploadPhoto" accept="image/*" style="display:none;">
+            </div>
+        </div>
+    </div>
+    {{> footer}}
+</div>
+
+
+<style>
+.id-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+}
+
+.photo{
+}
+
+</style>
+<script>
+  const upload = document.getElementById('uploadPhoto');
+  const photo = document.getElementById('idPhoto');
+
+  upload.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      photo.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+</script>

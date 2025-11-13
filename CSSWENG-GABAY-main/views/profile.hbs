@@ -1,0 +1,126 @@
+<div class="sidebar">
+    <div class="top">
+        <div class="logo">
+            <img id="logo-mini" src="./logo.png" alt="logo"/>
+            <span>HIV Advocacy Database (HAD)</span>
+        </div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    
+    <ul>
+        <li>
+            <a href="/dashboard">
+                <i class="bx bxs-grid-alt"></i>
+                <span class="nav-item">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+        {{#if (or (eq user.role "Data Encoder") (eq user.role "Data Manager"))}}
+        <li>
+            <a href="/tracker">
+                <i class="bx bxs-pencil"></i>
+                <span class="nav-item">Data Tracker</span>
+            </a>
+            <span class="tooltip">Data Tracker</span>
+        </li>
+        {{/if}}
+        {{#if (eq user.role "Data Manager")}}
+        <li>
+            <a href="/data">
+                <i class="bx bx-table"></i>
+                <span class="nav-item">Data Log</span>
+            </a>
+            <span class="tooltip">Data Log</span>
+        </li>
+        {{/if}}
+        <li class="active">
+            <a href="/profile">
+                <i class="bx bxs-user"></i>
+                <span class="nav-item">Profile</span>
+            </a>
+            <span class="tooltip">Profile</span>
+        </li>
+        {{#if (eq user.role "Data Manager")}}
+        <li>
+            <a href="/history">
+                <i class="bx bx-list-ul"></i>
+                <span class="nav-item">History Log</span>
+            </a>
+            <span class="tooltip">History Log</span>
+        </li>
+        {{/if}}
+        {{#if (eq user.role "Data Manager")}}
+        <li>
+            <a href="/user">
+                <i class="bx bxs-user-detail"></i>
+                <span class="nav-item">User Data</span>
+            </a>
+            <span class="tooltip">User Data</span>
+        </li>
+        {{/if}}
+        {{>logout}}
+    </ul>
+
+    {{>user}}
+</div>
+
+<div class="main-content">
+
+    <div class="header">
+        <h1>Profile</h1>
+    </div>
+    
+    <div class="container-for-profile">
+        <div class="container-for-organization">
+            <div class="side-logo">
+                <img src="{{user.userIcon}}" alt="gabay org" class="side-logo">
+            </div>
+            <div class="container-for-information">
+                <div class="information">
+                    <span class="org">Guide and Advocacy to Build on Aspirations of Yahweh (GABAY) Inc.</span>
+                    <span class="address">Principal Address: Block 25 Lot 66 Neovista Homes, Bagumbong, Caloocan City</span>
+                    <span class="address">Office Address: Blk 174 Lot 6 Phase 8 Package 11, Bagong Silang, Caloocan City</span>
+                </div>
+                <div class="contact-info">
+                    <span class="contact-item">
+                        <i class="bx bxs-phone"></i> (+632) 8352 - 4930 / (0950) 705-3118
+                    </span>
+                    <span class="contact-item">
+                        <i class="bx bxs-envelope"></i> gabay.caloocan2017@gmail.com
+                    </span>
+                    <span class="contact-item">
+                        <i class="bx bxl-facebook-circle"></i> <a href="https://www.facebook.com/people/Guide-and-Advocacy-to-Build-on-Aspirations-of-Yahweh-Inc/100094331334641/">facebook.com/GABAY</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <form action="update-profile" method="post"> 
+        <div class="profile-fields">
+            <div class="profile-input-field">
+                <label for="name" class="profile-label">NAME</label>
+                <input type="text" name="name" class="profile-textarea" value="{{user.name}}" required>
+            </div>
+
+            <div class="profile-input-field">
+                <label for="role" class="profile-label">ROLE</label>
+                <input type="text" name="role" class="profile-textarea" value="{{user.role}}" readonly>
+            </div>
+        </div>
+        <div class="profile-fields">
+            <div class="profile-input-field">
+                <label for="email" class="profile-label">EMAIL</label>
+                <input type="email" name="email" class="profile-textarea" value="{{user.email}}" required>
+            </div>
+
+            <div class="profile-input-field">
+                <label for="current-password" class="profile-label">PASSWORD</label>
+                <input type="password" name="password" class="profile-textarea" placeholder="Enter new password">
+            </div>
+        </div>
+            <input type="submit" class="profile-submit-button" value="Save Changes">
+        </form>
+    </div>
+
+    {{>footer}}
+</div>

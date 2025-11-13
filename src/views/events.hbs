@@ -1,0 +1,47 @@
+{{> sidebar}}
+
+<div class="main-content">
+    <div class="header">
+        <h1>Events</h1>
+    </div>
+
+    <div class="container-for-events">
+        <h2 class="events-title">Listed Events</h2>
+
+        {{#if message}}
+            <div class="success-message" style="color: green; text-align: center; margin-bottom: 15px; font-weight: bold;">
+                {{message}}
+            </div>
+        {{/if}}
+        {{#if error}}
+            <div class="error-message" style="color: red; text-align: center; margin-bottom: 15px; font-weight: bold;">
+                {{error}}
+            </div>
+        {{/if}}
+
+        <div class="events-summary">
+            <span>Total Events: {{totalEvents}}</span>
+            <button class="create-event-button" onclick="window.location.href='/manageevents'">Create Event</button>
+        </div>
+
+        <div class="events-list-container">
+            {{#if events.length}}
+                {{#each events}}
+                    <div class="event-card">
+                        <h3 class="event-card-title">{{this.title}}</h3>
+                        <p class="event-card-organizer"><strong>Organizer:</strong> {{this.organizer}}</p>
+                        <p class="event-card-category"><strong>Category:</strong> {{this.category}}</p>
+                        <p class="event-card-location"><strong>Location:</strong> {{this.location.venue}}, {{this.location.barangay}}, {{this.location.city}}</p>
+                        <p class="event-card-date"><strong>Date:</strong> {{this.formattedStartDate}} - {{this.formattedEndDate}}</p>
+                        <p class="event-card-status"><strong>Status:</strong> {{this.event_status}}</p>
+                        <a href="{{this.viewUrl}}" class="view-details-link">View Details</a>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p class="no-events-message">No events found. Start by creating one!</p>
+            {{/if}}
+        </div>
+    </div>
+
+    {{>footer}}
+</div>

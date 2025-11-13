@@ -1,0 +1,85 @@
+{{> sidebar}}
+
+<div class="main-content">
+    <div class="header">
+        <h1>History Log</h1>
+    </div>
+    
+    <div class="container-for-loginhistory">
+        <h2 class="headline">Login History</h2>
+        <table class="history-log">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Email Address</th>
+                    <th>Last Login Date & Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each loginHistory}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.role}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{formatDate this.lastLoginDateTime}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        
+        <!-- pagination for login history -->
+        <div class="pagination">
+            {{#if loginHistoryPrev}}
+                <a href="/history?loginPage={{loginHistoryPrev}}" class="pagination-icon">&lt;</a>
+            {{/if}}
+
+            <span>Page {{loginHistoryPage}} of {{loginHistoryTotalPages}}</span>
+
+            {{#if loginHistoryNext}}
+                <a href="/history?loginPage={{loginHistoryNext}}" class="pagination-icon">&gt;</a>
+            {{/if}}
+        </div>
+    </div>
+
+    <div class="container-for-actionhistory">
+        <h2 class="headline">Action History</h2>
+        <table class="history-log">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Email Address</th>
+                    <th>Action</th>
+                    <th>Action Date & Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each actionHistory}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.role}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.action}}</td>
+                    <td>{{formatDate this.actionDateTime}}</td> 
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        
+        <!-- pagination for action history -->
+        <div class="pagination">
+            {{#if actionHistoryPrev}}
+                <a href="/history?actionPage={{actionHistoryPrev}}" class="pagination-icon">&lt;</a>
+            {{/if}}
+
+            <span>Page {{actionHistoryPage}} of {{actionHistoryTotalPages}}</span>
+
+            {{#if actionHistoryNext}}
+                <a href="/history?actionPage={{actionHistoryNext}}" class="pagination-icon">&gt;</a>
+            {{/if}}
+        </div>
+    </div>
+
+    {{>footer}}
+</div>

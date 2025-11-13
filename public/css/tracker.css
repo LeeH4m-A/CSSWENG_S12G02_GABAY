@@ -1,0 +1,139 @@
+/* DATA TRACKER PAGE + EDIT PATIENT RECORDS */
+.container-for-tracker {
+    background-color: #FFECF0;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin: 30px;
+}
+
+.container-for-fields {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add-record, .edit-record, .filter-data {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.field, .biomedicalfield, .nonbiomedicalfield,
+.edit-biomedicalfield, .edit-nonbiomedicalfield, .filter-field {
+    display: flex;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.visible {
+    display: flex;
+}
+
+.biomedicalfield, .nonbiomedicalfield,
+#barangay-field, #remarks-field, .hidden, #doNotKnowOption {
+    display: none;
+}
+
+.data-label {
+    width: 500px;
+    justify-content: center;
+    font-size: 22px;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.filter-label {
+    width: 200px;
+    justify-content: center;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.data-input, .biomedicalfield select, .nonbiomedicalfield select,
+.edit-biomedicalfield select, .edit-nonbiomedicalfield select,
+.filter-field select {
+    height: 40px;
+    padding: 5px;
+    margin-left: 50px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-size: 20px;
+    flex: 1;
+}
+
+.div-filter {
+    margin-bottom: 20px;
+}
+
+.clear-button, .submit-button, .edit-button {
+    border-radius: 20px;
+    margin-top: 10px;
+    background-color: #9B112E;
+    color: white;
+    border: 3px solid #9B112E;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    text-wrap: nowrap;
+    cursor: pointer;
+}
+
+.clear-button:hover, .submit-button:hover, .edit-button:hover {
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid #9B112E;
+}
+
+.radio-option {
+    display: inline-block;
+    margin-left: 50px;
+    margin-right: 22px;
+    font-size: 20px;
+}
+
+/* MODAL EDIT FORM */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: #eee;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: auto;
+    padding: 20px;
+    width: 80%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,35 @@
+<div class="parent-registration">
+    <!-- left section : image -->
+    <div class="leftSide">
+        <div class="img">
+            <img class="logo" src="./logo.png" alt="logo"/>
+        </div>
+    </div>
+    
+    <!-- right section : form -->
+    <div class="rightSide">
+        <p class="main"><b>Welcome Back Again</b></p>
+        <p class="details">Please Enter Your Detail</p>
+        
+        <form name="read-user" action="login" method="post">
+            <div class="form-group">
+                <input name="email" id="email-field" type="email" placeholder="Email" required></input>
+            </div>
+            <div class="form-group">
+                <input name="password" id="password-field" type="password" placeholder="Password" required></input>
+            </div>
+            <div class="form-group">
+                <div class="miniform-group">
+                    <input type="checkbox" id="remember-me" name="remember" value="true">
+                    <label class="remember-me">Remember for 30 days</label>
+                </div>
+                <div class="miniform-group">
+                    <p class="forgot-page"><a class="register" href="/forgot_password">Forgot Password?</a></p>
+                </div>
+            </div>
+            <input type="submit" class="registration" value="Login"></input>
+        </form>
+
+        <p class="signup-page">New here? <a class="register" href="/signup">Create an account</a></p>
+    </div>
+</div>

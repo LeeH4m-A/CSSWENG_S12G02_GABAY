@@ -1,0 +1,133 @@
+/* PROFILE PAGE */
+.container-for-profile {
+    background-color: #FFECF0;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    padding: 30px;
+    margin: 30px;
+}
+
+.container-for-organization {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.side-logo {
+    width: 20%;
+    padding: 20px;
+}
+
+.side-logo img {
+    width: 250px;
+    height: 250px;
+    border-radius: 100%;
+}
+
+.information span {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.org {
+    font-weight: bold;
+    font-size: 32px;
+    color: #9B112E;
+}
+
+.address {
+    font-size: 21px;
+}
+
+.contact-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 18px;
+}
+
+.contact-item i {
+    font-size: 24px;
+    color: #9B112E;
+}
+
+.contact-item a {
+    color: black;
+    text-decoration: none;
+}
+
+.contact-item a:hover {
+    text-decoration: underline;
+}
+
+.profile-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.profile-input-field {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 calc(50% - 50px);
+    min-width: 250px;
+}
+
+.profile-label {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.profile-textarea {
+    width: 100%;
+    height: 50px;
+    border: 2px solid black;
+    background-color: #f9f9f9;
+    font-size: 22px;
+    border-radius: 10px;
+    font-weight: lighter;
+    padding: 10px;
+}
+
+.profile-submit-button {
+    border-radius: 20px;
+    background-color: #9B112E;
+    color: white;
+    border: 3px solid #9B112E;
+    padding: 10px 20px;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-end;
+    margin-top: 10px;
+}
+
+.profile-submit-button:hover {
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid #9B112E;
+}
+
+.container-for-profile form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    gap: 20px;
+    margin: 0 auto;
+}

@@ -1,0 +1,101 @@
+{{> sidebar}}
+
+<div class="main-content">
+    <div class="header">
+        <h1>{{#if event._id}}Edit Event{{else}}Create Event{{/if}}</h1>
+    </div>
+
+    <div class="container-for-createevents">
+        <h2 class="events-title">{{#if event._id}}Event Details{{else}}New Event Details{{/if}}</h2>
+
+        {{#if error}}
+            <div class="error-message" style="color: red; text-align: center; margin-bottom: 15px; font-weight: bold;">
+                {{error}}
+            </div>
+        {{/if}}
+
+         <form action="{{#if event._id}}/manageevents/{{event._id}}{{else}}/manageevents/createevent{{/if}}" method="POST" class="manage-event-form">
+
+            <div class="section-container">
+                <h3>Overview</h3>
+          
+                <div class="input-container">
+                    <label>Event Title:</label>
+                    <input type="text" id="title" name="title" value="{{event.title}}" required>
+                </div>
+
+                <div class="input-container">
+                    <label>Description:</label>
+                    <textarea id="description" name="description" class="description-textarea" rows="4">{{event.description}}</textarea>
+                </div>
+
+                <div class="input-container">
+                    <label>Category:</label>
+                    <select id="category" name="category" required>
+                        <option value="" disabled {{#unless event.category}}selected{{/unless}}>Select a category</option>
+                        <option value="Community Outreach" {{#if (eq event.category "Community Outreach")}}selected{{/if}}>Community Outreach</option>
+                        <option value="Training" {{#if (eq event.category "Training")}}selected{{/if}}>Training</option>
+                        <option value="Meeting" {{#if (eq event.category "Meeting")}}selected{{/if}}>Meeting</option>
+                        <option value="Seminar" {{#if (eq event.category "Seminar")}}selected{{/if}}>Seminar</option>
+                        <option value="Workshop" {{#if (eq event.category "Workshop")}}selected{{/if}}>Workshop</option>
+                        <option value="Other" {{#if (eq event.category "Other")}}selected{{/if}}>Other</option>
+                     </select>
+                </div>
+
+                <div class="input-container">
+                    <label>Organizer:</label>
+                    <input type="text" id="organizer" name="organizer" value="{{event.organizer}}" required>
+                </div>
+   
+                {{#if event._id}}
+                <div class="input-container">
+                    <label>Status:</label>
+                    <select id="event_status" name="event_status" required>
+                        <option value="Scheduled" {{#if (eq event.event_status "Scheduled")}}selected{{/if}}>Scheduled</option>
+                        <option value="Ongoing" {{#if (eq event.event_status "Ongoing")}}selected{{/if}}>Ongoing</option>
+                        <option value="Completed" {{#if (eq event.event_status "Completed")}}selected{{/if}}>Completed</option>
+                        <option value="Cancelled" {{#if (eq event.event_status "Cancelled")}}selected{{/if}}>Cancelled</option>
+                    </select>
+                </div>
+                {{/if}}
+            </div>
+
+            <div class="section-container">
+                <h3>Location</h3>
+                <div class="input-container">
+                    <label for="venue">Venue:</label>
+                    <input type="text" id="venue" name="location[venue]" value="{{event.location.venue}}" required>
+                </div>
+
+                <div class="input-container">
+                    <label for="barangay">Barangay:</label>
+                    <input type="text" id="barangay" name="location[barangay]" value="{{event.location.barangay}}" required>
+                </div>
+                
+                <div class="input-container">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="location[city]" value="{{event.location.city}}"     
+                    placeholder="Caloocan" required>
+                </div>
+            </div>
+
+            <div class="section-container">
+                <h3>Date</h3>
+                <div class="input-container">
+                    <label>Start Date:</label>
+                    <input type="date" id="date_start" name="date_start" value="{{event.date_start}}" required>
+                </div>
+                <div class="input-container">
+                    <label>End Date:</label>
+                    <input type="date" id="date_end" name="date_end" value="{{event.date_end}}" required>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="back-button" onclick="window.location.href='/events'">Back</button>
+                <button type="submit" class="submit-event-button">{{#if event._id}}Save Changes{{else}}Create Event{{/if}}</button>
+            </div>
+        </form>
+    </div>
+
+    {{>footer}}
