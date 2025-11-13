@@ -55,6 +55,34 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+router.get('/delete/:id', async (req, res) => {
+    const eventId = req.params.id;
+
+    try {
+        const deletedEvent = await eventModel.findByIdAndDelete(eventId);
+
+        if (!deletedEvent) {
+            // Render a 404 page
+            return res.status(404).render('404', {
+                title: 'Not Found',
+                user: req.session.user
+            });
+        }
+
+        // Redirect to the main events list with a success message
+        res.redirect('/events?message=Event%20deleted%20successfully');
+
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        // If an error occurs, render the generic error page
+        res.status(500).render('error', {
+            title: 'Error',
+            user: req.session.user,
+            message: 'Failed to delete the event.'
+        });
+    }
+});
+
 // POST route to handle event creation
 router.post('/createevent', async (req, res) => {
     try {
