@@ -1,7 +1,5 @@
 /* SIGNUP PAGE STYLES */
 
-/* mostly same as login but can have slight adjustments if needed */
-
 .parent-registration {
     display: flex;
     justify-content: center;
@@ -17,9 +15,9 @@
     border-radius: 20px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 5%;
+    padding: 2% 5% 5% 5%; 
     box-sizing: border-box;
-    width: 600px; /* slightly wider for signup form */
+    width: 600px;
     max-height: 90%;
 }
 
@@ -40,35 +38,141 @@
     font-size: 16px; 
 }
 
+/* Form Group Styling */
 .form-group {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2vh;
+    margin-bottom: 20px;
     position: relative;
-    font-size: 1vw;
 }
 
-.form-group input[type="text"],
-.form-group input[type="email"], 
-.form-group input[type="password"],
-.form-group select {
+/* Floating Input Styling */
+.floating-input {
+    position: relative;
+    flex: 1;
+    margin-right: 8px;
+}
+
+.floating-input:last-child {
+    margin-right: 0;
+}
+
+.floating-input.full-width {
+    flex: 1;
+    margin-right: 0;
+}
+
+/* Password Container */
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    user-select: none;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    color: #ffd700;
+}
+
+/* Adjust input padding for password fields to make space for eye icon */
+.password-container input {
+    padding-right: 40px !important;
+}
+
+/* Name row specific styling - 3 columns */
+.name-row .floating-input {
+    width: calc(33.333% - 6px);
+}
+
+/* Contact + Birthday row specific styling - 2 columns */
+.contact-birthday-row .floating-input,
+.address-row .floating-input {
+    width: calc(50% - 4px);
+}
+
+/* Input and Select Styling */
+.floating-input input,
+.floating-input select {
     width: 100%;
-    padding: 1vh;
+    padding: 16px 12px 8px 12px;
     background-color: #9B112E;
     border: none;
     border-bottom: 2px solid white;
     outline: none;
-    font-size: 1vw;
     color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
 }
 
-.form-group input::placeholder {
+.floating-input input:focus,
+.floating-input select:focus {
+    border-bottom-color: #ffd700;
+}
+
+/* Floating Labels */
+.floating-input label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
     color: white;
+    font-size: 16px;
     font-weight: bold;
-    font-size: 18px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: #9B112E;
+    padding: 0 4px;
 }
 
+/* Label animation when focused or has value */
+.floating-input input:focus + label,
+.floating-input input:not(:placeholder-shown) + label,
+.floating-input select:focus + label,
+.floating-input select:valid + label {
+    top: 0;
+    left: 8px;
+    font-size: 12px;
+    color: #ffd700;
+}
+
+/* Fix for select and date inputs */
+.floating-input select:not([value=""]):not(:focus) + label,
+.floating-input input[type="date"]:not(:placeholder-shown) + label,
+.floating-input input[type="date"]:valid:not(:focus) + label {
+    top: 0;
+    left: 8px;
+    font-size: 12px;
+    color: white;
+}
+
+/* Select dropdown styling */
+.floating-input select {
+    appearance: none;
+    cursor: pointer;
+}
+
+.floating-input select option {
+    background-color: white;
+    color: #333;
+}
+
+/* Placeholder color */
+.floating-input input::placeholder {
+    color: transparent;
+}
+
+/* Submit Button */
 .registration {
     display: block;
     width: 100%;
@@ -81,34 +185,49 @@
     font-size: 18px; 
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    margin-top: 10px;
 }
 
 .registration:hover {
     background-color: #9B112E;
     color: white;
-    border: 3px solid white;
 }
 
-/* checkbox */
-.miniform-group {
-    display: flex;
-    align-content: center;
+.signup-page {
+    text-align: center;
+    margin-top: 20px;
 }
 
-.remember-me {
+.signup-page a {
     color: white;
-    margin-left: 4px;
-    font-size: 16px;
+    text-decoration: none;
+    font-weight: bold;
 }
 
-.checkmark {
-    height: 2vh;
-    width: 2vh;
-    background-color: #fff;
-    border: 2px solid #ccc;
-    border-radius: 3px;
-    margin-right: 1vh;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.signup-page a:hover {
+    text-decoration: underline;
 }
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .rightSide {
+        width: 90%;
+        padding: 8%;
+    }
+    
+    .form-group {
+        flex-direction: column;
+    }
+    
+    .floating-input {
+        width: 100% !important;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .floating-input:last-child {
+        margin-bottom: 0;
+    }
+}
+

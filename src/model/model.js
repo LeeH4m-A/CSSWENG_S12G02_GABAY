@@ -76,23 +76,25 @@ const patientSchema = new mongoose.Schema(
 // schema for user
 const userSchema = new mongoose.Schema(
   {
-    name: { type: String },
-    email: { type: String },
-    password: { type: String },
-    role: { type: String, enum: ['Member', 'Volunteer', 'Data Encoder', 'Data Manager'] },
+    name: { type: String, required: true },
+    first_name: { type: String, required: true },
+    middle_name: { type: String },
+    last_name: { type: String, required: true },
+    suffix: { type: String },
+    email: { type: String, required: true},
+    password: { type: String, required: true},
+    role: { type: String, enum: ['Member', 'Volunteer', 'Data Encoder', 'Data Manager'], required: true},
     location: {
-      barangay: { type: Number, min: 1, max: 188 },
+      barangay: { type: String, required: true },
       city: { type: String, default: 'Caloocan' },
     },
-    age: { type: Number, min: 0 },
-    gender: { type: String, enum: ['Male', 'Female', 'Other'] },
+    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
     userIcon: {
       data: { type: Buffer, default: null },
       contentType: { type: String, default: null }
     },
-    birthday: {type: String},
-    contactNo: {type: String},
-
+    birthday: { type: String},
+    contactNo: { type: String, required: true},
   }, 
   { versionKey: false }
 );
