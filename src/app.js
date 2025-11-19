@@ -14,6 +14,7 @@ import db_conn from "./model/db.js";
 
 /* Routes */
 import index from './routes/index.js';
+import viewEventsRoutes from './routes/viewevents.js';
 
 const server = express();
 const port = process.env.PORT || 3000;
@@ -93,6 +94,7 @@ server.use("/", express.static("public"));
 /* Set routers */
 
 server.use("/", index);
+server.use('/viewevents', viewEventsRoutes);
 /* TODO: Remove once done, this is for quick session removal*/
 server.get('/session/destroy', (req, res) => {
   req.session.destroy();

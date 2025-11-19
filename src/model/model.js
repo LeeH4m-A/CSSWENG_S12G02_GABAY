@@ -139,7 +139,7 @@ const eventSchema = new mongoose.Schema(
     },
     location: {
       venue: { type: String, required: true },
-      barangay: { type: Number, min: 1, max: 188 },
+      barangay: { type: String },
       city: { type: String, default: 'Caloocan' },
     },
     date_start: { type: Date, required: true },

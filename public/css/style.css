@@ -669,7 +669,7 @@ select.monthly:hover, .yearly:hover{
 .container-for-organization{
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 

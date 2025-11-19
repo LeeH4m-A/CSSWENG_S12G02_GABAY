@@ -5,4 +5,5 @@ export const sidebarItems = [
   { label: "Profile", icon: "bxs-user", href: "/profile", roles: ["Member","Data Encoder","Data Manager"] },
   { label: "History Log", icon: "bx-list-ul", href: "/history", roles: ["Data Manager"] },
   { label: "User Data", icon: "bxs-user-detail", href: "/user", roles: ["Data Manager"] },
+  { label: "Events", icon: "bxs-calendar", href: "/events", roles: ["Data Manager", "Data Encoder"] },
 ];

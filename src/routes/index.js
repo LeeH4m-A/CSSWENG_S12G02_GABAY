@@ -15,9 +15,14 @@ import profile from './profile.js';
 import { accessControl } from '../middlewares/get_session.js';
 import { sidebarItems } from '../model/sidebarconfig.js';
 import { userModel } from '../model/model.js';
+import argon2 from 'argon2';
+import events from './events.js';
+import manageevents from './manageevents.js';
+import viewevents from './viewevents.js';
+import manageparticipants from './manageparticipants.js';
+
 import path from 'path';
 import { fileURLToPath } from 'url';
-import argon2 from 'argon2';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -133,5 +138,9 @@ router.post('/change-password', async (req, res) => {
 
 });
 
+router.use('/events', events); // events page
+router.use('/events', viewevents); // view events page
+router.use('/manageevents', manageevents); // manage events page
+router.use('/manageparticipants', manageparticipants); // manage participants page
 
 export default router;
