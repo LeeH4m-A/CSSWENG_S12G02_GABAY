@@ -1,0 +1,275 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* General layout containers */
+.parent-registration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.logo {
+  width: 600px;
+  height: 600px;
+}
+
+.rightSide {
+  background-color: #9B112E;
+  border-radius: 20px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 5%;
+  box-sizing: border-box;
+  width: 550px;
+  max-height: 90%;
+}
+
+.rightSide p {
+  color: #eee;
+}
+
+.main, .details, .signup-page {
+  text-align: center;
+  margin: 15px;
+}
+
+.main {
+  font-size: 32px;
+}
+
+.details {
+  font-size: 16px;
+}
+
+/* Buttons and links */
+.registration {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  color: #9B112E;
+  border: 3px solid white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.registration:hover {
+  background-color: #9B112E;
+  color: white;
+  border: 3px solid white;
+}
+
+.register {
+  color: white;
+  font-weight: 600;
+}
+
+.footer {
+  background-color: #eee;
+  color: #9B112E;
+  text-align: center;
+}
+
+/* Sidebar (shared among dashboard pages) */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 80px;
+  background-color: #9B112E;
+  padding: 0.4rem 0.8rem;
+  transition: all 0.5s ease;
+  z-index: 1000;
+}
+
+.main-content {
+  position: relative;
+  background-color: #eee;
+  min-height: 100vh;
+  top: 0;
+  left: 80px;
+  transform: all 0.5s ease;
+  width: calc(100% - 80px);
+  padding: 1rem;
+}
+
+/* SIDEBAR */
+.sidebar{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 80px;
+    background-color: #9B112E;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.5s ease;
+    z-index: 1000;
+}
+
+.sidebar.active ~ .main-content{
+    left: 250px;
+    width: calc(100% - 250px);
+}
+
+.sidebar.active{
+    width: 250px;
+}
+
+#btn{
+    position: absolute;
+    color: #fff;
+    top: 0.4rem;
+    left: 50%;
+    font-size: 1.2rem;
+    line-height: 50px;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.sidebar.active #btn{
+    left: 90%;
+}
+
+.sidebar .top .logo{
+    color: #fff;
+    display: flex;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.sidebar.active .top .logo{
+    opacity: 1;
+}
+
+#logo-mini{
+    width: 50px;
+}
+
+.top .logo i {
+    font-size: 2rem;
+    margin-right: 5px;
+}
+
+.sidebar p{
+    opacity: 0;
+}
+
+.sidebar.active p{
+    opacity: 1;
+}
+
+.sidebar ul li{
+    position: relative;
+    list-style-type: none;
+    height: 50px;
+    width: 90%;
+    margin: 0.8rem auto;
+    line-height: 50px;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.sidebar ul li.active{
+    background: #F6AA26;
+    border-radius: 50px;
+}
+
+.sidebar ul li a{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.8rem;
+}
+
+.sidebar ul li a:hover{
+    background-color: #fff;
+    color: #181D31;
+}
+
+.sidebar ul li a i{
+    min-width: 50px;
+    text-align: center;
+    height: 50px;
+    border-radius: 12px;
+    line-height: 50px;
+}
+
+.sidebar .nav-item, .sidebar .div{
+    opacity: 0;
+}
+
+.sidebar.active .nav-item, .sidebar.active .div{
+    opacity: 1;
+}
+
+.sidebar ul li .tooltip {
+    position: absolute;
+    left: calc(100% + 10px); 
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 0.5rem 0.8rem rgba(0, 0, 0, 0.2);
+    border-radius: 0.6rem;
+    padding: 0.4rem 1.2rem;
+    line-height: 1.8rem;
+    visibility: hidden;
+    white-space: nowrap;
+    background-color: black; 
+    color: white;
+}
+
+.sidebar ul li:hover .tooltip {
+    visibility: visible;
+}
+
+.sidebar.active ul li .tooltip{
+    display: none;
+}
+
+/* USER INFO AT THE SIDEBAR */
+.user{
+    display: flex;
+    margin-top: auto;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.user p{
+    color: #fff;
+    opacity: 1;
+    margin-left: 1rem;
+}
+
+.user-img{
+    width: 50px;
+    border-radius: 100%;
+    border: 2px solid white;
+}
+
+.bold{
+    font-weight: 600;
+}
+
+

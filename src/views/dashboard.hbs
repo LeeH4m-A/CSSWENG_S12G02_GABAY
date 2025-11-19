@@ -1,0 +1,176 @@
+{{> sidebar}}
+
+<div class="main-content">
+    <div class="header">
+        <h1>Dashboard</h1>
+    </div>
+
+    <div class="statistics">
+        <div class="total">
+            <div id="stats">
+                <p class="stats-title"><b>Total Patients Tested</b></p>
+                <p class="number">{{statistics.totalPatientsTested}}</p>
+            </div>
+            <i id="icon-stats" class="bx bxs-group"></i>
+        </div>
+        <div class="biomedical">
+            <div id="stats">
+                <p class="stats-title"><b>Biomedical Patients Tested</b></p>
+                <p class="number">{{statistics.biomedicalPatientsTested}}</p>
+            </div>
+            <i id="icon-stats" class="bx bxs-shield-plus"></i>
+        </div>
+        <div class="nonbiomedical">
+            <div id="stats">
+                <p class="stats-title"><b>Nonbiomedical Patients Tested</b></p>
+                <p class="number">{{statistics.nonbiomedicalPatientsTested}}</p>
+            </div>
+            <i id="icon-stats" class="bx bxs-shield-minus"></i>
+        </div>
+        <div class="positive">
+            <div id="stats">
+                <p class="stats-title"><b>Positive Biomedical Patients Tested</b></p>
+                <p class="number">{{statistics.positivePatientsTested}}</p>
+            </div>
+            <i id="icon-stats" class="bx bxs-user-plus"></i>
+        </div>
+        <div class="negative">
+            <div id="stats">
+                <p class="stats-title"><b>Negative Biomedical Patients Tested</b></p>
+                <p class="number">{{statistics.negativePatientsTested}}</p>
+            </div>
+            <i id="icon-stats" class="bx bxs-user-minus"></i>
+        </div>
+        <div class="dontknow">
+            <div id="stats">
+                <p class="stats-title"><b>Don't Know Biomedical Patients Tested</b></p>
+                <p class="number">{{statistics.dnkPatientsTested}}</p>
+            </div>
+            <i id="icon-stats" class="bx bx-question-mark"></i>
+        </div>
+    </div>
+
+    <div class="filter-export">
+        <div class="filter">
+            <p>Filter by</p>
+            <select class="monthly" id="monthlyFilter">
+                <option selected hidden>Monthly</option>
+                <option value="">None</option>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+            </select>
+            <select class="yearly" id="yearlyFilter">
+                <option selected hidden>Yearly</option>
+                <option value="">None</option>
+                {{#each year}}
+                <option value="{{this}}">{{this}}</option>
+                {{/each}}
+            </select>
+            <select class="yearly" id="quarterFilter">
+                <option selected hidden>Quarter</option>
+                <option value="">None</option>
+                <option value="1">1st Quarter</option>
+                <option value="2">2nd Quarter</option>
+                <option value="3">3rd Quarter</option>
+                <option value="4">4th Quarter</option>
+            </select>
+        </div>
+        {{#if (eq user.role "Data Manager")}}
+        <div class="export">
+            <button id="exportImagesButton"><i class="bx bxs-file-image"></i>Export Charts as Images & Excel Sheet</button>
+            <button id="exportPDFButton"><i class="bx bxs-file-pdf"></i>Export Charts as PDF</button>
+        </div>
+        {{/if}}
+    </div>
+
+    <div class="container">
+        <div class="headline-graphs">
+            Biomedical Patient Records Statistics
+            <button class="toggle-button" onclick="toggleGraphs(this)">
+                <i class='bx bxs-chevron-up'></i>
+            </button>
+        </div>
+
+        <div class="biomedical-container">
+            <div class="graph1">
+                <p class="reason">Testing outcomes for clients who were tested before (repeat testers)</p>
+                <div class="chart">
+                    <canvas id="chartTestedBefore" data-reason="Testing outcomes for clients who were tested before (repeat testers)"></canvas>
+                </div>
+            </div>
+             <div class="graph2">
+                <p class="reason">Testing outcomes by age</p>
+                <div class="chart">
+                    <canvas id="chartAge" data-reason="Testing outcomes by age"></canvas>
+                </div>
+            </div>
+            <div class="graph3">
+                <p class="reason">Testing outcomes by main reason for HIV Test</p>
+                <div class="chart">
+                    <canvas id="chartReason" data-reason="Testing outcomes by main reason for HIV Test"></canvas>
+                </div>
+            </div>
+            <div class="graph4">
+                <p class="reason">Testing outcomes for first time testers</p>
+                <div class="chart">
+                    <canvas id="chartFirstTimeTesters" data-reason="Testing outcomes for first time testers"></canvas>
+                </div>
+            </div>
+            <div class="graph5">
+                <p class="reason">Testing outcomes by Key or Vulnerable Population (KVP) at higher risk</p>
+                <div class="chart">
+                    <canvas id="chartKVP" data-reason="Testing outcomes by Key or Vulnerable Population (KVP) at higher risk"></canvas>
+                </div>
+            </div>
+            <div class="graph6">
+                <p class="reason">Linkage for positive clients</p>
+                <div class="chart">
+                    <canvas id="chartLinkage" data-reason="Linkage for positive clients"></canvas>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="headline-graphs">
+            Nonbiomedical Patient Records Statistics
+             <button class="toggle-button" onclick="toggleGraphs(this)">
+                <i class='bx bxs-chevron-up'></i>
+            </button>
+        </div>
+
+        <div class="nonbiomedical-container">
+            <div class="graph7">
+                <p class="reason">Stigma</p>
+                <div class="chart">
+                    <canvas id="chartStigma" data-reason="Testing outcomes for stigma"></canvas>
+                </div>
+            </div>
+            <div class="graph8">
+                <p class="reason">Discrimination</p>
+                <div class="chart">
+                    <canvas id="chartDiscrimination" data-reason="Testing outcomes for discrimination"></canvas>
+                </div>
+            </div>
+            <div class="graph9">
+                <p class="reason">Violence</p>
+                <div class="chart">
+                    <canvas id="chartViolence" data-reason="Testing outcomes for violence"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   {{>footer}}
+</div>
