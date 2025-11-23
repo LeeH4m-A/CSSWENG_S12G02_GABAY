@@ -329,7 +329,6 @@ class ProfileManager {
   handleSaveSuccess(result) {
     // Update the page content without reloading
     this.exitEditMode(false);
-    
     // Update all the fields with the new data
     const editableFields = document.querySelectorAll('.editable');
     editableFields.forEach(field => {
@@ -344,9 +343,32 @@ class ProfileManager {
       this.photo.src = result.user.userIcon;
     }
 
+    this.updateSidebar(result.user);
+
     this.showMessage('Profile updated successfully!', 'success');
   }
 
+
+  updateSidebar(userData) {
+  // Update sidebar user image
+  const sidebarImg = document.querySelector('.user-img img');
+  if (sidebarImg && userData.userIcon) {
+    sidebarImg.src = userData.userIcon;
+  }
+  
+  // Update sidebar user name
+  const sidebarName = document.querySelector('.user .bold');
+  if (sidebarName && userData.name) {
+    sidebarName.textContent = userData.name;
+  }
+  
+  // Update sidebar user role (if applicable)
+  const sidebarRole = document.querySelector('.user p:not(.bold)');
+  if (sidebarRole && userData.role) {
+    sidebarRole.textContent = userData.role;
+  }
+}
+    
   handleSaveError(error) {
     console.error('Failed to update profile:', error);
     this.showMessage('Update failed. Please try again.', 'error');
