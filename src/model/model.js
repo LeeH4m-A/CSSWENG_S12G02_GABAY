@@ -138,9 +138,7 @@ const eventSchema = new mongoose.Schema(
       default: 'Other' 
     },
     location: {
-      venue: { type: String, required: true },
-      barangay: { type: String },
-      city: { type: String, default: 'Caloocan' },
+      venue: { type: String, required: true }
     },
     date_start: { type: Date, required: true },
     date_end: { type: Date, required: true },
