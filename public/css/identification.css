@@ -66,14 +66,11 @@
   inset: 0;
   z-index: 0;
   border-radius: 20px;
-  background-image:
-    linear-gradient(to bottom right, rgba(214, 145, 145, 0.8) 0%, rgba(14, 19, 27, 0.6) 110%),
-    url('/test.jpg');
+  background-image: url('/image.png');
   background-size: cover, cover;
   background-position: center 100%;
   background-repeat: no-repeat, no-repeat;
   background-blend-mode: normal;
-  filter: brightness(1.8) contrast(1.2);
 }
 
 .container-for-profile > * {

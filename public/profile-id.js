@@ -308,6 +308,9 @@ class ProfileManager {
     } catch (error) {
       this.handleSaveError(error);
     }
+    
+    // Exit edit mode after save (not cancelling)
+    this.exitEditMode(false);
   }
 
   async submitFormData(formData) {
@@ -325,7 +328,7 @@ class ProfileManager {
 
   handleSaveSuccess(result) {
     // Update the page content without reloading
-    this.exitEditMode();
+    this.exitEditMode(false);
     
     // Update all the fields with the new data
     const editableFields = document.querySelectorAll('.editable');
@@ -351,16 +354,20 @@ class ProfileManager {
   }
 
   cancelEdit() {
-    this.exitEditMode();
+    this.exitEditMode(true); // Pass true to indicate cancellation
     this.showMessage('Changes cancelled', 'warning');
   }
 
-  exitEditMode() {
-    // Revert all input fields back to their original element types
+  exitEditMode(isCancelling = false) {
     const inputs = document.querySelectorAll('.inline-edit');
+    
     inputs.forEach(input => {
       const fieldName = input.dataset.field;
-      const value = input.value.trim();
+      
+      // Use original value if cancelling, otherwise use current input value
+      const value = isCancelling ? 
+        (this.originalValues[fieldName] || '') : 
+        input.value.trim();
       
       // Handle different field types based on their original structure
       if (fieldName === 'name') {
@@ -382,7 +389,7 @@ class ProfileManager {
     });
 
     // Revert photo if it was changed but not saved
-    if (this.originalValues.photoSrc) {
+    if (isCancelling && this.originalValues.photoSrc) {
       this.photo.src = this.originalValues.photoSrc;
     }
 
@@ -399,7 +406,8 @@ class ProfileManager {
     html2canvas(this.profileContainer, { 
       scale: 2,
       useCORS: true,
-      logging: false
+      logging: false,
+      backgroundColor: null
     }).then(canvas => {
       this.downloadCanvas(canvas);
       this.showMessage('ID card downloaded successfully!', 'success');
