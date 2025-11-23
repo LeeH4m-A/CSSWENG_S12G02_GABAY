@@ -96,7 +96,7 @@
                     <button type="button" class="back-button" onclick="window.location.href='/viewevents/{{event._id}}'">Back</button>
                     <button type="button" class="delete-button" onclick="if(confirm('Are you sure you want to delete this event? This action cannot be undone.')) { window.location.href='/manageevents/delete/{{event._id}}' }">Delete Event</button>
                 {{else}}
-                    <button type="button" class="back-button" onclick="window.location.href='/events'">Back</button>
+                    <button type="button" class="back-button" onclick="window.location.href='/events/manage'">Back</button>
                 {{/if}}
                 <button type="submit" class="submit-event-button">{{#if event._id}}Save Changes{{else}}Create Event{{/if}}</button>
             </div>

@@ -3,7 +3,20 @@ import { eventModel } from '../model/model.js';
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/', (req, res) => {
+    const user = req.session.user;
+    
+    if (user.role === 'Data Encoder' || user.role === 'Data Manager') {
+        // If Admin, go to the Manage page
+        res.redirect('/events/manage'); 
+    } else {
+        // If User, go to My Events
+        res.redirect('/events/myevents');
+    }
+});
+
+
+router.get('/manage', async (req, res) => {
     try {
         // 1. Extract Query Parameters
         const searchQuery = req.query.search || '';
