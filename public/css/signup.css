@@ -1,23 +1,27 @@
 /* SIGNUP PAGE STYLES */
-
 .parent-registration {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     background-color: white;
-    height: 100vh;
-    width: 100vw;
+    min-height: 100vh;
+    width: 100%;
     box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.leftSide{
+    margin-top: min(10%, 200px);
 }
 
 .rightSide {
+    margin-top: 10%;
     background-color: #9B112E;
     border-radius: 20px;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    padding: 2% 5% 5% 5%; 
     box-sizing: border-box;
-    width: 600px;
+    width: 100%;
     max-height: 90%;
 }
 
@@ -64,6 +68,7 @@
 
 /* Password Container */
 .password-container {
+    width:100%;
     position: relative;
 }
 
@@ -213,17 +218,39 @@
     text-decoration: underline;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .rightSide {
-        width: 90%;
-        padding: 8%;
+
+.rightSide_dpa {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width:  max(30%, 600px);
+    max-width: 600px;
+    gap: 15px;
+}
+
+
+.rightSide_dpa > p {
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    background-color: #f0f7fb;
+    color: #333;
+    font-size: 0.90em;
+}
+
+
+@media (max-width: 1280px) {
+
+    .rightSide_dpa{
+        width: 70%;
     }
-    
+    .logo{
+        display: none;
+    }
     .form-group {
         flex-direction: column;
     }
-    
+
     .floating-input {
         width: 100% !important;
         margin-right: 0;
@@ -234,4 +261,5 @@
         margin-bottom: 0;
     }
 }
+
 
