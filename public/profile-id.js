@@ -9,6 +9,9 @@ class ProfileManager {
     // Default profile picture URL
     this.defaultProfilePic = 'https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg';
     
+    // Track current original photo for undo
+    this.originalPhoto = '';
+    
     this.init();
   }
 
@@ -24,6 +27,7 @@ class ProfileManager {
     this.editBtn = document.getElementById('editInfoBtn');
     this.cancelBtn = document.getElementById('cancelEditBtn');
     this.printBtn = document.getElementById('printBtn');
+    this.undoBtn = document.getElementById('undoPhoto');
     this.revertBtn = document.getElementById('revertPhoto');
     this.profileContainer = document.querySelector('.container-for-profile');
   }
@@ -33,6 +37,7 @@ class ProfileManager {
     this.editBtn.addEventListener('click', () => this.toggleEditMode());
     this.cancelBtn.addEventListener('click', () => this.cancelEdit());
     this.printBtn.addEventListener('click', () => this.printIdCard());
+    this.undoBtn.addEventListener('click', () => this.undoPhotoChange());
     this.revertBtn.addEventListener('click', () => this.revertToDefaultPhoto());
   }
 
@@ -78,6 +83,18 @@ class ProfileManager {
       this.showMessage('Photo preview updated', 'info');
     };
     reader.readAsDataURL(file);
+  }
+
+  undoPhotoChange() {
+    if (!this.editMode) {
+      this.showMessage('Please click "Edit Info" first to make changes', 'error');
+      return;
+    }
+
+    // Simply revert to the original photo from when edit mode started
+    this.photo.src = this.originalPhoto;
+    this.uploadInput.value = '';
+    this.showMessage('Photo change undone', 'success');
   }
 
   revertToDefaultPhoto() {
@@ -229,7 +246,10 @@ class ProfileManager {
       this.replaceWithEditableElement(field);
     });
 
+    // Store the original photo when entering edit mode
+    this.originalPhoto = this.photo.src;
     this.originalValues.photoSrc = this.photo.src;
+    
     this.updateUIForEditMode(true);
     this.showMessage('Edit mode activated. Click Save when done.', 'info');
   }
@@ -348,7 +368,6 @@ class ProfileManager {
     this.showMessage('Profile updated successfully!', 'success');
   }
 
-
   updateSidebar(userData) {
   // Update sidebar user image
   const sidebarImg = document.querySelector('.user-img img');
@@ -360,12 +379,6 @@ class ProfileManager {
   const sidebarName = document.querySelector('.user .bold');
   if (sidebarName && userData.name) {
     sidebarName.textContent = userData.name;
-  }
-  
-  // Update sidebar user role (if applicable)
-  const sidebarRole = document.querySelector('.user p:not(.bold)');
-  if (sidebarRole && userData.role) {
-    sidebarRole.textContent = userData.role;
   }
 }
     

@@ -35,7 +35,6 @@ router.get('/',
     Additionally, I think, we can change the whole profile section, add the ID 
                   and make a separate page for update specifically.
 */
-
 router.post('/update', upload.single('photo'), async (req, res) => {
   try {
     const { name, age, birthday, contactNo, gender, barangay, city, revertPhoto } = req.body;
@@ -69,10 +68,10 @@ router.post('/update', upload.single('photo'), async (req, res) => {
     // Create a proper user object for response
     const userResponse = {
       ...updatedUser,
-      // If userIcon exists and has data, create a data URL for immediate display
+      // If userIcon is null (reverted to default), use the default profile picture URL
       userIcon: updatedUser.userIcon && updatedUser.userIcon.data 
         ? `data:${updatedUser.userIcon.contentType};base64,${updatedUser.userIcon.data.toString('base64')}`
-        : null
+        : 'https://res.cloudinary.com/dof7fh2cj/image/upload/v1719207075/hagwnwmxbpkpczzyh46g.jpg'
     };
 
     // Update session

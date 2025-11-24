@@ -282,6 +282,26 @@
   background-color: #555;
 }
 
+
+.undo-label {
+  color: rgb(255, 255, 255);
+  background-color: #facc15; /* Yellow-400 */
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.1rem;
+  text-align: center;
+  transition: background-color 0.2s;
+  border: none;
+  min-width: 160px;
+}
+
+.undo-label:hover {
+  background-color: #eab308; /* Yellow-500 */
+}
+
+
 .profile-id-select {
   width: 100%;
   padding: 5px;
