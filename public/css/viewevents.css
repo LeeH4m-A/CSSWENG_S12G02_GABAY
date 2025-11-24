@@ -33,6 +33,11 @@
     border: 1px solid #e0e0e0;
 }
 
+.detail-section ul {
+    padding-left: 20px; 
+    margin-top: 5px;    
+}
+
 .detail-section:first-child {
     flex: 1 1 100%; /* Overview takes full width on larger screens, ensuring it's always at the top */
 }
