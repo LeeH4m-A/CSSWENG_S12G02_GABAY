@@ -106,9 +106,10 @@
 
 .radio-option {
     display: inline-block;
-    margin-left: 50px;
-    margin-right: 22px;
+    margin-left: 0;
+    margin-right: 10px;
     font-size: 20px;
+    white-space: nowrap;
 }
 
 /* MODAL EDIT FORM */
