@@ -121,10 +121,10 @@
 }
 
 
-.export button{
-    background-color: white;
+.export button {
+    margin: 0; 
     padding: 10px;
-    margin: 20px 0 20px 20px;
+    background-color: white;
     cursor: pointer;
     display: flex; 
     align-items: center; 
@@ -137,4 +137,12 @@
 .export button:hover{
     background-color: #9B112E;
     color: white;
+}
+
+.top-section {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;            
+    width: 100%;                    
+    margin-bottom: 20px;            
 }
