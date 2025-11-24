@@ -57,12 +57,22 @@
     font-weight: bold;
 }
 
-.data-input, .biomedicalfield select, .nonbiomedicalfield select,
+.data-input, .nonbiomedicalfield select,
 .edit-biomedicalfield select, .edit-nonbiomedicalfield select,
 .filter-field select {
     height: 40px;
     padding: 5px;
     margin-left: 50px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    font-size: 20px;
+    flex: 1;
+}
+
+.biomedicalfield select{
+    height: 40px;
+    padding: 5px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     background-color: #f9f9f9;
