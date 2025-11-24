@@ -1,0 +1,101 @@
+{{> sidebar}}
+
+<div class="main-content">
+    <div class="header">
+        <h1>My Events</h1>
+    </div>
+
+    <div class="container-for-events">
+        <h2 class="events-title">Listed Events</h2>
+        
+        <div class="middle-bar">
+            <div class="events-summary">
+                <span>Total Events: {{totalEvents}}</span>
+                <span>Total Ongoing: {{totalOngoing}}</span>
+                <span>Total Upcoming: {{totalUpcoming}}</span>
+                <span>Total Completed: {{totalCompleted}}</span>
+            </div>
+            
+            <div class="filter-section">
+                <form method="GET" action="/events/myevents">
+                    <div class="filter-group">
+                        <label for="search">Search My Events:</label>
+                        <input type="search" name="search" id="search" value="{{searchQuery}}" placeholder="Search title...">
+                        <button type="submit" class="filter-button">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <h3 class="ongoing">
+            <i class='bx bx-play-circle'></i> Ongoing
+        </h3>
+        
+        <div class="events-list-container">
+            {{#if ongoingEvents.length}}
+                {{#each ongoingEvents}}
+                    <div class="event-card">
+                        <h3 class="event-card-title">{{this.title}}</h3>
+                        <p class="description"><strong>Description:</strong> {{#if this.description}}{{this.description}}{{else}}No description provided.{{/if}}</p>
+                        <p class="event-card-organizer"><strong>Organizer:</strong> {{this.organizer}}</p>
+                        <p class="event-card-category"><strong>Category:</strong> {{this.category}}</p>
+                        <p class="event-card-location"><strong>Location:</strong> {{this.location.venue}}</p>
+                        <p class="event-card-date"><strong>Date:</strong> {{this.formattedStartDate}} - {{this.formattedEndDate}}</p>
+                        <p class="event-card-status"><strong>Status: {{this.event_status}}</strong></p>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p class="empty-list">No ongoing events right now.</p>
+            {{/if}}
+        </div>
+
+
+        <h3 class="upcoming">
+            <i class='bx bx-calendar'></i> Upcoming
+        </h3>
+
+        <div class="events-list-container">
+            {{#if incomingEvents.length}}
+                {{#each incomingEvents}}
+                    <div class="event-card">
+                        <h3 class="event-card-title">{{this.title}}</h3>
+                        <p class="description"><strong>Description:</strong> {{#if this.description}}{{this.description}}{{else}}No description provided.{{/if}}</p>
+                        <p class="event-card-organizer"><strong>Organizer:</strong> {{this.organizer}}</p>
+                        <p class="event-card-category"><strong>Category:</strong> {{this.category}}</p>
+                        <p class="event-card-location"><strong>Location:</strong> {{this.location.venue}}</p>
+                        <p class="event-card-date"><strong>Date:</strong> {{this.formattedStartDate}} - {{this.formattedEndDate}}</p>
+                        <p class="event-card-status"><strong>Status: {{this.event_status}}</strong></p>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p class="empty-list">No upcoming events scheduled.</p>
+            {{/if}}
+        </div>
+
+
+        <h3 class="completed">
+            <i class='bx bx-check-circle'></i> Completed
+        </h3>
+
+        <div class="events-list-container">
+            {{#if completedEvents.length}}
+                {{#each completedEvents}}
+                    <div class="event-card">
+                        <h3 class="event-card-title">{{this.title}}</h3>
+                        <p class="description"><strong>Description:</strong> {{#if this.description}}{{this.description}}{{else}}No description provided.{{/if}}</p>
+                        <p class="event-card-organizer"><strong>Organizer:</strong> {{this.organizer}}</p>
+                        <p class="event-card-category"><strong>Category:</strong> {{this.category}}</p>
+                        <p class="event-card-location"><strong>Location:</strong> {{this.location.venue}}</p>
+                        <p class="event-card-date"><strong>Date:</strong> {{this.formattedStartDate}} - {{this.formattedEndDate}}</p>
+                        <p class="event-card-status"><strong>Status: {{this.event_status}}</strong></p>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p class="empty-list">No completed events found.</p>
+            {{/if}}
+        </div>
+
+    </div>
+
+    {{>footer}}
+</div>
