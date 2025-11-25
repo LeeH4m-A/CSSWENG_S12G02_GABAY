@@ -1,0 +1,153 @@
+.container-for-createevents {
+    background-color: #FFECF0;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    padding: 30px;
+    margin: 30px;
+}
+
+.events-title {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.section-container {
+    margin-bottom: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #b8b8b8;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.input-container label {
+    margin-bottom: 6px;
+}
+
+.input-container input,
+.input-container select,
+.input-container textarea {
+    width: 100%;
+    padding: 0.5rem 0.6rem;   /* adds left padding so text isn't flush to edge */
+    font-size: 0.95rem;      /* consistent and slightly smaller */
+    line-height: 1.3;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.description-textarea {
+    width: 100%;
+    min-height: 6rem;
+    padding: 0.5rem;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+
+.form-actions {
+    display: flex;
+    justify-content: space-between; /* back on left, submit on right */
+    align-items: center;
+    gap: 12px;
+    margin-top: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* left/back button */
+.back-button, .delete-button {
+    padding: 12px 25px;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button:hover, .delete-button:hover {
+    background-color: white;
+    color: black;
+    border: 3px solid black;
+}
+
+/* right/submit button — remove the centered block rules */
+.submit-event-button {
+    background-color: #9B112E;
+    border: 3px solid transparent;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    flex: 0 0 auto; /* don't grow */
+}
+
+.submit-event-button:hover {
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid #9B112E;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN (Tablets & Mobile)
+   ========================================= */
+
+/* Tablet View (max-width 768px) */
+@media (max-width: 768px) {
+    .container-for-createevents {
+        margin: 20px;
+        padding: 20px;
+        width: auto; /* Ensure it doesn't force fixed width */
+    }
+}
+
+/* Mobile Phone View (max-width 480px) */
+@media (max-width: 480px) {
+
+    /* 1. maximize screen space */
+    .container-for-createevents {
+        margin: 10px 5px;
+        padding: 15px;
+        border-radius: 10px;
+    }
+
+    /* 2. Stack the buttons vertically */
+    .form-actions {
+        flex-direction: column;
+        gap: 15px; /* Add space between stacked buttons */
+    }
+
+    /* 3. Make buttons full width for easy tapping */
+    .back-button, 
+    .delete-button, 
+    .submit-event-button {
+        width: 100%;
+        text-align: center;
+        padding: 12px;
+        box-sizing: border-box; /* Ensures padding doesn't widen the element beyond 100% */
+    }
+
+    /* 4. Improve Input Usability */
+    .input-container input,
+    .input-container select,
+    .input-container textarea {
+        font-size: 16px; /* Prevents iOS from zooming in when you tap an input */
+        padding: 10px;   /* Larger touch target */
+    }
+
+    /* 5. Adjust Header Sizes */
+    .events-title {
+        font-size: 1.5em;
+        margin-bottom: 15px;
+    }
+}

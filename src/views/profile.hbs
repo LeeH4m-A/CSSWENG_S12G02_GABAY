@@ -1,0 +1,40 @@
+{{> sidebar}}
+
+<div class="main-content">
+
+    <div class="header">
+        <h1>Profile</h1>
+    </div>
+    
+    <div class="container-for-profile">
+        {{>organization_banner}}
+        
+        <form action="profile/update" method="post"> 
+        
+            <div class="profile-fields">
+                <div class="profile-input-field">
+                    <label for="name" class="profile-label">NAME</label>
+                    <input type="text" name="name" class="profile-textarea" value="{{user.name}}" required>
+                </div>
+
+                <div class="profile-input-field">
+                    <label for="role" class="profile-label">ROLE</label>
+                    <input type="text" name="role" class="profile-textarea" value="{{user.role}}" readonly>
+                </div>
+
+                <div class="profile-input-field">
+                    <label for="email" class="profile-label">EMAIL</label>
+                    <input type="email" name="email" class="profile-textarea" value="{{user.email}}" required>
+                </div>
+
+                <div class="profile-input-field">
+                    <label for="current-password" class="profile-label">PASSWORD</label>
+                    <input type="password" name="password" class="profile-textarea" placeholder="Enter new password">
+                </div>
+            </div>
+            <input type="submit" class="profile-submit-button" value="Save Changes">
+        </form>
+    </div>
+
+    {{>footer}}
+</div>

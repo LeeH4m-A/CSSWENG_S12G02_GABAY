@@ -1,0 +1,289 @@
+.container-for-events {
+    background-color: #FFECF0;
+    border: 2px solid black;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    justify-content: center;
+    padding: 30px;
+    margin: 30px;
+}
+
+.events-title {
+    font-size: 2em;
+    color: #333;
+    text-align: center;
+}
+
+.middle-bar {
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #b8b8b8;
+    border-top: 1px solid #b8b8b8;
+}
+
+.events-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #b8b8b8;
+    padding: 15px 0;
+}
+
+.events-summary span {
+    font-size: 1.1em;
+    color: #555;
+    font-weight: 500;
+}
+
+.create-event-button {
+    background-color: #9B112E;
+    color: white;
+    padding: 10px 20px;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.create-event-button:hover {
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid #9B112E;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.filter-section input[type="search"],
+.filter-section select {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.filter-button {
+    padding: 3px 15px;
+    background-color: #9B112E;
+    color: white;
+    border: 3px solid transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+}
+
+.filter-button:hover {
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid #9B112E;
+}
+
+.events-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 25px;
+}
+
+.event-card {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.event-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.event-card-title {
+    font-size: 1.4em;
+    color: #9B112E;
+    margin-bottom: 10px;
+    line-height: 1.3;
+}
+
+.event-card p {
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.event-card p strong {
+    color: #444;
+    font-weight: 600;
+}
+
+.event-card-location,
+.event-card-date,
+.event-card-status {
+    font-size: 0.9em;
+}
+
+.view-details-link {
+    display: inline-block;
+    border: 3px solid transparent;
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: #9B112E;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    align-self: flex-start; /* Align link to the left */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.view-details-link:hover {
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid #9B112E;
+}
+
+.no-events-message {
+    text-align: center;
+    font-size: 1.1em;
+    color: #9B112E;
+    grid-column: 1 / -1; /* Span across all columns */
+    padding: 30px;
+    background-color: #FFECF0;
+    border-radius: 8px;
+}
+
+h3 {
+    margin-top: 20px; color: #2c3e50;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+h3.ongoing {
+    border-bottom: 2px solid #3498db;
+}
+
+h3.upcoming {
+    border-bottom: 2px solid #e67e22;
+}
+
+h3.completed {
+    border-bottom: 2px solid #2ecc71;
+}
+
+
+p.empty-list {
+    color: #666; 
+    font-style: italic; 
+    padding: 10px;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN (Tablets & Mobile)
+   ========================================= */
+
+/* Tablet / Small Desktop View (max-width 768px) */
+@media (max-width: 768px) {
+    
+    .container-for-events {
+        margin: 15px;
+        padding: 15px;
+    }
+
+    /* Wrap the summary items (Total counts & Buttons) */
+    .events-summary {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .events-summary span {
+        white-space: nowrap;
+    }
+
+    /* Stack the search/filter inputs vertically on smaller tablets */
+    .filter-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    /* Add space between the stacked filter groups */
+    .filter-group {
+        margin-bottom: 10px;
+        width: 100%;
+        display: flex;
+        flex-direction: column; /* Stack label on top of input */
+    }
+}
+
+/* Mobile Phone View (max-width 480px) */
+@media (max-width: 480px) {
+
+    .container-for-events {
+        margin: 10px 5px;
+        padding: 10px;
+        border-radius: 10px; 
+    }
+
+    .events-title {
+        font-size: 1.5em; 
+    }
+
+    /* Stack the summary section vertically */
+    .events-summary {
+        flex-direction: column;
+        align-items: stretch; /* Stretch items to full width */
+        padding: 10px 0;
+    }
+
+    /* Make the Create Event button big and easy to tap */
+    .create-event-button {
+        width: 100%;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    /* FORCE inputs and dropdowns to fill screen width */
+    .filter-section input[type="search"],
+    .filter-section select {
+        width: 100%; 
+        padding: 10px; /* Larger touch target */
+        box-sizing: border-box; /* Prevents padding from breaking width */
+    }
+
+    .filter-button {
+        width: 100%; 
+        padding: 10px;
+        margin-top: 5px;
+    }
+
+    /* Mobile Grid: Single column for cards */
+    .events-list-container {
+        grid-template-columns: 1fr; 
+        gap: 15px;
+    }
+
+    .event-card {
+        padding: 15px;
+    }
+    
+    /* Ensure the "View Details" link is also easy to tap */
+    .view-details-link {
+        display: block;
+        text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}

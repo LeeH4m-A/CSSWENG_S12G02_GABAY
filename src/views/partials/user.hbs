@@ -1,0 +1,13 @@
+<div class="user">
+    <div class="user-img">
+        {{#if user.userIcon}}
+            <img  src="{{user.userIcon}}" alt="Profile Photo"/>
+        {{else}}
+            <img src="gabay-logo.png" alt="No Photo"/>
+        {{/if}}
+    </div>
+    <div class="div">
+        <p class="bold">{{user.name}}</p>
+        <p>{{user.role}}</p>
+    </div>
+</div>

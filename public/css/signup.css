@@ -1,0 +1,265 @@
+/* SIGNUP PAGE STYLES */
+.parent-registration {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: white;
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.leftSide{
+    margin-top: min(10%, 200px);
+}
+
+.rightSide {
+    margin-top: 10%;
+    background-color: #9B112E;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    max-height: 90%;
+}
+
+.rightSide p {
+    color: #eee;
+}
+
+.main, .details, .signup-page {
+    text-align: center;
+    margin: 15px;
+}
+
+.main {
+    font-size: 32px; 
+}
+
+.details {
+    font-size: 16px; 
+}
+
+/* Form Group Styling */
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Floating Input Styling */
+.floating-input {
+    position: relative;
+    flex: 1;
+    margin-right: 8px;
+}
+
+.floating-input:last-child {
+    margin-right: 0;
+}
+
+.floating-input.full-width {
+    flex: 1;
+    margin-right: 0;
+}
+
+/* Password Container */
+.password-container {
+    width:100%;
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    user-select: none;
+    transition: color 0.3s ease;
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    color: #ffd700;
+}
+
+/* Adjust input padding for password fields to make space for eye icon */
+.password-container input {
+    padding-right: 40px !important;
+}
+
+/* Name row specific styling - 3 columns */
+.name-row .floating-input {
+    width: calc(33.333% - 6px);
+}
+
+/* Contact + Birthday row specific styling - 2 columns */
+.contact-birthday-row .floating-input,
+.address-row .floating-input {
+    width: calc(50% - 4px);
+}
+
+/* Input and Select Styling */
+.floating-input input,
+.floating-input select {
+    width: 100%;
+    padding: 16px 12px 8px 12px;
+    background-color: #9B112E;
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.floating-input input:focus,
+.floating-input select:focus {
+    border-bottom-color: #ffd700;
+}
+
+/* Floating Labels */
+.floating-input label {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background-color: #9B112E;
+    padding: 0 4px;
+}
+/* Label animation when focused */
+.floating-input input:focus + label,
+.floating-input select:focus + label {
+    top: 0;
+    left: 8px;
+    font-size: 12px;
+    color: #ffd700;
+}
+
+/* Label animation when has value (not focused) */
+.floating-input input:not(:placeholder-shown):not(:focus) + label,
+.floating-input select:not(:focus):valid + label {
+    top: 0;
+    left: 8px;
+    font-size: 12px;
+    color: white;
+}
+
+/* Fix for date inputs */
+.floating-input input[type="date"]:valid + label {
+    top: 0;
+    left: 8px;
+    font-size: 12px;
+    color: white;
+}
+
+/* Select dropdown styling */
+.floating-input select {
+    appearance: none;
+    cursor: pointer;
+}
+
+.floating-input select option {
+    background-color: white;
+    color: #333;
+}
+
+/* Placeholder color */
+.floating-input input::placeholder {
+    color: transparent;
+}
+
+/* Submit Button */
+.registration {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #9B112E;
+    border: 3px solid white;
+    font-size: 18px; 
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.registration:hover {
+    background-color: #9B112E;
+    color: white;
+}
+
+.signup-page {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup-page a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-page a:hover {
+    text-decoration: underline;
+}
+
+
+.rightSide_dpa {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    width:  max(30%, 600px);
+    max-width: 600px;
+    gap: 15px;
+}
+
+
+.rightSide_dpa > p {
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    background-color: #f0f7fb;
+    color: #333;
+    font-size: 0.90em;
+}
+
+
+@media (max-width: 1280px) {
+
+    .rightSide_dpa{
+        width: 70%;
+    }
+    .logo{
+        display: none;
+    }
+    .form-group {
+        flex-direction: column;
+    }
+
+    .floating-input {
+        width: 100% !important;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    .floating-input:last-child {
+        margin-bottom: 0;
+    }
+}
+
+

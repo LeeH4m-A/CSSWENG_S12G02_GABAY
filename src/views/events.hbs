@@ -1,0 +1,71 @@
+{{> sidebar}}
+
+<div class="main-content">
+    <div class="header">
+        <h1>Events</h1>
+    </div>
+
+    <div class="container-for-events">
+        <h2 class="events-title">Listed Events</h2>
+
+        <div class="middle-bar">
+            <div class="events-summary">
+                <span>Total Events: {{totalEvents}}</span>
+                <button class="create-event-button" onclick="window.location.href='/manageevents'">Create Event</button>
+            </div>
+            
+            <div class="filter-section">
+            <form method="GET" action="/events">
+                <div class="filter-section">
+                    
+                    <div class="filter-group">
+                        <label for="search">Search Event:</label>
+                        <input type="search" name="search" id="search" value="{{searchQuery}}" placeholder="Search by title...">
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="status">Filter by Status:</label>
+                        <select name="status" id="status">
+                            <option value="all" {{#if (eq currentStatus "all")}}selected{{/if}}>All Statuses</option>
+                            <option value="Scheduled" {{#if (eq currentStatus "Scheduled")}}selected{{/if}}>Scheduled</option>
+                            <option value="Ongoing" {{#if (eq currentStatus "Ongoing")}}selected{{/if}}>Ongoing</option>
+                            <option value="Completed" {{#if (eq currentStatus "Completed")}}selected{{/if}}>Completed</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sort">Sort by Title:</label>
+                        <select name="sort" id="sort">
+                            <option value="name_asc" {{#if (eq currentSort "name_asc")}}selected{{/if}}>Name (A-Z)</option>
+                            <option value="name_desc" {{#if (eq currentSort "name_desc")}}selected{{/if}}>Name (Z-A)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="filter-button">Apply</button>
+                </div>
+            </form>
+        </div>
+
+        </div>
+
+        <div class="events-list-container">
+            {{#if events.length}}
+                {{#each events}}
+                    <div class="event-card">
+                        <h3 class="event-card-title">{{this.title}}</h3>
+                        <p class="event-card-organizer"><strong>Organizer:</strong> {{this.organizer}}</p>
+                        <p class="event-card-category"><strong>Category:</strong> {{this.category}}</p>
+                        <p class="event-card-location"><strong>Location:</strong> {{this.location.venue}}</p>
+                        <p class="event-card-date"><strong>Date:</strong> {{this.formattedStartDate}} - {{this.formattedEndDate}}</p>
+                        <p class="event-card-status"><strong>Status:</strong> {{this.event_status}}</p>
+                        <a href="{{this.viewUrl}}" class="view-details-link">View Details</a>
+                    </div>
+                {{/each}}
+            {{else}}
+                <p class="no-events-message">No events found matching your criteria.</p>
+            {{/if}}
+        </div>
+    </div>
+
+    {{>footer}}
+</div>

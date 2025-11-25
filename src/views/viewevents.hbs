@@ -1,0 +1,59 @@
+{{> sidebar}}
+
+<div class="main-content">
+    <div class="header">
+        <h1>{{event.title}}</h1>
+    </div>
+
+    <div class="container-for-viewevents">
+        <h2 class="event-detail-title">Event Details</h2>
+
+        <div class="event-details-card">
+            <div class="detail-section">
+                <h3>Overview</h3>
+                <p><strong>Title:</strong> {{event.title}}</p>
+                <p><strong>Description:</strong> {{event.description}}</p>
+                <p><strong>Category:</strong> {{event.category}}</p>
+                <p><strong>Organizer:</strong> {{event.organizer}}</p>
+                <p><strong>Status:</strong> {{event.event_status}}</p>
+            </div>
+
+            <div class="detail-section">
+                <h3>Location</h3>
+                <p><strong>Venue:</strong>  {{event.location.venue}}</p>
+                <p><strong>Barangay:</strong> {{event.location.barangay}}</p>
+                <p><strong>City:</strong> {{event.location.city}}</p>
+            </div>
+
+            <div class="detail-section">
+                <h3>Dates</h3>
+                <p><strong>Start Date:</strong> {{formattedStartDate}}</p>
+                <p><strong>End Date:</strong> {{formattedEndDate}}</p>
+            </div>
+
+            <div class="detail-section">
+                <h3>Participants</h3>
+                <p><strong>Total Participants:</strong> {{totalParticipants}}</p>
+                <p><strong>Participants: </strong></p>
+                {{#if participants}}
+                    <ul class="participants-list">
+                        {{#each participants}}
+                            <li>{{this.name}} ({{this.role}})</li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <p>No participants assigned yet.</p>
+                {{/if}}
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="back-button" onclick="window.location.href='/events/manage'">Back to Events</button>
+                <button type="button" class="edit-button" onclick="window.location.href='/manageparticipants/{{event.id}}?mode=remove'">Remove Participants</button>
+                <button type="button" class="edit-button" onclick="window.location.href='/manageparticipants/{{event.id}}?mode=assign'">Assign Participants</button>
+                <button type="button" class="edit-button" onclick="window.location.href='/manageevents/{{event.id}}'">Edit Event</button>
+            </div>
+        </div>
+    </div>
+
+    {{>footer}}
+</div>

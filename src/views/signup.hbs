@@ -1,0 +1,131 @@
+<div class="parent-registration">
+    <!-- left section : image -->
+    <div class="leftSide">
+        <div class="img">
+            <img class="logo" src="./logo.png" alt="logo"/>
+        </div>
+    </div>
+    
+    <!-- right section : form -->
+    <div class="rightSide_dpa">
+    <div class="rightSide">
+        <p class="main"><b>Welcome</b></p>
+        <p class="details">Please Enter Your Details</p>
+        
+        <form name="create-user" action="/signup" method="post">
+            
+            <!-- Name row -->
+            <div class="form-group name-row">
+                <div class="floating-input">
+                    <input name="first_name" id="first-name-field" type="text" placeholder=" " required>
+                    <label for="first-name-field">First Name *</label>
+                </div>
+                <div class="floating-input">
+                    <input name="middle_name" id="middle-name-field" type="text" placeholder=" ">
+                    <label for="middle-name-field">Middle Name</label>
+                </div>
+                <div class="floating-input">
+                    <input name="last_name" id="last-name-field" type="text" placeholder=" " required>
+                    <label for="last-name-field">Last Name *</label>
+                </div>
+            </div>
+
+            <!-- Suffix -->
+            <div class="form-group">
+                <div class="floating-input full-width">
+                    <input name="suffix" id="suffix-field" type="text" placeholder=" ">
+                    <label for="suffix-field">Suffix (e.g. Jr., Sr., III)</label>
+                </div>
+            </div>
+
+            <!-- Gender -->
+            <div class="form-group">
+                <div class="floating-input full-width">
+                    <select name="gender" id="gender-field" required>
+                        <option value="" disabled selected> </option>
+                        <option value="Male">Man</option>
+                        <option value="Female">Woman</option>
+                        <option value="Other">Trans</option>
+                    </select>
+                    <label for="gender-field">Sex *</label>
+                </div>
+            </div>
+
+            <!-- Contact + Birthday row -->
+            <div class="form-group contact-birthday-row">
+                <div class="floating-input">
+                    <input name="contact_no" id="contact-field" type="text" pattern="[0-9]{11}" maxlength="11" required placeholder=" ">
+                    <label for="contact-field">Contact No. *</label>
+                </div>
+                <div class="floating-input">
+                    <input name="birthday" id="birthday-field" type="date" required placeholder=" ">
+                    <label for="birthday-field">Birthday *</label>
+                </div>
+            </div>
+
+            <!-- City + Barangay row -->
+            <div class="form-group address-row">
+                <div class="floating-input">
+                    <input name="city" id="city-field" type="text" required placeholder=" ">
+                    <label for="city-field">City *</label>
+                </div>
+                <div class="floating-input">
+                    <input name="barangay" id="barangay-field" type="text" required placeholder=" ">
+                    <label for="barangay-field">Barangay *</label>
+                </div>
+            </div>
+
+            <!-- Email and Password -->
+            <div class="form-group">
+                <div class="floating-input full-width">
+                    <input name="email" id="email-field" type="email" placeholder=" " required>
+                    <label for="email-field">Email *</label>
+                </div>
+            </div>
+            <!-- Password with show/hide toggle -->
+            <div class="form-group">
+                <div class="floating-input full-width password-container">
+                    <input name="password" id="password-field" type="password" placeholder=" " minlength="8" required>
+                    <label for="password-field">Password *</label>
+                    <span class="material-symbols-outlined toggle-password" onclick="togglePassword('password-field', this)">
+                        visibility_off
+                    </span>
+                </div>
+            </div>
+
+            <!-- Confirm Password with show/hide toggle -->
+            <div class="form-group">
+                <div class="floating-input full-width password-container">
+                    <input name="confirm_password" id="confirm-password-field" type="password" placeholder=" " minlength="8" required>
+                    <label for="confirm-password-field">Confirm Password *</label>
+                    <span class="material-symbols-outlined toggle-password" onclick="togglePassword('confirm-password-field', this)">
+                        visibility_off
+                    </span>
+                </div>
+            </div>
+
+            <!-- Submit -->
+            <input type="submit" class="registration" value="Sign Up" id="sign-up">
+        </form>
+
+        <p class="signup-page">Already have an account? <a class="register" href="/">Log in</a></p>
+    </div>
+    <p>
+    The personal information you provide will be collected, used, and stored in accordance with the Philippine Data Privacy Act of 2012 (RA 10173).
+    </p>
+
+    </div>
+</div>
+
+<script>
+function togglePassword(fieldId, element) {
+    const input = document.getElementById(fieldId);
+    if (input.type === "password") {
+        input.type = "text";
+        element.textContent = "visibility";
+    } else {
+        input.type = "password";
+        element.textContent = "visibility_off";
+    }
+}
+</script>
