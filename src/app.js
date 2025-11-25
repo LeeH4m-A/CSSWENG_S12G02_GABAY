@@ -1,5 +1,7 @@
 /* TODO: Add Session cookies */
 /* TODO: replace deprecated modules*/
+import dotenv from 'dotenv';
+dotenv.config();
 
 import express from 'express';
 import bodyParser from 'body-parser';
