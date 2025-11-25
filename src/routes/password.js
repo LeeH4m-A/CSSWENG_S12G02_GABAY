@@ -1,91 +1,96 @@
 import express from 'express';
 import argon2 from 'argon2';
+import crypto from 'crypto';
 import { transporter } from "../helpers/mailer.js";
 import { userModel } from '../model/model.js';
-import { ResultWithContextImpl } from 'express-validator/lib/chain/context-runner-impl.js';
+import { ResetToken } from '../model/model.js';
+
+
 
 const router = express.Router();
 
-// server to change new password
-router.get('/', (req,resp) => {
-    resp.render('forgotpassword',{
+// Render Forgot Password Page
+router.get('/', (req, resp) => {
+    resp.render('forgotpassword', {
         layout: 'index',
         title: 'Forgot Password Page'
     });
 });
 
-
-// server to post user's new password into the database when forgotten
+// POST: Request password reset
 router.post('/', async (req, res) => {
     const { email, password, confirmPassword } = req.body;
 
-    // check if passwords match
     if (password !== confirmPassword) {
         return res.redirect('/forgot_password?error=Passwords do not match');
     }
 
     try {
+        const user = await userModel.findOne({ email });
+        if (!user) return res.redirect('/forgot_password?error=Email not found');
 
-        // find user by email
-        const user = await userModel.findOne({ email: email });
+        // Hash the new password but don't save yet
+        const hashedPassword = await argon2.hash(password);
 
-        if (!user) {
-            return res.redirect('/forgot_password?error=Email not found');
-        }
+        // Generate secure random token
+        const token = crypto.randomBytes(32).toString("hex");
 
-        // hash the new password
-        const hashedPassword = await await argon2.hash(password);
-
-        //send an email to the target user's email address
-        var mailOptions = {
-            from: 'brandon_jamil_so@dlsu.edu.ph',
-            to: email,
-            subject: 'Verification To Reset Password in GABAY HIV Database',
-            text: "to confirm reset of password please use this link http://localhost:3000/verify-password?email="+email+"&pass="+hashedPassword
-        };  
-
-        transporter.sendMail(mailOptions, function(error, info){
-            if (error) {
-            console.log(error);
-            } else {
-            console.log('Email sent: ' + info.response);
-            return res.redirect('/login?message=Email has been sent to verify password reset');
-            }
+        // Store token in ResetToken collection
+        const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+        await ResetToken.create({
+            userId: user._id,
+            token,
+            expires,
+            tempPassword: hashedPassword
         });
 
-    } catch (error) {
-        console.error("Error resetting password:", error);
+        // Auto-detect URL (Render or local)
+        const protocol = req.headers["x-forwarded-proto"] || req.protocol;
+        const host = req.headers["x-forwarded-host"] || req.get("host");
+        const baseUrl = `${protocol}://${host}`;
+        const verifyLink = `${baseUrl}/forgot_password/verify_password?token=${token}`;
+
+        // Send email
+        await transporter.sendMail({
+            from: process.env.MAIL_USER,
+            to: email,
+            subject: 'Reset Password — GABAY HIV Database',
+            text: `Click to confirm password reset:\n\n${verifyLink}\n\nThis link expires in 10 minutes.`
+        });
+
+        res.redirect('/login?message=Verification email sent');
+
+    } catch (err) {
+        console.error(err);
         res.status(500).send("Internal Server Error");
     }
 });
 
-router.get('/verify_password', async (req,resp) => {
-
-    //get query
+// GET: Verify password reset token
+router.get('/verify_password', async (req, res) => {
     try {
-        // get db collection
-        const email = req.query.email;
-        const newPassword = req.query.pass;
+        const { token } = req.query;
 
-        // find user by email
-        const user = await userModel.findOne({ email: email });
+        // Find token document
+        const resetDoc = await ResetToken.findOne({ token, expires: { $gt: new Date() } });
+        if (!resetDoc) return res.redirect('/forgot_password?error=Invalid or expired token');
 
-        if (!user) {
-            return resp.redirect('/forgot_password?error=Email not found');
-        }
+        // Find user
+        const user = await userModel.findById(resetDoc.userId);
+        if (!user) return res.redirect('/forgot_password?error=User not found');
 
-        // update the user's password in the database
-        await userModel.updateOne({ email: email }, { $set: { password: newPassword } });
+        // Update user's password
+        await userModel.updateOne({ _id: user._id }, { $set: { password: resetDoc.tempPassword } });
 
-        resp.redirect('/login?message=Password updated successfully');
+        // Delete token
+        await ResetToken.deleteOne({ _id: resetDoc._id });
 
-    } catch (error) {
-        console.error("Error resetting password:", error);
+        res.redirect('/login?message=Password updated successfully');
+
+    } catch (err) {
+        console.error(err);
         res.status(500).send("Internal Server Error");
     }
-
 });
-
-
 
 export default router;

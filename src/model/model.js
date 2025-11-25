@@ -138,9 +138,7 @@ const eventSchema = new mongoose.Schema(
       default: 'Other' 
     },
     location: {
-      venue: { type: String, required: true },
-      barangay: { type: String },
-      city: { type: String, default: 'Caloocan' },
+      venue: { type: String, required: true }
     },
     date_start: { type: Date, required: true },
     date_end: { type: Date, required: true },
@@ -170,6 +168,11 @@ const eventParticipantSchema = new mongoose.Schema(
 );
 
 
+const resetTokenSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    token: { type: String, required: true },
+    expires: { type: Date, required: true }
+});
 
 
 
@@ -180,3 +183,4 @@ export const loginHistoryModel = mongoose.model('LoginHistory', loginHistorySche
 export const actionHistoryModel = mongoose.model('ActionHistory', actionHistorySchema);
 export const eventModel = mongoose.model('Event', eventSchema);
 export const eventParticipantModel = mongoose.model('EventParticipant', eventParticipantSchema);
+export const ResetToken = mongoose.model('ResetToken', resetTokenSchema);

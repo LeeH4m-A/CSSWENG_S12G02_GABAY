@@ -108,8 +108,6 @@ router.post('/createevent', async (req, res) => {
             category: req.body.category,
             location: {
                 venue: req.body.location.venue,
-                barangay: req.body.location.barangay,
-                city: req.body.location.city || 'Caloocan'
             },
             date_start: new Date(req.body.date_start),
             date_end: new Date(req.body.date_end),
@@ -118,7 +116,7 @@ router.post('/createevent', async (req, res) => {
         });
 
         await newEvent.save();
-        res.redirect('/events?message=Event%20created%20successfully');
+        res.redirect('/events/manage?message=Event%20created%20successfully');
 
     } catch (error) {
         res.render('manageevents', {
