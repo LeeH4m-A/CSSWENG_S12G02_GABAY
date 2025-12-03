@@ -3,7 +3,7 @@ class ProfileManager {
     this.editMode = false;
     this.originalValues = {};
     this.dropdownOptions = {
-      gender: ['Male', 'Female', 'Other']
+      gender: ['Man', 'Woman', 'Transgender']
     };
     
     // Default profile picture URL
