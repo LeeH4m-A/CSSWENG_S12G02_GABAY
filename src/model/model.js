@@ -4,6 +4,8 @@
    need to be changed so that
 */
 
+/*Gender values have been altered to match Sex Enum Values to fix issues*/
+
 // model.js
 import mongoose from 'mongoose';
 
