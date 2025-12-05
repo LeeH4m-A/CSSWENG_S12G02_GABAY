@@ -63,7 +63,7 @@ const nonBiomedicalSchema = new mongoose.Schema(
 const patientSchema = new mongoose.Schema(
   {
     data_type: { type: String, required: true, enum: ['Biomedical', 'Nonbiomedical'] },
-    gender: { type: String, enum: ['Male', 'Female', 'Transgender'] },
+    gender: { type: String, enum: ['Man', 'Woman', 'Transgender'] },
     biomedical: biomedicalSchema,
     nonbiomedical: nonBiomedicalSchema,
     encoder: { type: String },
@@ -88,7 +88,7 @@ const userSchema = new mongoose.Schema(
       barangay: { type: String, required: true },
       city: { type: String, default: 'Caloocan' },
     },
-    gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
+    gender: { type: String, enum: ['Man', 'Woman', 'Transgender'], required: true },
     userIcon: {
       data: { type: Buffer, default: null },
       contentType: { type: String, default: null }
