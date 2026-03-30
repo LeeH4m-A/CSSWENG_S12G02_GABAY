@@ -1,5 +1,5 @@
-# CSSWENG_S12G02_GABAY
-
+# Project GaBayani
+This web application is a centralized, secure platform designed to modernize data management for a non-profit supporting people living with HIV. It features role-based access for tracking medical and psychosocial records, managing volunteer activities, and automating digital ID generation.
 
 ### Clone the repository
 ```bash
